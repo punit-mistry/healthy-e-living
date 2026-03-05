@@ -1,0 +1,160 @@
+'use client'
+
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
+import { ChevronDown } from 'lucide-react'
+
+export default function FAQ() {
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  })
+
+  const [openIndex, setOpenIndex] = useState(0)
+
+  const faqs = [
+    {
+      question: 'Do you accept insurance?',
+      answer: 'Yes! I accept most major insurance plans. Some patients are fully covered, while others have a copay. Contact me to verify your specific plan coverage.',
+    },
+    {
+      question: 'How often will I need to come in?',
+      answer: 'Initial consultations are 60 minutes, followed by 30-minute follow-ups. Frequency depends on your needs—typically weekly or bi-weekly to start, then monthly for maintenance.',
+    },
+    {
+      question: 'Do you offer virtual consultations?',
+      answer: 'Absolutely! I offer both in-person and virtual appointments via secure video conferencing. Choose what works best for your schedule.',
+    },
+    {
+      question: 'What should I bring to my first appointment?',
+      answer: 'Bring your insurance card, current medications, lab results (if available), and any food logs you may have. I\'ll also ask about your health history and goals.',
+    },
+    {
+      question: 'Can you help with meal planning?',
+      answer: 'Yes, personalized meal planning is a core part of my service. I create practical, delicious meal plans that fit your lifestyle and dietary preferences.',
+    },
+    {
+      question: 'How long does it take to see results?',
+      answer: 'Results vary by person and condition. Some see improvements in 2-4 weeks, while others may take longer. Consistency and follow-up are key to sustainable results.',
+    },
+  ]
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 },
+    },
+  }
+
+  return (
+    <section className="py-20 sm:py-28 bg-gradient-to-br from-yellow-50 via-white to-orange-50 relative overflow-hidden" ref={ref}>
+      {/* Animated background shapes */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-[#6A431C]/10 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-10 right-20 w-96 h-96 bg-gradient-to-tl from-yellow-200/20 to-transparent rounded-full blur-3xl" />
+      </div>
+      
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          className="text-center mb-16"
+          variants={itemVariants}
+          initial="hidden"
+          animate={inView ? 'visible' : 'hidden'}
+        >
+          <p className="text-[#6A431C] font-semibold text-sm uppercase tracking-widest mb-3">
+            FAQs
+          </p>
+          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
+            Common Questions
+          </h2>
+          <p className="text-lg text-slate-600">
+            Have questions? I'm here to help clarify anything about my services.
+          </p>
+        </motion.div>
+
+        <motion.div
+          className="space-y-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? 'visible' : 'hidden'}
+        >
+          {faqs.map((faq, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className="border-2 border-slate-200 rounded-xl overflow-hidden hover:border-[#6A431C] transition-all hover:shadow-lg"
+            >
+              <button
+                onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
+                className="w-full px-6 py-5 bg-gradient-to-r from-white to-yellow-50 hover:from-yellow-50 hover:to-orange-50 transition-colors flex items-center justify-between group"
+              >
+                <span className="text-left font-semibold text-slate-900 group-hover:text-[#6A431C] transition-colors">
+                  {faq.question}
+                </span>
+                <motion.div
+                  animate={{ rotate: openIndex === index ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ChevronDown className="w-5 h-5 text-[#6A431C] flex-shrink-0 group-hover:text-[#5A3715] transition-colors" />
+                </motion.div>
+              </button>
+
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{
+                  opacity: openIndex === index ? 1 : 0,
+                  height: openIndex === index ? 'auto' : 0,
+                }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="px-6 py-5 bg-gradient-to-r from-yellow-50 to-orange-50 border-t-2 border-slate-200 text-slate-700 leading-relaxed">
+                  {faq.answer}
+                </div>
+              </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Additional CTA */}
+        <motion.div
+          variants={itemVariants}
+          initial="hidden"
+          animate={inView ? 'visible' : 'hidden'}
+          className="mt-12 bg-gradient-to-r from-[#6A431C] to-[#8B5A2B] border-0 rounded-2xl p-8 text-center shadow-xl relative overflow-hidden group"
+        >
+          {/* Animated gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-yellow-300/20 to-orange-300/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+          
+          <div className="relative z-10">
+            <p className="text-white/90 mb-4">
+              Still have questions?
+            </p>
+            <p className="font-semibold text-white mb-4">
+              Reach out directly for a free consultation call.
+            </p>
+            <button className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#6A431C] rounded-lg hover:bg-yellow-50 transition-colors font-medium hover:shadow-lg">
+              Schedule Free Consultation
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
