@@ -7,27 +7,26 @@ import { useMemo } from "react";
 import { SparklesText } from "./sparkles-text/SparklesText";
 import { WordRotate } from "./word-rotate/WordRotate";
 
-/* ─────────────────────────────────────────────────────────── */
+/* ───────────────────────────────────────── */
 /* Particle Component */
-/* ─────────────────────────────────────────────────────────── */
+/* ───────────────────────────────────────── */
 
 function Particle({ particle }: { particle: Record<string, number> }) {
   return (
     <motion.div
-      className="absolute rounded-full pointer-events-none"
+      className="absolute rounded-full pointer-events-none will-change-transform"
       style={{
         left: `${particle.startX}%`,
         bottom: "-10px",
         width: particle.size,
         height: particle.size,
-        background: "rgba(184, 134, 81, 0.85)",
-        boxShadow: "0 0 6px 2px rgba(184, 134, 81, 0.4)",
+        background: "rgba(184,134,81,0.8)",
       }}
       animate={{
         y: [0, -particle.yDistance],
         x: [0, particle.xDrift],
-        opacity: [0, 1, 1, 0.8, 0],
-        scale: [0.6, 1.2, 1, 0.8, 0.4],
+        opacity: [0, 1, 0],
+        scale: [0.8, 1, 0.6],
       }}
       transition={{
         duration: particle.duration,
@@ -39,21 +38,21 @@ function Particle({ particle }: { particle: Record<string, number> }) {
   );
 }
 
-/* ─────────────────────────────────────────────────────────── */
+/* ───────────────────────────────────────── */
 /* Hero Component */
-/* ─────────────────────────────────────────────────────────── */
+/* ───────────────────────────────────────── */
 
 export default function Hero() {
 
-  /* Generate particles only once to prevent hydration mismatch */
+  /* Generate particles once */
   const particles = useMemo(() => {
-    return Array.from({ length: 22 }).map((_, i) => ({
+    return Array.from({ length: 6 }).map((_, i) => ({
       startX: Math.random() * 100,
-      size: 5 + Math.random() * 6,
-      yDistance: 500 + Math.random() * 300,
-      xDrift: (Math.random() - 0.5) * 120,
-      duration: 5 + Math.random() * 8,
-      delay: i * 0.45,
+      size: 4 + Math.random() * 4,
+      yDistance: 400 + Math.random() * 200,
+      xDrift: (Math.random() - 0.5) * 80,
+      duration: 8 + Math.random() * 4,
+      delay: i * 0.8,
     }));
   }, []);
 
@@ -62,8 +61,8 @@ export default function Hero() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.25,
-        delayChildren: 0.4,
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
       },
     },
   };
@@ -71,34 +70,26 @@ export default function Hero() {
   const itemVariants = {
     hidden: {
       opacity: 0,
-      y: 40,
-      scale: 0.96,
-      filter: "blur(10px)",
+      y: 30,
+      scale: 0.97,
     },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
-      filter: "blur(0px)",
       transition: {
         type: "spring",
         stiffness: 80,
         damping: 18,
-        duration: 1,
       },
     },
   };
 
   const badgeVariants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.9,
-      filter: "blur(8px)",
-    },
+    hidden: { opacity: 0, scale: 0.95 },
     visible: {
       opacity: 1,
       scale: 1,
-      filter: "blur(0px)",
       transition: {
         type: "spring",
         stiffness: 90,
@@ -110,37 +101,38 @@ export default function Hero() {
   return (
     <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden bg-white pt-20">
 
-      {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* Background Animation (disabled on mobile for performance) */}
+      <div className="absolute inset-0 overflow-hidden hidden md:block">
 
         {/* Gradient blob 1 */}
         <motion.div
-          animate={{ y: [0, -40, 0], x: [0, 20, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-10 left-10 w-[600px] h-[600px] bg-gradient-to-br from-yellow-200/40 via-orange-100/30 to-transparent rounded-full blur-[140px]"
+          animate={{ y: [0, -30, 0], x: [0, 20, 0] }}
+          transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-10 left-10 w-[500px] h-[500px] bg-gradient-to-br from-yellow-200/40 via-orange-100/30 to-transparent rounded-full blur-[80px]"
         />
 
         {/* Gradient blob 2 */}
         <motion.div
-          animate={{ y: [0, 50, 0], x: [0, -30, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-0 right-0 w-[700px] h-[700px] bg-gradient-to-tr from-[#6A431C]/20 via-yellow-100/40 to-transparent rounded-full blur-[150px]"
+          animate={{ y: [0, 40, 0], x: [0, -25, 0] }}
+          transition={{ duration: 35, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tr from-[#6A431C]/20 via-yellow-100/40 to-transparent rounded-full blur-[90px]"
         />
 
         {/* Ambient glow */}
         <motion.div
-          animate={{ opacity: [0.4, 0.7, 0.4] }}
-          transition={{ duration: 8, repeat: Infinity }}
-          className="absolute top-[30%] left-[40%] w-[400px] h-[400px] bg-yellow-100 rounded-full blur-[120px]"
+          animate={{ opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 12, repeat: Infinity }}
+          className="absolute top-[30%] left-[40%] w-[350px] h-[350px] bg-yellow-100 rounded-full blur-[70px]"
         />
 
-        {/* Floating particles */}
+        {/* Particles */}
         {particles.map((particle, i) => (
           <Particle key={i} particle={particle} />
         ))}
 
       </div>
 
+      {/* Content */}
       <motion.div
         className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
         variants={containerVariants}
@@ -151,7 +143,7 @@ export default function Hero() {
         {/* Badge */}
         <motion.div
           variants={badgeVariants}
-          className="mb-6 inline-flex items-center gap-2 px-4 py-2 bg-yellow-50/80 backdrop-blur-md border border-yellow-200 rounded-full shadow-sm"
+          className="mb-6 inline-flex items-center gap-2 px-4 py-2 bg-yellow-50 border border-yellow-200 rounded-full shadow-sm"
         >
           <span className="w-2 h-2 bg-[#6A431C] rounded-full" />
           <span className="text-sm font-medium text-[#6A431C]">
@@ -199,7 +191,7 @@ export default function Hero() {
         >
           <Button
             size="lg"
-            className="bg-[#6A431C] hover:bg-[#5A3715] text-white shadow-xl hover:shadow-2xl transition-all"
+            className="bg-[#6A431C] hover:bg-[#5A3715] text-white shadow-lg hover:shadow-xl transition-all"
           >
             Book Your Consultation
             <ArrowRight className="ml-2 h-5 w-5" />
@@ -208,7 +200,7 @@ export default function Hero() {
           <Button
             size="lg"
             variant="outline"
-            className="border-slate-300 text-slate-900 backdrop-blur-sm"
+            className="border-slate-300 text-slate-900"
           >
             Learn More
           </Button>
