@@ -11,7 +11,7 @@ import { WordRotate } from "./word-rotate/WordRotate";
 /* Particle Component */
 /* ─────────────────────────────────────────────────────────── */
 
-function Particle({ particle }) {
+function Particle({ particle }: { particle: Record<string, number> }) {
   return (
     <motion.div
       className="absolute rounded-full pointer-events-none"
