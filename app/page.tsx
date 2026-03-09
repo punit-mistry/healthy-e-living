@@ -30,7 +30,7 @@ export default function Home() {
           interactive
         />
         <Approach />
-        <Credentials />
+        {/* <Credentials /> */}
         <Benefits />
         <Testimonials />
         <Reels />

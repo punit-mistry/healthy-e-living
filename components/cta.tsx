@@ -95,8 +95,8 @@ export default function CTA() {
           transition={{ delay: 0.4, duration: 0.6 }}
         >
           {[
-            "Free Guided Consultation",
-            "No credit card required",
+            "Guided Consultation",
+            "Online Payments Accepted ",
             "Results-driven approach",
           ].map((text, i) => (
             <div

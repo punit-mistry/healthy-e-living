@@ -213,17 +213,17 @@ export default function Hero() {
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
 
-          <Button
+          {/* <Button
             size="lg"
             variant="outline"
             className="border-slate-300 text-slate-900"
           >
             Learn More
-          </Button>
+          </Button> */}
         </motion.div>
 
         {/* Trust indicators */}
-        <motion.div
+        {/* <motion.div
           variants={itemVariants}
           className="flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-slate-600"
         >
@@ -239,7 +239,7 @@ export default function Hero() {
               <span>{item}</span>
             </div>
           ))}
-        </motion.div>
+        </motion.div> */}
       </motion.div>
     </section>
   );

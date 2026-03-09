@@ -14,11 +14,11 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqs = [
-    {
-      question: "Do you accept insurance?",
-      answer:
-        "Yes! I accept most major insurance plans. Some patients are fully covered, while others have a copay. Contact me to verify your specific plan coverage.",
-    },
+    // {
+    //   question: "Do you accept insurance?",
+    //   answer:
+    //     "Yes! I accept most major insurance plans. Some patients are fully covered, while others have a copay. Contact me to verify your specific plan coverage.",
+    // },
     {
       question: "How often will I need to come in?",
       answer:
@@ -32,7 +32,7 @@ export default function FAQ() {
     {
       question: "What should I bring to my first appointment?",
       answer:
-        "Bring your insurance card, current medications, lab results (if available), and any food logs you may have. I’ll also ask about your health history and goals.",
+        "Bring your current medications, lab results (if available), and any food logs you may have. I’ll also ask about your health history and goals.",
     },
     {
       question: "Can you help with meal planning?",
@@ -197,11 +197,11 @@ export default function FAQ() {
             <p className="text-white/90 mb-4">Still have questions?</p>
 
             <p className="font-semibold text-white mb-4">
-              Reach out directly for a free consultation call.
+              Reach out directly for a consultation call.
             </p>
 
             <button className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#6A431C] rounded-lg hover:bg-yellow-50 transition font-medium hover:shadow-lg">
-              Schedule Free Consultation
+              Schedule Consultation
               <svg
                 className="w-4 h-4"
                 fill="none"

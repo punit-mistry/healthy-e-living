@@ -135,7 +135,7 @@ export default function Testimonials() {
           </m.div>
 
           {/* Trust section */}
-          <m.div
+          {/* <m.div
             variants={itemVariants}
             initial="hidden"
             whileInView="visible"
@@ -154,7 +154,7 @@ export default function Testimonials() {
               <span>• Evidence-Based Practice</span>
               <span>• Compassionate Care</span>
             </div>
-          </m.div>
+          </m.div> */}
 
         </div>
       </section>

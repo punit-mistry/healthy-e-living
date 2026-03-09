@@ -3,7 +3,7 @@
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
 const benefits = [
-  { id: 1, text: "Diabetes management and control" },
+  { id: 1, text: "Diabetes management" },
   { id: 2, text: "Heart disease and hypertension" },
   { id: 3, text: "Weight loss and wellness" },
   { id: 4, text: "Gastrointestinal disorders" },
@@ -13,8 +13,8 @@ const benefits = [
   { id: 8, text: "Athletic performance optimization" },
   { id: 9, text: "Pregnancy and postpartum nutrition" },
   { id: 10, text: "Bone health and osteoporosis" },
-  { id: 11, text: "Autoimmune conditions" },
-  { id: 12, text: "Mental health and mood support" },
+  // { id: 11, text: "Autoimmune conditions" },
+  // { id: 12, text: "Mental health and mood support" },
 ];
 
 const containerVariants = {
@@ -60,12 +60,13 @@ export default function Benefits() {
             </p>
 
             <h2 className="font-serif text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
-              I Help Patients With
+              {/* I Help Patients With */}
+               I have the expertise to support you in
             </h2>
 
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Whether managing a specific condition or optimizing your overall health,
-              I have the expertise to support you.
+              managing a specific condition & optimizing your overall health.<br/>
+              {/* I have the expertise to support you. */}
             </p>
           </m.div>
 
