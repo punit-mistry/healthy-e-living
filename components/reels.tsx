@@ -1,14 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Instagram } from "lucide-react";
+import { Instagram, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WordRotate } from "./word-rotate/WordRotate";
 
 export default function Reels() {
-  const [nutritionIndex, setNutritionIndex] = useState(0);
   const nutritionTexts = [
     "Personalized Nutrition",
     "Practical Nutrition",
@@ -16,40 +15,10 @@ export default function Reels() {
     "Sustainable Nutrition",
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setNutritionIndex((prev) => (prev + 1) % nutritionTexts.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
   const { ref, inView } = useInView({
-    threshold: 0.1,
+    threshold: 0.2,
     triggerOnce: true,
   });
-
-  const textFlipVariants = {
-    enter: (direction: number) => ({
-      rotateX: direction > 0 ? -90 : 90,
-      opacity: 0,
-    }),
-    center: {
-      rotateX: 0,
-      opacity: 1,
-      transition: {
-        rotateX: { duration: 0.5, ease: "easeInOut" },
-        opacity: { duration: 0.5 },
-      },
-    },
-    exit: (direction: number) => ({
-      rotateX: direction > 0 ? 90 : -90,
-      opacity: 0,
-      transition: {
-        rotateX: { duration: 0.5, ease: "easeInOut" },
-        opacity: { duration: 0.5 },
-      },
-    }),
-  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -76,25 +45,28 @@ export default function Reels() {
       thumbnail: "https://i.ibb.co/6RPs33tL/reel1.webp",
       title: "Nutrition Tips",
       description: "Quick nutrition advice for daily wellness",
+      link: "https://www.instagram.com/health.e.living",
     },
     {
       id: 2,
       thumbnail: "https://i.ibb.co/dwdpfpCT/reel2.jpg",
       title: "Healthy Eating",
       description: "Simple recipes for balanced meals",
+      link: "https://www.instagram.com/health.e.living",
     },
     {
       id: 3,
       thumbnail: "https://i.ibb.co/zTH8bG4H/reel3.jpg",
       title: "Wellness Guide",
       description: "Tips for sustainable health changes",
+      link: "https://www.instagram.com/health.e.living",
     },
   ];
 
   return (
     <section id="reels" className="py-20 sm:py-28 bg-white" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header with Text Flip Animation */}
+        {/* Header */}
         <motion.div
           className="text-center mb-16"
           variants={itemVariants}
@@ -105,11 +77,10 @@ export default function Reels() {
             Follow on Social
           </p>
 
-          {/* Flipping Text Animation */}
-          <div className="mb-4 h-16 flex items-center justify-center">
+          <div className="mb-6 h-16 flex items-center justify-center">
             <WordRotate
               words={nutritionTexts}
-              className=" text-4xl sm:text-5xl font-bold text-[#6A431C]"
+              className="text-4xl sm:text-5xl font-bold text-[#6A431C]"
               duration={1500}
             />
           </div>
@@ -117,6 +88,7 @@ export default function Reels() {
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
             Health.e.living on Instagram
           </h2>
+
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
             Watch tips, recipes, and wellness advice in short, engaging videos.
           </p>
@@ -132,24 +104,32 @@ export default function Reels() {
           {reels.map((reel) => (
             <motion.a
               key={reel.id}
-              href={`https://www.instagram.com/health.e.living`}
+              href={reel.link}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="View reel on Instagram"
               variants={itemVariants}
-              whileHover={{ y: -8 }}
+              // whileHover={{ y: -8 }}
               className="group relative bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 hover:border-[#6A431C] transition-all cursor-pointer hover:shadow-xl"
             >
-              {/* Reel Preview with Thumbnail Image */}
-              <div className="aspect-[9/16] bg-gradient-to-br from-yellow-100 to-yellow-50 flex items-center justify-center relative overflow-hidden">
-                {/* Thumbnail Image */}
-                <img
+              {/* Thumbnail */}
+              <div className="aspect-[9/16] relative overflow-hidden group">
+                <Image
                   src={reel.thumbnail}
                   alt={reel.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-all duration-300"
                 />
 
-                {/* Subtle Overlay */}
+                {/* Overlay */}
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all" />
+
+                {/* Play Button */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                  <div className="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
+                    <Play className="w-6 h-6 text-[#6A431C]" />
+                  </div>
+                </div>
               </div>
 
               {/* Content */}
@@ -157,9 +137,11 @@ export default function Reels() {
                 <h3 className="font-semibold text-slate-900 mb-2 group-hover:text-[#6A431C] transition-colors">
                   {reel.title}
                 </h3>
+
                 <p className="text-sm text-slate-600 mb-4">
                   {reel.description}
                 </p>
+
                 <p className="text-xs text-[#6A431C] font-semibold uppercase tracking-widest">
                   View on Instagram →
                 </p>
@@ -168,7 +150,7 @@ export default function Reels() {
           ))}
         </motion.div>
 
-        {/* CTA Button */}
+        {/* CTA */}
         <motion.div
           className="flex justify-center"
           variants={itemVariants}

@@ -1,19 +1,19 @@
-'use client'
+"use client";
 
-import Header from '@/components/header'
-import Hero from '@/components/hero'
-import About from '@/components/about'
-import Services from '@/components/services'
-import Approach from '@/components/approach'
-import Credentials from '@/components/credentials'
-import Benefits from '@/components/benefits'
-import Testimonials from '@/components/testimonials'
-import Reels from '@/components/reels'
-import FAQ from '@/components/faq'
-import CTA from '@/components/cta'
-import Contact from '@/components/contact'
-import Footer from '@/components/footer'
-
+import Header from "@/components/header";
+import Hero from "@/components/hero";
+import About from "@/components/about";
+import Services from "@/components/services";
+import Approach from "@/components/approach";
+import Credentials from "@/components/credentials";
+import Benefits from "@/components/benefits";
+import Testimonials from "@/components/testimonials";
+import Reels from "@/components/reels";
+import FAQ from "@/components/faq";
+import CTA from "@/components/cta";
+import Contact from "@/components/contact";
+import Footer from "@/components/footer/Footer";
+import CurvedLoop from '@/components/CurvedLoop';
 export default function Home() {
   return (
     <div className="overflow-hidden">
@@ -22,6 +22,13 @@ export default function Home() {
         <Hero />
         <About />
         <Services />
+        <CurvedLoop
+          marqueeText="Personalized Nutrition ✦ Sustainable Health ✦ Balanced Living ✦ Evidence-Based Wellness ✦"
+          speed={3.8}
+          curveAmount={180}
+          direction="right"
+          interactive
+        />
         <Approach />
         <Credentials />
         <Benefits />
@@ -33,5 +40,5 @@ export default function Home() {
       </main>
       <Footer />
     </div>
-  )
+  );
 }

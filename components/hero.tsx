@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { SparklesText } from "./sparkles-text/SparklesText";
 import { WordRotate } from "./word-rotate/WordRotate";
 
@@ -39,14 +39,15 @@ function Particle({ particle }: { particle: Record<string, number> }) {
 }
 
 /* ───────────────────────────────────────── */
-/* Hero Component */
+/* Client-Only Background Animations */
 /* ───────────────────────────────────────── */
 
-export default function Hero() {
-
-  /* Generate particles once */
+function ClientOnlyBackground() {
+  // ✅ ALL HOOKS AT TOP LEVEL - useState FIRST, then useMemo, then useEffect
+  const [isMounted, setIsMounted] = useState(false);
+  
   const particles = useMemo(() => {
-    return Array.from({ length: 6 }).map((_, i) => ({
+    return Array.from({ length: 15 }).map((_, i) => ({
       startX: Math.random() * 100,
       size: 4 + Math.random() * 4,
       yDistance: 400 + Math.random() * 200,
@@ -56,6 +57,51 @@ export default function Hero() {
     }));
   }, []);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // ✅ Early return AFTER all hooks are called
+  if (!isMounted) {
+    return null;
+  }
+
+  return (
+    <div className="absolute inset-0 overflow-hidden hidden md:block">
+      {/* Gradient blob 1 */}
+      <motion.div
+        animate={{ y: [0, -30, 0], x: [0, 20, 0] }}
+        transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-10 left-10 w-[500px] h-[500px] bg-gradient-to-br from-yellow-200/40 via-orange-100/30 to-transparent rounded-full blur-[80px]"
+      />
+
+      {/* Gradient blob 2 */}
+      <motion.div
+        animate={{ y: [0, 40, 0], x: [0, -25, 0] }}
+        transition={{ duration: 35, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tr from-[#6A431C]/20 via-yellow-100/40 to-transparent rounded-full blur-[90px]"
+      />
+
+      {/* Ambient glow */}
+      <motion.div
+        animate={{ opacity: [0.3, 0.5, 0.3] }}
+        transition={{ duration: 12, repeat: Infinity }}
+        className="absolute top-[30%] left-[40%] w-[350px] h-[350px] bg-yellow-100 rounded-full blur-[70px]"
+      />
+
+      {/* Particles */}
+      {particles.map((particle, i) => (
+        <Particle key={i} particle={particle} />
+      ))}
+    </div>
+  );
+}
+
+/* ───────────────────────────────────────── */
+/* Hero Component */
+/* ───────────────────────────────────────── */
+
+export default function Hero() {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -100,37 +146,8 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden bg-white pt-20">
-
-      {/* Background Animation (disabled on mobile for performance) */}
-      <div className="absolute inset-0 overflow-hidden hidden md:block">
-
-        {/* Gradient blob 1 */}
-        <motion.div
-          animate={{ y: [0, -30, 0], x: [0, 20, 0] }}
-          transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-10 left-10 w-[500px] h-[500px] bg-gradient-to-br from-yellow-200/40 via-orange-100/30 to-transparent rounded-full blur-[80px]"
-        />
-
-        {/* Gradient blob 2 */}
-        <motion.div
-          animate={{ y: [0, 40, 0], x: [0, -25, 0] }}
-          transition={{ duration: 35, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tr from-[#6A431C]/20 via-yellow-100/40 to-transparent rounded-full blur-[90px]"
-        />
-
-        {/* Ambient glow */}
-        <motion.div
-          animate={{ opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 12, repeat: Infinity }}
-          className="absolute top-[30%] left-[40%] w-[350px] h-[350px] bg-yellow-100 rounded-full blur-[70px]"
-        />
-
-        {/* Particles */}
-        {particles.map((particle, i) => (
-          <Particle key={i} particle={particle} />
-        ))}
-
-      </div>
+      {/* Client-only background animations */}
+      <ClientOnlyBackground />
 
       {/* Content */}
       <motion.div
@@ -139,7 +156,6 @@ export default function Hero() {
         initial="hidden"
         animate="visible"
       >
-
         {/* Badge */}
         <motion.div
           variants={badgeVariants}
@@ -224,7 +240,6 @@ export default function Hero() {
             </div>
           ))}
         </motion.div>
-
       </motion.div>
     </section>
   );
