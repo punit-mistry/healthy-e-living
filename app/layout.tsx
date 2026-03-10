@@ -3,31 +3,31 @@ import { Geist, Geist_Mono, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 export const metadata = {
-  title: "Nutrition by Irika Goyal",
+  title: "Transform Your Health with Personalized Nutrition | Book Consultation",
   description:
-    "Personalized nutrition guidance based on evidence, sustainability, and practical lifestyle changes.",
+    "Work with clinical dietitian Irika Goyal to create evidence-based nutrition plans tailored to your health goals. Book your consultation today for sustainable lifestyle changes.",
   openGraph: {
-    title: "Nutrition by Irika Goyal",
+    title: "Transform Your Health with Personalized Nutrition | Book Consultation",
     description:
-      "Personalized nutrition guidance based on evidence, sustainability, and practical lifestyle changes.",
+      "Work with clinical dietitian Irika Goyal to create evidence-based nutrition plans tailored to your health goals. Book your consultation today for sustainable lifestyle changes.",
     url: "https://healthy-e-living.vercel.app/",
     siteName: "Nutrition by Irika Goyal",
     images: [
       {
-        url: "https://i.ibb.co/SwK5zdZh/logo.jpg",
+        url: "/header-img.jpg",
         width: 1200,
         height: 630,
-        alt: "Nutrition by Irika Goyal",
+        alt: "Transform Your Health with Personalized Nutrition - Book Consultation with Irika Goyal",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nutrition by Irika Goyal",
+    title: "Transform Your Health with Personalized Nutrition | Book Consultation",
     description:
-      "Personalized nutrition guidance based on evidence, sustainability, and practical lifestyle changes.",
-    images: ["https://i.ibb.co/SwK5zdZh/logo.jpg"],
+      "Work with clinical dietitian Irika Goyal to create evidence-based nutrition plans tailored to your health goals. Book your consultation today for sustainable lifestyle changes.",
+    images: ["/header-img.jpg"],
   },
 };
 const _geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
@@ -61,17 +61,17 @@ export default function RootLayout({
       <head>
         {/* Open Graph (Facebook, LinkedIn, WhatsApp, Discord etc.) */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Nutrition by Irika Goyal" />
-        <meta property="og:description" content="Personalized nutrition guidance based on evidence, sustainability, and practical lifestyle changes." />
+        <meta property="og:title" content="Transform Your Health with Personalized Nutrition | Book Consultation" />
+        <meta property="og:description" content="Work with clinical dietitian Irika Goyal to create evidence-based nutrition plans tailored to your health goals. Book your consultation today for sustainable lifestyle changes." />
         <meta property="og:url" content="https://healthy-e-living.vercel.app/" />
-        <meta property="og:image" content="https://i.ibb.co/SwK5zdZh/logo.jpg" />
+        <meta property="og:image" content="/header-img.jpg" />
         <meta property="og:site_name" content="Nutrition by Irika Goyal" />
 
         {/* Twitter / X */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Nutrition by Irika Goyal" />
-        <meta name="twitter:description" content="Personalized nutrition guidance based on evidence, sustainability, and practical lifestyle changes." />
-        <meta name="twitter:image" content="https://i.ibb.co/SwK5zdZh/logo.jpg" />
+        <meta name="twitter:title" content="Transform Your Health with Personalized Nutrition | Book Consultation" />
+        <meta name="twitter:description" content="Work with clinical dietitian Irika Goyal to create evidence-based nutrition plans tailored to your health goals. Book your consultation today for sustainable lifestyle changes." />
+        <meta name="twitter:image" content="/header-img.jpg" />
 
         {/* Optional but recommended */}
         <meta name="theme-color" content="#8B5A2B" />
