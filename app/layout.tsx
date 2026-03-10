@@ -14,7 +14,7 @@ export const metadata = {
     siteName: "Nutrition by Irika Goyal",
     images: [
       {
-        url: "https://i.ibb.co/Hf7cRh01/logo.jpg",
+        url: "https://i.ibb.co/SwK5zdZh/logo.jpg",
         width: 1200,
         height: 630,
         alt: "Nutrition by Irika Goyal",
@@ -27,7 +27,7 @@ export const metadata = {
     title: "Nutrition by Irika Goyal",
     description:
       "Personalized nutrition guidance based on evidence, sustainability, and practical lifestyle changes.",
-    images: ["https://i.ibb.co/Hf7cRh01/logo.jpg"],
+    images: ["https://i.ibb.co/SwK5zdZh/logo.jpg"],
   },
 };
 const _geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
@@ -64,14 +64,14 @@ export default function RootLayout({
         <meta property="og:title" content="Nutrition by Irika Goyal" />
         <meta property="og:description" content="Personalized nutrition guidance based on evidence, sustainability, and practical lifestyle changes." />
         <meta property="og:url" content="https://healthy-e-living.vercel.app/" />
-        <meta property="og:image" content="https://i.ibb.co/Hf7cRh01/logo.jpg" />
+        <meta property="og:image" content="https://i.ibb.co/SwK5zdZh/logo.jpg" />
         <meta property="og:site_name" content="Nutrition by Irika Goyal" />
 
         {/* Twitter / X */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Nutrition by Irika Goyal" />
         <meta name="twitter:description" content="Personalized nutrition guidance based on evidence, sustainability, and practical lifestyle changes." />
-        <meta name="twitter:image" content="https://i.ibb.co/Hf7cRh01/logo.jpg" />
+        <meta name="twitter:image" content="https://i.ibb.co/SwK5zdZh/logo.jpg" />
 
         {/* Optional but recommended */}
         <meta name="theme-color" content="#8B5A2B" />
