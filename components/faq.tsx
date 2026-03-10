@@ -72,12 +72,11 @@ export default function FAQ() {
         >
           {faqs.map((faq, index) => (
             <FAQItem
-              key={index}
+              key={faq.question}
               question={faq.question}
               answer={faq.answer}
               isOpen={openIndex === index}
               onClick={() => setOpenIndex(openIndex === index ? null : index)}
-              index={index}
             />
           ))}
         </motion.div>
