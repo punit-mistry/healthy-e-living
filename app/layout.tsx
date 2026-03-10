@@ -14,7 +14,7 @@ export const metadata = {
     siteName: "Nutrition by Irika Goyal",
     images: [
       {
-        url: "/header-img.jpg",
+        url: "https://i.ibb.co/SwK5zdZh/logo.jpg",
         width: 1200,
         height: 630,
         alt: "Transform Your Health with Personalized Nutrition - Book Consultation with Irika Goyal",
@@ -27,7 +27,7 @@ export const metadata = {
     title: "Transform Your Health with Personalized Nutrition | Book Consultation",
     description:
       "Work with clinical dietitian Irika Goyal to create evidence-based nutrition plans tailored to your health goals. Book your consultation today for sustainable lifestyle changes.",
-    images: ["/header-img.jpg"],
+    images: ["https://i.ibb.co/SwK5zdZh/logo.jpg"],
   },
 };
 const _geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
@@ -64,14 +64,14 @@ export default function RootLayout({
         <meta property="og:title" content="Transform Your Health with Personalized Nutrition | Book Consultation" />
         <meta property="og:description" content="Work with clinical dietitian Irika Goyal to create evidence-based nutrition plans tailored to your health goals. Book your consultation today for sustainable lifestyle changes." />
         <meta property="og:url" content="https://healthy-e-living.vercel.app/" />
-        <meta property="og:image" content="/header-img.jpg" />
+        <meta property="og:image" content="https://i.ibb.co/SwK5zdZh/logo.jpg" />
         <meta property="og:site_name" content="Nutrition by Irika Goyal" />
 
         {/* Twitter / X */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Transform Your Health with Personalized Nutrition | Book Consultation" />
         <meta name="twitter:description" content="Work with clinical dietitian Irika Goyal to create evidence-based nutrition plans tailored to your health goals. Book your consultation today for sustainable lifestyle changes." />
-        <meta name="twitter:image" content="/header-img.jpg" />
+        <meta name="twitter:image" content="https://i.ibb.co/SwK5zdZh/logo.jpg" />
 
         {/* Optional but recommended */}
         <meta name="theme-color" content="#8B5A2B" />
