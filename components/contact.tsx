@@ -39,7 +39,11 @@ export default function Contact() {
 Here are my goals:
 ${formData.message}
 
-Looking forward to starting my wellness journey!`;
+Looking forward to starting my wellness journey!
+
+Contact Details:
+Email: ${formData.email}
+Phone: ${formData.phone}`;
 
     const whatsappUrl = `https://wa.me/919833640891?text=${encodeURIComponent(
       message

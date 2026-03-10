@@ -26,7 +26,7 @@ export default function FAQ() {
     {
       question: "How often will I need to come in?",
       answer:
-        "Initial consultations are 60 minutes, followed by 30-minute follow-ups. Frequency depends on your needs—typically weekly or bi-weekly to start, then monthly for maintenance.",
+        "Initial consultations are 45-60 minutes, followed by 20-30 minute follow-ups. Frequency depends on your needs. Typically every ten days to start, then every fortnight for maintenance.",
     },
     {
       question: "Do you offer virtual consultations?",

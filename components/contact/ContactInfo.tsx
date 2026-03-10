@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
 import { optimizedContainerVariants, optimizedItemVariants } from "../animations/optimized-animations";
 
 const contactInfo = [
@@ -14,8 +14,14 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "irika@healtheliving.com",
-    href: "mailto:irika@healtheliving.com",
+    value: "health.e.living23@gmail.com",
+    href: "mailto:health.e.living23@gmail.com",
+  },
+  {
+    icon: Linkedin,
+    label: "LinkedIn",
+    value: "linkedin.com/in/irika-goyal",
+    href: "https://www.linkedin.com/in/irika-goyal-825183229/",
   },
   {
     icon: MapPin,
@@ -72,11 +78,7 @@ export default function ContactInfo({ inView }: ContactInfoProps) {
         <p className="font-semibold text-slate-900 mb-2">Hours</p>
 
         <p className="text-sm text-slate-600">
-          Monday - Friday: 9am - 6pm
-        </p>
-
-        <p className="text-sm text-slate-600">
-          Saturday: 10am - 2pm
+          Monday to Saturday
         </p>
 
         <p className="text-xs text-slate-500 mt-4 italic">

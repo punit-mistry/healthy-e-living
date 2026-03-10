@@ -196,7 +196,7 @@ export default function Hero() {
           variants={itemVariants}
           className="text-lg sm:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed"
         >
-          Work with a registered clinical dietitian to develop a nutrition plan
+          Work with a clinical dietitian to develop a nutrition plan
           tailored to your unique health goals, medical history, and lifestyle.
         </motion.p>
 
@@ -208,6 +208,7 @@ export default function Hero() {
           <Button
             size="lg"
             className="bg-[#6A431C] hover:bg-[#5A3715] text-white shadow-lg hover:shadow-xl transition-all"
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
           >
             Book Your Consultation
             <ArrowRight className="ml-2 h-5 w-5" />

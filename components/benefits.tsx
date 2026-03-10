@@ -116,7 +116,10 @@ export default function Benefits() {
               I may still be able to help.
             </p>
 
-            <button className="hover:cursor-pointer inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#6A431C] to-[#8B5A2B] text-white rounded-lg hover:shadow-lg transition-all font-medium">
+            <button 
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className="hover:cursor-pointer inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#6A431C] to-[#8B5A2B] text-white rounded-lg hover:shadow-lg transition-all font-medium"
+            >
               Discuss Your Needs
             </button>
           </m.div>

@@ -66,7 +66,7 @@ export default function OptimizedContactForm({
               value={formData.name}
               onChange={onChange}
               required
-              placeholder="John Smith"
+              placeholder="Irika Goyal"
             />
           </motion.div>
 
@@ -80,7 +80,7 @@ export default function OptimizedContactForm({
               value={formData.email}
               onChange={onChange}
               required
-              placeholder="john@example.com"
+              placeholder="health.e.living23@gmail.com"
             />
           </motion.div>
         </div>
@@ -93,7 +93,7 @@ export default function OptimizedContactForm({
             name="phone"
             value={formData.phone}
             onChange={onChange}
-            placeholder="+91 0000000000"
+            placeholder="+91 9833640891"
           />
         </motion.div>
 

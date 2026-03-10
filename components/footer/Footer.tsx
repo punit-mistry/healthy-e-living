@@ -267,7 +267,9 @@ function BottomSection({ currentYear }: { currentYear: number }) {
 function SocialLink() {
   return (
     <a
-      href="#"
+      href="https://www.linkedin.com/in/irika-goyal-825183229/"
+      target="_blank"
+      rel="noopener noreferrer"
       aria-label="LinkedIn"
       className="p-2 rounded-lg transition-all duration-200 hover:bg-white/5"
       style={{ color: "rgba(180,150,100,0.55)" }}

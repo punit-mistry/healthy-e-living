@@ -4,40 +4,23 @@ import { LazyMotion, domAnimation, m } from "framer-motion";
 import { Star } from "lucide-react";
 
 const testimonials = [
+  
   {
     id: 1,
-    name: "Priya Sharma",
-    role: "Type 2 Diabetes Management",
+    name: "Pulkit Agarwal",
+    role: "General Wellness",
     location: "Mumbai",
     content:
-      "Working with Irika has been life-changing. My blood sugar levels are now well-controlled, and I feel more energetic than ever. The personalized meal plans are practical and delicious!",
+      "Working with Irika has been a game-changer for me. Not only is the diet tailored to my needs, but it's also realistic, enjoyable, and never boring. She truly listens, gives personal attention, and makes you feel supported every step of the way. Her guidance has helped me build a healthy relationship with food without feeling restricted. I finally feel like I'm on a path that I can stick to long-term. Highly recommended!",
     rating: 5,
   },
   {
     id: 2,
-    name: "Rajesh Patel",
-    role: "Cardiovascular Health",
-    location: "Bandra, Mumbai",
+    name: "Namrata Jain",
+    role: "Body Confidence & Health",
+    location: "Mumbai",
     content:
-      "After my heart attack, I was lost about what to eat. Irika's detailed guidance and follow-up support helped me make lasting changes. My cardiologist was impressed with my progress.",
-    rating: 5,
-  },
-  {
-    id: 3,
-    name: "Anjali Desai",
-    role: "Athletic Performance",
-    location: "Andheri, Mumbai",
-    content:
-      "My sports performance improved noticeably after optimizing my nutrition. The guidance on fueling and recovery is exactly what I needed to level up my training.",
-    rating: 5,
-  },
-  {
-    id: 4,
-    name: "Vikram Singh",
-    role: "Weight Management",
-    location: "Navi Mumbai",
-    content:
-      "Unlike other diets, this approach taught me about sustainable nutrition. I lost 35 pounds and have kept it off for 4 years now. The support made all the difference.",
+      "Okay so you deserve appreciation for all the hard work you have done for me. I have never been so confident about my body before. I don't have to think about looking really healthy in pictures now, I just flaunt. Of course my skin and hair are doing better than before. I have started reading labels, avoiding junk and sugar, adding cereals and veggies and paneer in my daily diet. Thank you",
     rating: 5,
   },
 ];
