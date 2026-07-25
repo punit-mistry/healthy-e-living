@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   const posts = getRecentBlogPosts(5)
-  const categories = blogCategories
+  const categories = [...new Set(posts.map((p) => p.category))]
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">

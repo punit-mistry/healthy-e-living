@@ -1,8 +1,7 @@
 import { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { getBlogPostsByCategory, blogPostOutlines } from "@/data/blog-outlines"
-import { blogCategories } from "@/data/blog-topics"
+import { getBlogPostsByCategory, getRecentBlogPosts } from "@/data/blog-outlines"
 import Header from "@/components/header"
 import Footer from "@/components/footer/Footer"
 
@@ -10,12 +9,16 @@ interface Props {
   params: Promise<{ slug: string }>
 }
 
+function getActiveCategories(): string[] {
+  return [...new Set(getRecentBlogPosts(5).map((p) => p.category))]
+}
+
 function slugToCategory(slug: string): string | undefined {
-  return blogCategories.find((c) => c.toLowerCase().replace(/\s+/g, "-") === slug)
+  return getActiveCategories().find((c) => c.toLowerCase().replace(/\s+/g, "-") === slug)
 }
 
 export async function generateStaticParams() {
-  return blogCategories.map((cat) => ({ slug: cat.toLowerCase().replace(/\s+/g, "-") }))
+  return getActiveCategories().map((cat) => ({ slug: cat.toLowerCase().replace(/\s+/g, "-") }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -54,7 +57,7 @@ export default async function CategoryPage({ params }: Props) {
               Expert {category.toLowerCase()} nutrition articles, diet tips, and health guides by Dt. Irika Goyal.
             </p>
             <div className="flex flex-wrap gap-3">
-              {blogCategories.map((cat) => {
+              {getActiveCategories().map((cat) => {
                 const catSlug = cat.toLowerCase().replace(/\s+/g, "-")
                 return (
                   <Link
