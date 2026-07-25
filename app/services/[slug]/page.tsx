@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: service.metaDescription,
       url: `https://healthy-e-living.vercel.app/services/${slug}`,
       siteName: "Nutrition by Irika Goyal",
-      images: [{ url: "https://i.ibb.co/SwK5zdZh/logo.jpg", width: 1200, height: 630 }],
+      images: [{ url: "https://healthy-e-living.vercel.app/brand-logo.PNG", width: 1200, height: 630 }],
     },
   }
 }

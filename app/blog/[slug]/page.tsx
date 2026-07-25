@@ -23,12 +23,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: post.metaTitle,
     description: post.metaDescription,
     alternates: { canonical: `/blog/${slug}` },
-    openGraph: {
-      title: post.metaTitle,
-      description: post.metaDescription,
-      url: `https://healthy-e-living.vercel.app/blog/${slug}`,
-      siteName: "Nutrition by Irika Goyal",
-    },
+      openGraph: {
+        title: post.metaTitle,
+        description: post.metaDescription,
+        url: `https://healthy-e-living.vercel.app/blog/${slug}`,
+        siteName: "Nutrition by Irika Goyal",
+        images: [{ url: "https://healthy-e-living.vercel.app/brand-logo.PNG", width: 1200, height: 630 }],
+      },
   }
 }
 

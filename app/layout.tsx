@@ -76,7 +76,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "https://i.ibb.co/SwK5zdZh/logo.jpg",
+        url: "https://healthy-e-living.vercel.app/brand-logo.PNG",
         width: 1200,
         height: 630,
         alt: "Healthy E Living – Best Dietitian in Mumbai – Dt. Irika Goyal Clinical Nutritionist",
@@ -88,7 +88,7 @@ export const metadata = {
     title: "Healthy E Living Mumbai – Best Dietitian & Nutritionist",
     description:
       "Mumbai's trusted dietitian Dt. Irika Goyal. Personalized nutrition for weight loss, PCOS, diabetes & gut health. Book your consultation today!",
-    images: ["https://i.ibb.co/SwK5zdZh/logo.jpg"],
+    images: ["https://healthy-e-living.vercel.app/brand-logo.PNG"],
     site: "@NutritionIrika",
     creator: "@NutritionIrika",
   },

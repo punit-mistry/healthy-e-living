@@ -8,12 +8,13 @@ export const metadata: Metadata = {
   description:
     "Learn about Dt. Irika Goyal, a qualified clinical dietitian and nutritionist with 4+ years of experience helping patients achieve their health goals through personalized nutrition plans.",
   alternates: { canonical: "/about" },
-  openGraph: {
-    title: "About Dt. Irika Goyal | Clinical Dietitian & Nutritionist Mumbai",
-    description: "Learn about Dt. Irika Goyal's qualifications, experience, and approach to personalized nutrition counseling.",
-    url: "https://healthy-e-living.vercel.app/about",
-    siteName: "Nutrition by Irika Goyal",
-  },
+    openGraph: {
+      title: "About Dt. Irika Goyal | Clinical Dietitian & Nutritionist Mumbai",
+      description: "Learn about Dt. Irika Goyal's qualifications, experience, and approach to personalized nutrition counseling.",
+      url: "https://healthy-e-living.vercel.app/about",
+      siteName: "Nutrition by Irika Goyal",
+      images: [{ url: "https://healthy-e-living.vercel.app/brand-logo.PNG", width: 1200, height: 630 }],
+    },
 }
 
 const qualifications = [

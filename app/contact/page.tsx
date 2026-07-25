@@ -8,12 +8,13 @@ export const metadata: Metadata = {
   description:
     "Get in touch with Dt. Irika Goyal for personalized nutrition counseling. Book your consultation online or via WhatsApp for weight loss, PCOS, diabetes, and more.",
   alternates: { canonical: "/contact" },
-  openGraph: {
-    title: "Contact Dt. Irika Goyal | Book Dietitian Consultation Mumbai",
-    description: "Book your nutrition consultation with Dt. Irika Goyal. Online and in-person sessions available.",
-    url: "https://healthy-e-living.vercel.app/contact",
-    siteName: "Nutrition by Irika Goyal",
-  },
+    openGraph: {
+      title: "Contact Dt. Irika Goyal | Book Dietitian Consultation Mumbai",
+      description: "Book your nutrition consultation with Dt. Irika Goyal. Online and in-person sessions available.",
+      url: "https://healthy-e-living.vercel.app/contact",
+      siteName: "Nutrition by Irika Goyal",
+      images: [{ url: "https://healthy-e-living.vercel.app/brand-logo.PNG", width: 1200, height: 630 }],
+    },
 }
 
 const contactMethods = [
