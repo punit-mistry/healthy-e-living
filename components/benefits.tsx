@@ -116,12 +116,22 @@ export default function Benefits() {
               I may still be able to help.
             </p>
 
-            <button 
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="hover:cursor-pointer inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#6A431C] to-[#8B5A2B] text-white rounded-lg hover:shadow-lg transition-all font-medium"
-            >
-              Discuss Your Needs
-            </button>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <a
+                href={(() => { const p = "919833640891"; const t = encodeURIComponent("Hi! I'd like to discuss my health needs with Dt. Irika Goyal. Can you help me with more details?"); return `https://wa.me/${p}?text=${t}`; })()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#6A431C] to-[#8B5A2B] text-white rounded-lg hover:shadow-lg transition-all font-medium"
+              >
+                Discuss on WhatsApp
+              </a>
+              <button 
+                onClick={() => { const l = (window as any).__lenis; l ? l.scrollTo("#contact", { offset: -80 }) : document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}
+                className="inline-flex items-center gap-2 px-6 py-3 border-2 border-[#6A431C] text-[#6A431C] rounded-lg hover:bg-[#6A431C] hover:text-white transition-all font-medium"
+              >
+                Contact Form
+              </button>
+            </div>
           </m.div>
 
         </div>

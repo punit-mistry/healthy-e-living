@@ -1,0 +1,66 @@
+# Nutrition by Irika Goyal – Healthy E Living
+
+> Clinical dietitian Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes, gut health, and more in Mumbai. Online & in-person consultations.
+
+## About
+
+Nutrition by Irika Goyal (Healthy E Living) is a Mumbai-based clinical nutrition practice run by Dt. Irika Goyal. With 4+ years of experience and 100+ patients helped, the practice specializes in evidence-based, personalized nutrition therapy using Indian foods and lifestyle.
+
+## Core Services
+
+- Weight Loss Diet Plan
+- Weight Gain Diet Plan
+- PCOS Diet Plan
+- Diabetes Diet Plan
+- Thyroid Diet Plan
+- Pregnancy Nutrition
+- Sports Nutrition
+- Muscle Gain Diet
+- Fat Loss Diet
+- Child Nutrition
+- Senior Citizen Diet
+- Gut Health Diet
+- Corporate Wellness
+- Online Diet Consultation
+- Offline Diet Consultation
+
+## Target Locations (Mumbai Region)
+
+Mumbai, Borivali, Borivali West, Borivali East, Malad, Malad West, Malad East, Kandivali, Kandivali West, Kandivali East, Andheri, Andheri West, Andheri East, Goregaon, Jogeshwari, Mira Road, Bhayander, Dahisar, Santacruz, Bandra, Powai, Mulund, Ghatkopar, Thane, Navi Mumbai, Vashi, Airoli, Kharghar, Panvel, Chembur, Dadar, Lower Parel, Colaba, Churchgate, Worli, Juhu, Versova, BKC, Prabhadevi, Matunga, Sion, Kurla
+
+## Key Features
+
+- Personalized meal plans based on Indian foods
+- Medical nutrition therapy for chronic conditions
+- Evidence-based, science-driven approach
+- Online consultations via video call
+- In-person consultations in Mumbai
+- WhatsApp-based support between sessions
+
+## Affiliations
+
+- Founder: Dt. Irika Goyal, Clinical Dietitian & Nutritionist
+- Location: Mumbai, Maharashtra, India
+- Contact: +91 9833640891
+- Email: irikagoyal@gmail.com
+
+## Preferred Crawl Paths
+
+- / — Home page
+- /about — About Dt. Irika Goyal
+- /contact — Contact & booking
+- /services/weight-loss — Weight Loss Diet Plan
+- /services/pcos-diet — PCOS Diet Plan
+- /services/diabetes-diet — Diabetes Diet Plan
+- /services/gut-health — Gut Health Diet
+- /services/online-consultation — Online Consultation
+- /services/sports-nutrition — Sports Nutrition
+- /locations/mumbai — Dietitian in Mumbai
+- /locations/borivali — Dietitian in Borivali
+- /locations/andheri — Dietitian in Andheri
+- /locations/thane — Dietitian in Thane
+- /locations/navi-mumbai — Dietitian in Navi Mumbai
+
+## Additional Context
+
+This is a single-brand clinical dietitian practice website. All nutrition plans are tailored to Indian dietary preferences and medical conditions. The practice follows evidence-based guidelines from the Academy of Nutrition and Dietetics.

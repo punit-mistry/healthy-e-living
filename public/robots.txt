@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://healthy-e-living.vercel.app/sitemap.xml

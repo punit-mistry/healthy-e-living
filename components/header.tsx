@@ -7,15 +7,20 @@ import { Menu, X } from 'lucide-react'
 
 type Phase = 'center' | 'slide' | 'done'
 
+let hasAnimatedGlobally = false
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
-  const [phase, setPhase] = useState<Phase>('center')
+  const [phase, setPhase] = useState<Phase>(hasAnimatedGlobally ? 'done' : 'center')
   const [scrolled, setScrolled] = useState(false)
 
   // Phase 1: logo appears centered (0–1000ms)
   // Phase 2: logo slides to left (1000–1650ms)
   // Phase 3: nav + CTA fade in (1650ms+)
+  // Runs only once per session — module-level flag persists across navigations
   useEffect(() => {
+    if (hasAnimatedGlobally) return
+    hasAnimatedGlobally = true
     const t1 = setTimeout(() => setPhase('slide'), 1000)
     const t2 = setTimeout(() => setPhase('done'),  1650)
     return () => { clearTimeout(t1); clearTimeout(t2) }
@@ -29,12 +34,11 @@ export default function Header() {
   }, [])
 
   const navLinks = [
-    { href: '#about',        label: 'About' },
-    { href: '#services',     label: 'Services' },
-    { href: '#approach',     label: 'Approach' },
-    { href: '#reels',        label: 'Reels' },
-    { href: '#testimonials', label: 'Testimonials' },
-    { href: '#contact',      label: 'Contact' },
+    { href: '/',              label: 'Home' },
+    { href: '/about',         label: 'About' },
+    { href: '/#services',     label: 'Services' },
+    { href: '/#testimonials', label: 'Testimonials' },
+    { href: '/contact',       label: 'Contact' },
   ]
 
   return (
@@ -80,13 +84,6 @@ export default function Header() {
         }
         .nav-link:hover { color: #6A431C; }
         .nav-link:hover::after { width: 100%; }
-
-        .logo-mark {
-          background: linear-gradient(135deg, #6A431C, #a0632a);
-          border-radius: 10px;
-          box-shadow: 0 2px 8px rgba(106,67,28,0.3), 0 1px 0 rgba(255,255,255,0.3) inset;
-          flex-shrink: 0;
-        }
 
         /* ── Original Liquid Golden Glass CTA ── */
         .cta-liquid {
@@ -172,7 +169,7 @@ export default function Header() {
 
       <header className={`glass-header sticky top-0 z-50${scrolled ? ' scrolled' : ''}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="relative flex items-center h-16">
+          <div className="relative flex items-center h-20">
 
             {/*
               Invisible ghost spacer — same size as the logo.
@@ -183,8 +180,7 @@ export default function Header() {
               className="invisible flex items-center gap-2.5 shrink-0 pointer-events-none"
               aria-hidden="true"
             >
-              <div className="w-8 h-8 rounded-[10px]" />
-              <span className="font-serif text-lg font-semibold whitespace-nowrap">Health.e.living</span>
+              <img src="/brand-logo.PNG" alt="" className="h-20 w-auto" />
             </div>
 
             {/* ── LOGO — starts centered, slides to left ── */}
@@ -204,16 +200,13 @@ export default function Header() {
               }
             >
               <Link href="/" className="flex items-center gap-2.5">
-                <motion.div
-                  className="logo-mark w-8 h-8 flex items-center justify-center text-white font-bold text-sm"
-                  whileHover={{ scale: 1.08, rotate: 3 }}
+                <motion.img
+                  src="/brand-logo.PNG"
+                  alt="Healthy E Living"
+                  className="h-20 w-auto"
+                  whileHover={{ scale: 1.05 }}
                   transition={{ type: 'spring', stiffness: 260, damping: 18 }}
-                >
-                  H
-                </motion.div>
-                <span className="font-serif text-lg font-semibold text-slate-900 whitespace-nowrap">
-                  Health.e.living
-                </span>
+                />
               </Link>
             </motion.div>
 
@@ -233,6 +226,7 @@ export default function Header() {
                     initial={{ opacity: 0, y: -8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.06, duration: 0.3, ease: 'easeOut' }}
+                    onClick={() => window.location.href = link.href}
                   >
                     {link.label}
                   </motion.a>
@@ -248,7 +242,7 @@ export default function Header() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3, ease: 'easeOut', delay: navLinks.length * 0.06 + 0.05 }}
               >
-                <button className="cta-liquid">Call Now</button>
+                <a href="tel:+919833640891" className="cta-liquid">Call Now</a>
               </motion.div>
             )}
 
@@ -289,12 +283,12 @@ export default function Header() {
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.08 }}
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => { setIsOpen(false); window.location.href = link.href; }}
                   >
                     {link.label}
                   </motion.a>
                 ))}
-                <button className="cta-liquid cta-liquid-full">Call Now</button>
+                <a href="tel:+919833640891" className="cta-liquid cta-liquid-full">Call Now</a>
               </motion.div>
             )}
           </AnimatePresence>

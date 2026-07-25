@@ -2,13 +2,19 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import { SparklesText } from "./sparkles-text/SparklesText";
 import { WordRotate } from "./word-rotate/WordRotate";
+import { waUrl } from "@/lib/whatsapp";
 
 export default function Hero() {
   const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    const lenis = (window as any).__lenis;
+    if (lenis) {
+      lenis.scrollTo("#contact", { offset: -80 });
+    } else {
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -52,7 +58,7 @@ export default function Hero() {
                     "Evidence-Based Nutrition",
                     "Sustainable Nutrition",
                     "Practical Nutrition",
-                    "Clinical Nutrition",
+                    "Clinical Nutritions",
                   ]}
                 />
               </span>
@@ -69,15 +75,39 @@ export default function Hero() {
             {/* CTA */}
             <div className="mt-10 flex gap-4 flex-wrap">
 
+              <a
+                href={waUrl("booking")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 h-10 rounded-md px-6 bg-[#6A431C] text-white hover:bg-[#5A3715] transition-all font-medium shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+              >
+                <MessageCircle className="w-4 h-4" />
+                Book via WhatsApp
+              </a>
+
               <Button
                 size="lg"
-                className="bg-[#6A431C] hover:bg-[#5A3715] text-white shadow-lg"
+                className="bg-white border-2 border-[#6A431C] text-[#6A431C] hover:bg-[#6A431C] hover:text-white shadow-lg"
                 onClick={scrollToContact}
               >
-                Book Consultation
+                Contact Form
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
 
+            </div>
+
+            {/* Trust indicators & internal links */}
+            <div className="mt-8 flex flex-wrap gap-6 text-sm text-slate-500">
+              <span className="flex items-center gap-1">✓ 4+ Years Experience</span>
+              <span className="flex items-center gap-1">✓ 100+ Patients</span>
+              <span className="flex items-center gap-1">✓ Evidence-Based</span>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href="/services/weight-loss" className="text-xs px-3 py-1.5 bg-yellow-50 border border-yellow-200 rounded-full text-[#6A431C] hover:bg-[#6A431C] hover:text-white transition-colors">Weight Loss</a>
+              <a href="/services/pcos-diet" className="text-xs px-3 py-1.5 bg-yellow-50 border border-yellow-200 rounded-full text-[#6A431C] hover:bg-[#6A431C] hover:text-white transition-colors">PCOS Diet</a>
+              <a href="/services/diabetes-diet" className="text-xs px-3 py-1.5 bg-yellow-50 border border-yellow-200 rounded-full text-[#6A431C] hover:bg-[#6A431C] hover:text-white transition-colors">Diabetes Diet</a>
+              <a href="/services/gut-health" className="text-xs px-3 py-1.5 bg-yellow-50 border border-yellow-200 rounded-full text-[#6A431C] hover:bg-[#6A431C] hover:text-white transition-colors">Gut Health</a>
             </div>
 
           </div>

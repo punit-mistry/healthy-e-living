@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { optimizedItemVariants } from "../animations/optimized-animations";
+import { waUrl } from "@/lib/whatsapp";
 
 interface FAQCTAProps {
   inView: boolean;
@@ -24,7 +25,12 @@ export default function FAQCTA({ inView }: FAQCTAProps) {
           Reach out directly for a consultation call.
         </p>
 
-        <button className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#6A431C] rounded-lg hover:bg-yellow-50 transition font-medium hover:shadow-lg">
+        <a
+          href={waUrl("schedule")}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#6A431C] rounded-lg hover:bg-yellow-50 transition font-medium hover:shadow-lg"
+        >
           Schedule Consultation
           <svg
             className="w-4 h-4"
@@ -39,7 +45,7 @@ export default function FAQCTA({ inView }: FAQCTAProps) {
               d="M13 7l5 5m0 0l-5 5m5-5H6"
             />
           </svg>
-        </button>
+        </a>
       </div>
     </motion.div>
   );

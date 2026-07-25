@@ -11,17 +11,28 @@ const footerLinks: FooterLinks = [
   {
     title: "Services",
     links: [
-      { label: "Medical Nutrition Therapy", href: "#services" },
-      { label: "Weight Management", href: "#services" },
-      { label: "Sports Nutrition", href: "#services" },
-      { label: "Chronic Disease Management", href: "#services" },
+      { label: "Weight Loss Diet", href: "/services/weight-loss" },
+      { label: "PCOS Diet Plan", href: "/services/pcos-diet" },
+      { label: "Diabetes Diet Plan", href: "/services/diabetes-diet" },
+      { label: "Gut Health Diet", href: "/services/gut-health" },
+      { label: "Online Consultation", href: "/services/online-consultation" },
+    ],
+  },
+  {
+    title: "Locations",
+    links: [
+      { label: "Dietitian in Borivali", href: "/locations/borivali" },
+      { label: "Dietitian in Andheri", href: "/locations/andheri" },
+      { label: "Dietitian in Thane", href: "/locations/thane" },
+      { label: "Dietitian in Navi Mumbai", href: "/locations/navi-mumbai" },
+      { label: "Dietitian in Malad", href: "/locations/malad" },
     ],
   },
   {
     title: "Company",
     links: [
-      { label: "About", href: "#about" },
-      { label: "Contact", href: "#contact" },
+      { label: "About", href: "/about" },
+      { label: "Contact", href: "/contact" },
       { label: "Privacy Policy", href: "#" },
       { label: "Terms of Service", href: "#" },
     ],
@@ -71,7 +82,7 @@ export default function Footer() {
         style={{ zIndex: 2 }}
       >
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16"
+          className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -139,29 +150,27 @@ function BrandSection() {
   return (
     <motion.div variants={itemVariants}>
       <div className="flex items-center gap-3 mb-5">
-        <div
-          className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-base shadow-lg"
-          style={{
-            background: "linear-gradient(135deg, #6A431C, #8B5A2B)",
-          }}
-        >
-          H
-        </div>
-        <div>
-          <span className="font-serif text-lg font-bold text-white">
-            Health.e.living
-          </span>
-          <div
-            className="h-0.5 w-16 rounded-full mt-1"
-            style={{
-              background: "linear-gradient(90deg, #6A431C, #8B5A2B)",
-            }}
-          />
-        </div>
+        <img
+          src="/brand-logo.PNG"
+          alt="Healthy E Living"
+          className="h-20 w-auto"
+        />
       </div>
-      <p className="text-sm text-slate-400 leading-relaxed">
+      <p className="text-sm text-slate-400 leading-relaxed mb-6">
         Expert nutrition counseling for better health and quality of life.
       </p>
+
+      <a
+        href="https://wa.me/919833640891?text=Hi%21%20I%27d%20like%20to%20know%20more%20about%20your%20nutrition%20consultation%20services."
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-xl transition-all text-sm font-medium"
+      >
+        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" />
+        </svg>
+        Chat on WhatsApp
+      </a>
     </motion.div>
   );
 }
@@ -253,7 +262,7 @@ function BottomSection({ currentYear }: { currentYear: number }) {
         whileInView="visible"
         viewport={{ once: true }}
       >
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-white">
           © {currentYear} Health.e.living. All rights reserved.
         </p>
         <SocialLink />
@@ -301,13 +310,23 @@ function LegalSection() {
 
   return (
     <motion.div
-      className="pt-6 text-center text-xs text-slate-600"
+      className="pt-6 text-center text-xs text-white/70"
       variants={itemVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
     >
       This website is for informational purposes only.
+      <br />
+      Crafted with care by{" "}
+      <a
+        href="https://www.bombaycoder.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-amber-400 hover:text-amber-300 transition-colors underline underline-offset-2"
+      >
+        BombayCoder
+      </a>
     </motion.div>
   );
 }

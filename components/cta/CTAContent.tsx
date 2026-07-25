@@ -11,9 +11,10 @@ interface CTAContentProps {
 
 export default function CTAContent({ inView }: CTAContentProps) {
   const trustItems = [
-    "Guided Consultation",
-    "Online Payments Accepted ",
-    "Results-driven approach",
+    "4+ Years Experience",
+    "100+ Happy Patients",
+    "Evidence-Based Practice",
+    "Online Payments Accepted",
   ];
 
   return (
@@ -39,14 +40,15 @@ export default function CTAContent({ inView }: CTAContentProps) {
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ delay: 0.2, duration: 0.4 }} // Reduced from 0.6
       >
-        <Button
-          size="lg"
-          variant="outline"
-          className="border-2 border-white  hover:bg-white text-[#6A431C] hover:text-[#6A431C] font-semibold hover:scale-105 transition-all"
+        <a
+          href="https://wa.me/919833640891"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#6A431C] rounded-lg font-semibold hover:bg-yellow-50 hover:scale-105 transition-all"
         >
-          <Phone className="mr-2 h-5 w-5" />
-          Schedule Call Now 
-        </Button>
+          <Phone className="h-5 w-5" />
+          Schedule Call Now
+        </a>
       </motion.div>
 
       {/* Trust Row */}
