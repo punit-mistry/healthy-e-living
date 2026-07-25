@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 }
 
 export default function BlogPage() {
-  const posts = getRecentBlogPosts(50)
+  const posts = getRecentBlogPosts(5)
   const categories = blogCategories
 
   return (
