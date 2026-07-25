@@ -26,9 +26,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: location.metaTitle,
       description: location.metaDescription,
-      url: `https://healthy-e-living.vercel.app/locations/${slug}`,
+      url: `https://www.healthelivingwithirika.com/locations/${slug}`,
       siteName: "Nutrition by Irika Goyal",
-      images: [{ url: "https://healthy-e-living.vercel.app/brand-logo.PNG", width: 1200, height: 630 }],
+      images: [{ url: "https://www.healthelivingwithirika.com/brand-logo.PNG", width: 1200, height: 630 }],
     },
   }
 }
@@ -45,10 +45,10 @@ export default async function LocationPage({ params }: Props) {
     "@graph": [
       {
         "@type": "LocalBusiness",
-        "@id": `https://healthy-e-living.vercel.app/locations/${slug}#business`,
+        "@id": `https://www.healthelivingwithirika.com/locations/${slug}#business`,
         name: `Nutrition by Irika Goyal - ${location.name}`,
         description: location.description,
-        url: `https://healthy-e-living.vercel.app/locations/${slug}`,
+        url: `https://www.healthelivingwithirika.com/locations/${slug}`,
         image: "https://i.ibb.co/SwK5zdZh/logo.jpg",
         areaServed: { "@type": "City", name: location.name },
         address: {
@@ -60,10 +60,10 @@ export default async function LocationPage({ params }: Props) {
       },
       {
         "@type": "BreadcrumbList",
-        "@id": `https://healthy-e-living.vercel.app/locations/${slug}#breadcrumb`,
+        "@id": `https://www.healthelivingwithirika.com/locations/${slug}#breadcrumb`,
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://healthy-e-living.vercel.app/" },
-          { "@type": "ListItem", position: 2, name: "Locations", item: "https://healthy-e-living.vercel.app/locations" },
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.healthelivingwithirika.com/" },
+          { "@type": "ListItem", position: 2, name: "Locations", item: "https://www.healthelivingwithirika.com/locations" },
           { "@type": "ListItem", position: 3, name: location.name },
         ],
       },

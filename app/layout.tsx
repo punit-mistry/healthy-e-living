@@ -33,10 +33,10 @@ export const metadata = {
     "online nutritionist India",
     "Indian diet plan for weight loss",
   ],
-  authors: [{ name: "Dt. Irika Goyal", url: "https://healthy-e-living.vercel.app/about" }],
+  authors: [{ name: "Dt. Irika Goyal", url: "https://www.healthelivingwithirika.com/about" }],
   creator: "Nutrition by Irika Goyal",
   publisher: "Nutrition by Irika Goyal",
-  metadataBase: new URL("https://healthy-e-living.vercel.app/"),
+  metadataBase: new URL("https://www.healthelivingwithirika.com/"),
   alternates: {
     canonical: "/",
   },
@@ -70,13 +70,13 @@ export const metadata = {
     title: "Healthy E Living Mumbai – Best Dietitian & Nutritionist for Weight Loss, PCOS & Diabetes",
     description:
       "Mumbai's trusted clinical dietitian Dt. Irika Goyal. Personalized nutrition plans for weight loss, PCOS, diabetes, gut health. Online & in-person consultations available.",
-    url: "https://healthy-e-living.vercel.app/",
+    url: "https://www.healthelivingwithirika.com/",
     siteName: "Nutrition by Irika Goyal – Mumbai Dietitian",
     locale: "en_IN",
     type: "website",
     images: [
       {
-        url: "https://healthy-e-living.vercel.app/brand-logo.PNG",
+        url: "https://www.healthelivingwithirika.com/brand-logo.PNG",
         width: 1200,
         height: 630,
         alt: "Healthy E Living – Best Dietitian in Mumbai – Dt. Irika Goyal Clinical Nutritionist",
@@ -88,7 +88,7 @@ export const metadata = {
     title: "Healthy E Living Mumbai – Best Dietitian & Nutritionist",
     description:
       "Mumbai's trusted dietitian Dt. Irika Goyal. Personalized nutrition for weight loss, PCOS, diabetes & gut health. Book your consultation today!",
-    images: ["https://healthy-e-living.vercel.app/brand-logo.PNG"],
+    images: ["https://www.healthelivingwithirika.com/brand-logo.PNG"],
     site: "@NutritionIrika",
     creator: "@NutritionIrika",
   },
@@ -151,28 +151,28 @@ export default function RootLayout({
               "@graph": [
                 {
                   "@type": "WebSite",
-                  "@id": "https://healthy-e-living.vercel.app/#website",
-                  "url": "https://healthy-e-living.vercel.app/",
+                  "@id": "https://www.healthelivingwithirika.com/#website",
+                  "url": "https://www.healthelivingwithirika.com/",
                   "name": "Nutrition by Irika Goyal",
                   "description": "Work with clinical dietitian Irika Goyal to create evidence-based nutrition plans tailored to your health goals. Book your consultation today for sustainable lifestyle changes.",
-                  "publisher": { "@id": "https://healthy-e-living.vercel.app/#person" },
+                  "publisher": { "@id": "https://www.healthelivingwithirika.com/#person" },
                   "potentialAction": {
                     "@type": "SearchAction",
                     "target": {
                       "@type": "EntryPoint",
-                      "urlTemplate": "https://healthy-e-living.vercel.app/?s={search_term_string}"
+                      "urlTemplate": "https://www.healthelivingwithirika.com/?s={search_term_string}"
                     },
                     "query-input": "required name=search_term_string"
                   }
                 },
                 {
                   "@type": "Person",
-                  "@id": "https://healthy-e-living.vercel.app/#person",
+                  "@id": "https://www.healthelivingwithirika.com/#person",
                   "name": "Dt. Irika Goyal",
                   "alternateName": "Irika Goyal",
                   "jobTitle": "Clinical Dietitian & Nutritionist",
                   "description": "Clinical dietitian with 4+ years of experience in personalized nutrition therapy, medical nutrition therapy, and sustainable lifestyle changes.",
-                  "url": "https://healthy-e-living.vercel.app/",
+                  "url": "https://www.healthelivingwithirika.com/",
                   "image": "https://i.ibb.co/SwK5zdZh/logo.jpg",
                   "knowsAbout": [
                     "Personalized Nutrition", "Medical Nutrition Therapy", "Chronic Disease Management",
@@ -182,10 +182,10 @@ export default function RootLayout({
                 },
                 {
                   "@type": "MedicalBusiness",
-                  "@id": "https://healthy-e-living.vercel.app/#business",
+                  "@id": "https://www.healthelivingwithirika.com/#business",
                   "name": "Nutrition by Irika Goyal",
                   "description": "Clinical dietitian offering personalized nutrition plans, medical nutrition therapy, and evidence-based dietary counseling in Mumbai.",
-                  "url": "https://healthy-e-living.vercel.app/",
+                  "url": "https://www.healthelivingwithirika.com/",
                   "telephone": "+919833640891",
                   "email": "irikagoyal@gmail.com",
                   "priceRange": "$$",
@@ -196,7 +196,7 @@ export default function RootLayout({
                     "addressRegion": "Maharashtra",
                     "addressCountry": "IN"
                   },
-                  "founder": { "@id": "https://healthy-e-living.vercel.app/#person" },
+                  "founder": { "@id": "https://www.healthelivingwithirika.com/#person" },
                   "areaServed": [
                     { "@type": "City", "name": "Mumbai" },
                     { "@type": "City", "name": "Thane" },
@@ -225,14 +225,14 @@ export default function RootLayout({
                 },
                 {
                   "@type": "BreadcrumbList",
-                  "@id": "https://healthy-e-living.vercel.app/#breadcrumb",
+                  "@id": "https://www.healthelivingwithirika.com/#breadcrumb",
                   "itemListElement": [
-                    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://healthy-e-living.vercel.app/" }
+                    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.healthelivingwithirika.com/" }
                   ]
                 },
                 {
                   "@type": "FAQPage",
-                  "@id": "https://healthy-e-living.vercel.app/#faq",
+                  "@id": "https://www.healthelivingwithirika.com/#faq",
                   "mainEntity": [
                     { "@type": "Question", "name": "How often will I need to come in?", "acceptedAnswer": { "@type": "Answer", "text": "Initial consultations are 45-60 minutes, followed by 20-30 minute follow-ups. Frequency depends on your needs. Typically every ten days to start, then every fortnight for maintenance." } },
                     { "@type": "Question", "name": "Do you offer virtual consultations?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely! I offer both in-person and virtual appointments via secure video conferencing. Choose what works best for your schedule." } },
@@ -243,9 +243,9 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Service",
-                  "@id": "https://healthy-e-living.vercel.app/#service",
+                  "@id": "https://www.healthelivingwithirika.com/#service",
                   "name": "Dietitian & Nutrition Services",
-                  "provider": { "@id": "https://healthy-e-living.vercel.app/#person" },
+                  "provider": { "@id": "https://www.healthelivingwithirika.com/#person" },
                   "areaServed": { "@type": "City", "name": "Mumbai" },
                   "hasOfferCatalog": {
                     "@type": "OfferCatalog",

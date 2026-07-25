@@ -3,7 +3,7 @@ import { locationSlugs } from "@/data/locations"
 import { serviceSlugs } from "@/data/services"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://healthy-e-living.vercel.app"
+  const baseUrl = "https://www.healthelivingwithirika.com"
 
   const staticPages = [
     { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 1 },

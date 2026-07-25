@@ -11,9 +11,9 @@ export const metadata: Metadata = {
     openGraph: {
       title: "About Dt. Irika Goyal | Clinical Dietitian & Nutritionist Mumbai",
       description: "Learn about Dt. Irika Goyal's qualifications, experience, and approach to personalized nutrition counseling.",
-      url: "https://healthy-e-living.vercel.app/about",
+      url: "https://www.healthelivingwithirika.com/about",
       siteName: "Nutrition by Irika Goyal",
-      images: [{ url: "https://healthy-e-living.vercel.app/brand-logo.PNG", width: 1200, height: 630 }],
+      images: [{ url: "https://www.healthelivingwithirika.com/brand-logo.PNG", width: 1200, height: 630 }],
     },
 }
 
@@ -29,8 +29,8 @@ export default function AboutPage() {
       {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://healthy-e-living.vercel.app/" },
-          { "@type": "ListItem", position: 2, name: "About", item: "https://healthy-e-living.vercel.app/about" },
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.healthelivingwithirika.com/" },
+          { "@type": "ListItem", position: 2, name: "About", item: "https://www.healthelivingwithirika.com/about" },
         ],
       },
     ],

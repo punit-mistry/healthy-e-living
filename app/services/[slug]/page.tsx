@@ -26,9 +26,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: service.metaTitle,
       description: service.metaDescription,
-      url: `https://healthy-e-living.vercel.app/services/${slug}`,
+      url: `https://www.healthelivingwithirika.com/services/${slug}`,
       siteName: "Nutrition by Irika Goyal",
-      images: [{ url: "https://healthy-e-living.vercel.app/brand-logo.PNG", width: 1200, height: 630 }],
+      images: [{ url: "https://www.healthelivingwithirika.com/brand-logo.PNG", width: 1200, height: 630 }],
     },
   }
 }
@@ -45,25 +45,25 @@ export default async function ServicePage({ params }: Props) {
     "@graph": [
       {
         "@type": "MedicalBusiness",
-        "@id": `https://healthy-e-living.vercel.app/services/${slug}#service`,
+        "@id": `https://www.healthelivingwithirika.com/services/${slug}#service`,
         name: service.name,
         description: service.description,
-        url: `https://healthy-e-living.vercel.app/services/${slug}`,
-        provider: { "@id": "https://healthy-e-living.vercel.app/#person" },
+        url: `https://www.healthelivingwithirika.com/services/${slug}`,
+        provider: { "@id": "https://www.healthelivingwithirika.com/#person" },
         areaServed: { "@type": "City", name: "Mumbai" },
       },
       {
         "@type": "BreadcrumbList",
-        "@id": `https://healthy-e-living.vercel.app/services/${slug}#breadcrumb`,
+        "@id": `https://www.healthelivingwithirika.com/services/${slug}#breadcrumb`,
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://healthy-e-living.vercel.app/" },
-          { "@type": "ListItem", position: 2, name: "Services", item: "https://healthy-e-living.vercel.app/services" },
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.healthelivingwithirika.com/" },
+          { "@type": "ListItem", position: 2, name: "Services", item: "https://www.healthelivingwithirika.com/services" },
           { "@type": "ListItem", position: 3, name: service.name },
         ],
       },
       {
         "@type": "FAQPage",
-        "@id": `https://healthy-e-living.vercel.app/services/${slug}#faq`,
+        "@id": `https://www.healthelivingwithirika.com/services/${slug}#faq`,
         mainEntity: service.faqs.map((faq) => ({
           "@type": "Question",
           name: faq.question,

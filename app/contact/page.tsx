@@ -11,9 +11,9 @@ export const metadata: Metadata = {
     openGraph: {
       title: "Contact Dt. Irika Goyal | Book Dietitian Consultation Mumbai",
       description: "Book your nutrition consultation with Dt. Irika Goyal. Online and in-person sessions available.",
-      url: "https://healthy-e-living.vercel.app/contact",
+      url: "https://www.healthelivingwithirika.com/contact",
       siteName: "Nutrition by Irika Goyal",
-      images: [{ url: "https://healthy-e-living.vercel.app/brand-logo.PNG", width: 1200, height: 630 }],
+      images: [{ url: "https://www.healthelivingwithirika.com/brand-logo.PNG", width: 1200, height: 630 }],
     },
 }
 

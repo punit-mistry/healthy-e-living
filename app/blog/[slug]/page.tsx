@@ -26,9 +26,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       openGraph: {
         title: post.metaTitle,
         description: post.metaDescription,
-        url: `https://healthy-e-living.vercel.app/blog/${slug}`,
+        url: `https://www.healthelivingwithirika.com/blog/${slug}`,
         siteName: "Nutrition by Irika Goyal",
-        images: [{ url: "https://healthy-e-living.vercel.app/brand-logo.PNG", width: 1200, height: 630 }],
+        images: [{ url: "https://www.healthelivingwithirika.com/brand-logo.PNG", width: 1200, height: 630 }],
       },
   }
 }

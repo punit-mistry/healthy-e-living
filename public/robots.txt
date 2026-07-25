@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://healthy-e-living.vercel.app/sitemap.xml
+Sitemap: https://www.healthelivingwithirika.com/sitemap.xml
