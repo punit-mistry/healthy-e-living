@@ -2,6 +2,8 @@ import { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { getBlogPostBySlug, getRecentBlogPosts } from "@/data/blog-outlines"
+import { services } from "@/data/services"
+import { locations } from "@/data/locations"
 import Header from "@/components/header"
 import Footer from "@/components/footer/Footer"
 
@@ -87,6 +89,37 @@ export default async function BlogPostPage({ params }: Props) {
                 >
                   Contact Us
                 </Link>
+              </div>
+            </div>
+
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="p-5 bg-white border border-slate-200 rounded-2xl">
+                <h4 className="font-semibold text-slate-900 mb-3 text-sm uppercase tracking-wider">Related Services</h4>
+                <div className="flex flex-wrap gap-2">
+                  {services.slice(0, 5).map((s) => (
+                    <Link
+                      key={s.slug}
+                      href={`/services/${s.slug}`}
+                      className="text-xs px-3 py-1.5 bg-yellow-50 border border-yellow-200 rounded-full text-[#6A431C] hover:bg-[#6A431C] hover:text-white transition-colors"
+                    >
+                      {s.shortName}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              <div className="p-5 bg-white border border-slate-200 rounded-2xl">
+                <h4 className="font-semibold text-slate-900 mb-3 text-sm uppercase tracking-wider">Available in</h4>
+                <div className="flex flex-wrap gap-2">
+                  {locations.slice(0, 6).map((l) => (
+                    <Link
+                      key={l.slug}
+                      href={`/locations/${l.slug}`}
+                      className="text-xs px-3 py-1.5 bg-yellow-50 border border-yellow-200 rounded-full text-[#6A431C] hover:bg-[#6A431C] hover:text-white transition-colors"
+                    >
+                      {l.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

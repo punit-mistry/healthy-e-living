@@ -1,6 +1,8 @@
 import { Metadata } from "next"
 import Link from "next/link"
 import { services, getServiceBySlug, getRelatedServices } from "@/data/services"
+import { getRecentBlogPosts } from "@/data/blog-outlines"
+import { locations } from "@/data/locations"
 import { notFound } from "next/navigation"
 import Header from "@/components/header"
 import Footer from "@/components/footer/Footer"
@@ -186,6 +188,41 @@ export default async function ServicePage({ params }: Props) {
                     <p className="text-sm text-slate-600">{r.tagline}</p>
                   </Link>
                 ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="py-16 bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div className="p-6 bg-gradient-to-br from-yellow-50 to-white border border-yellow-100 rounded-2xl">
+                  <h2 className="font-serif text-xl font-bold text-slate-900 mb-4">Related Articles</h2>
+                  <div className="space-y-3">
+                    {getRecentBlogPosts(5).map((post) => (
+                      <Link
+                        key={post.slug}
+                        href={`/blog/${post.slug}`}
+                        className="block text-sm text-slate-600 hover:text-[#6A431C] transition-colors"
+                      >
+                        → {post.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <div className="p-6 bg-gradient-to-br from-yellow-50 to-white border border-yellow-100 rounded-2xl">
+                  <h2 className="font-serif text-xl font-bold text-slate-900 mb-4">Available Locations</h2>
+                  <div className="flex flex-wrap gap-2">
+                    {locations.slice(0, 10).map((l) => (
+                      <Link
+                        key={l.slug}
+                        href={`/locations/${l.slug}`}
+                        className="text-xs px-3 py-1.5 bg-white border border-slate-200 rounded-full text-slate-700 hover:bg-[#6A431C] hover:text-white transition-colors"
+                      >
+                        {l.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </section>

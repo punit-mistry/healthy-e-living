@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import Link from "next/link"
 import { locations, getLocationBySlug, getNearbyLocations } from "@/data/locations"
 import { services } from "@/data/services"
+import { getRecentBlogPosts } from "@/data/blog-outlines"
 import { notFound } from "next/navigation"
 import Header from "@/components/header"
 import Footer from "@/components/footer/Footer"
@@ -142,6 +143,24 @@ export default async function LocationPage({ params }: Props) {
               </div>
             </section>
           )}
+
+          <section className="py-16 bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="font-serif text-2xl font-bold text-slate-900 mb-6 text-center">Related Articles</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                {getRecentBlogPosts(3).map((post) => (
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${post.slug}`}
+                    className="p-5 bg-gradient-to-br from-white to-yellow-50 border border-yellow-100 rounded-xl hover:shadow-md transition-all"
+                  >
+                    <span className="text-xs font-semibold text-[#6A431C] uppercase">{post.category}</span>
+                    <p className="text-sm font-medium text-slate-900 mt-1 line-clamp-2">{post.title}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
 
           <section className="py-16 bg-[#6A431C] text-white text-center">
             <div className="max-w-3xl mx-auto px-4">
