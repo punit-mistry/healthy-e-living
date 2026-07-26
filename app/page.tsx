@@ -22,6 +22,8 @@ export default function Home() {
         <Hero />
         <About />
         <Services />
+        <Benefits />
+
         <CurvedLoop
           marqueeText="Personalized Nutrition ✦ Sustainable Health ✦ Balanced Living ✦ Evidence-Based Wellness ✦"
           speed={3.8}
@@ -31,7 +33,6 @@ export default function Home() {
         />
         <Approach />
         {/* <Credentials /> */}
-        <Benefits />
         <Testimonials />
         <Reels />
         <FAQ />

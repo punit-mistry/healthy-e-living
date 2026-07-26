@@ -3,7 +3,7 @@
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
 const benefits = [
-  { id: 1, text: "Diabetes management" },
+  { id: 1, text: "Type 1 & Type 2 Diabetes Management" },
   { id: 2, text: "Heart disease and hypertension" },
   { id: 3, text: "Weight loss and wellness" },
   { id: 4, text: "Gastrointestinal disorders" },
@@ -37,7 +37,7 @@ const itemVariants = {
 export default function Benefits() {
   return (
     <LazyMotion features={domAnimation}>
-      <section className="py-20 sm:py-28 bg-gradient-to-br from-white via-yellow-50/50 to-orange-50/30 relative overflow-hidden">
+      <section className="pb-20 sm:pb-28 bg-gradient-to-br from-white via-yellow-50/50 to-orange-50/30 relative overflow-hidden">
         
         {/* Background shapes (static) */}
         <div className="absolute inset-0 pointer-events-none">
@@ -46,29 +46,6 @@ export default function Benefits() {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-
-          {/* Heading */}
-          <m.div
-            className="text-center mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={itemVariants}
-          >
-            <p className="text-[#6A431C] font-semibold text-sm uppercase tracking-widest mb-3">
-              Who Can Benefit
-            </p>
-
-            <h2 className="font-serif text-4xl sm:text-5xl font-bold text-slate-900 mb-4">
-              {/* I Help Patients With */}
-               I have the expertise to support you in
-            </h2>
-
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              managing a specific condition & optimizing your overall health.<br/>
-              {/* I have the expertise to support you. */}
-            </p>
-          </m.div>
 
           {/* Benefits list */}
           <m.div

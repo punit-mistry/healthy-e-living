@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 const contactMethods = [
   { method: "WhatsApp", value: "+91 9833640891", href: "https://wa.me/919833640891", icon: "💬" },
   { method: "Phone", value: "+91 9833640891", href: "tel:+919833640891", icon: "📞" },
-  { method: "Email", value: "irikagoyal@gmail.com", href: "mailto:irikagoyal@gmail.com", icon: "✉️" },
+  { method: "Email", value: "health.e.living23@gmail.com", href: "mailto:health.e.living23@gmail.com", icon: "✉️" },
 ]
 
 export default function ContactPage() {

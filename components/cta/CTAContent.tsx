@@ -33,23 +33,7 @@ export default function CTAContent({ inView }: CTAContentProps) {
         plan that works for your lifestyle.
       </p>
 
-      {/* CTA Buttons */}
-      <motion.div
-        className="flex flex-col sm:flex-row gap-4 justify-center mb-10"
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ delay: 0.2, duration: 0.4 }} // Reduced from 0.6
-      >
-        <a
-          href="https://wa.me/919833640891"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#6A431C] rounded-lg font-semibold hover:bg-yellow-50 hover:scale-105 transition-all"
-        >
-          <Phone className="h-5 w-5" />
-          Schedule Call Now
-        </a>
-      </motion.div>
+  
 
       {/* Trust Row */}
       <motion.div

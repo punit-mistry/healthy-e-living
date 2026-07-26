@@ -37,7 +37,7 @@ export default function Hero() {
             <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-yellow-50 border border-yellow-200 rounded-full">
               <span className="w-2 h-2 bg-[#6A431C] rounded-full" />
               <span className="text-sm font-medium text-[#6A431C]">
-                Nutrition by Irika Goyal
+                Healthy E Living with Irika Goyal
               </span>
             </div>
 

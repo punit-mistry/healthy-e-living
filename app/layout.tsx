@@ -187,7 +187,7 @@ export default function RootLayout({
                   "description": "Clinical dietitian offering personalized nutrition plans, medical nutrition therapy, and evidence-based dietary counseling in Mumbai.",
                   "url": "https://www.healthelivingwithirika.com/",
                   "telephone": "+919833640891",
-                  "email": "irikagoyal@gmail.com",
+                  "email": "health.e.living23@gmail.com",
                   "priceRange": "$$",
                   "image": "https://i.ibb.co/SwK5zdZh/logo.jpg",
                   "address": {
