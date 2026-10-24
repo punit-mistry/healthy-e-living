@@ -27,7 +27,7 @@ function copyFor(location: LocationInfo) {
   const { name } = location
   if (isOnlineOnly(location)) {
     return {
-      title: `Online Dietitian for ${name}`,
+      title: `Online Dietitian & Nutritionist for ${name}`,
       h1: `An online dietitian for ${name}`,
       description: `Looking for a dietitian in ${name}? Online video consultations with clinical dietitian Irika Goyal — Indian food-first plans for weight, PCOS, diabetes and more.`,
       lede: `Personalised nutrition care over video, from anywhere in ${name}. The same assessment, planning and follow-ups as in person — without the travel.`,
@@ -36,7 +36,7 @@ function copyFor(location: LocationInfo) {
   }
   if (location.slug === "mumbai") {
     return {
-      title: "Dietitian in Mumbai: Online & In Person",
+      title: "Dietitian & Nutritionist in Mumbai",
       h1: "A dietitian for Mumbai life — online, or in person",
       description:
         "Personalised nutrition consultations with clinical dietitian Irika Goyal in Mumbai — in person or online. Weight, PCOS, diabetes, gut health, pregnancy and more.",
@@ -45,7 +45,7 @@ function copyFor(location: LocationInfo) {
     }
   }
   return {
-    title: name.length > 12 ? `Dietitian for ${name}, Mumbai` : `Dietitian for ${name}: Online & In Person`,
+    title: `Dietitian & Nutritionist for ${name}`,
     h1: `A dietitian for ${name}`,
     description: `Looking for a dietitian in ${name}? Online consultations from home, or in-person sessions in Mumbai, with clinical dietitian Irika Goyal.`,
     lede: `Talk online from home in ${name}, or meet in person in Mumbai — the exact location is shared when you book.`,
@@ -77,9 +77,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata({ title: copy.title, description: copy.description, path: `/locations/${slug}`, noindex: !location.indexable })
 }
 
-const popular = ["weight-loss", "pcos-diet", "diabetes-diet", "thyroid-diet", "gut-health", "pregnancy-nutrition", "heart-health", "sports-nutrition"]
-  .map(getServiceBySlug)
-  .filter((s) => s !== undefined)
+const DEFAULT_SERVICES = ["weight-loss", "pcos-diet", "diabetes-diet", "thyroid-diet", "gut-health", "pregnancy-nutrition", "heart-health", "sports-nutrition"]
+
+function featuredServices(location: LocationInfo) {
+  return (location.local?.services ?? DEFAULT_SERVICES).map(getServiceBySlug).filter((s) => s !== undefined)
+}
 
 export default async function LocationPage({ params }: Props) {
   const { slug } = await params
@@ -90,6 +92,7 @@ export default async function LocationPage({ params }: Props) {
   const parent = location.parent ? getLocationBySlug(location.parent) : undefined
   const nearby = getNearbyLocations(location)
   const faqs = faqsFor(location)
+  const popular = featuredServices(location)
   const path = `/locations/${slug}`
   const crumbs = [
     { name: "Home", path: "/" },

@@ -153,6 +153,26 @@ for (const [path] of indexable) {
 const legacyResults = await Promise.all(legacy.map(async (path) => [path, (await get(path)).status]))
 for (const [path, status] of legacyResults) if (status !== 200) fail(`legacy URL ${path} → HTTP ${status}`)
 
+// Retired blog posts (the old site served ~300 auto-generated topics) must
+// permanently redirect to a live, relevant page — never 404.
+const retired = JSON.parse(readFileSync(new URL("../data/legacy-blog-posts.json", import.meta.url), "utf8"))
+const destinations = new Map()
+for (let i = 0; i < retired.length; i += 20) {
+  await Promise.all(
+    retired.slice(i, i + 20).map(async ({ slug }) => {
+      const r = await get(`/blog/${slug}`)
+      const to = r.headers.get("location")
+      if (r.status !== 308 || !to) return fail(`retired /blog/${slug} → HTTP ${r.status} (expected 308 redirect)`)
+      const target = new URL(to, BASE).pathname
+      destinations.set(target, (destinations.get(target) ?? 0) + 1)
+    }),
+  )
+}
+for (const target of destinations.keys()) {
+  const status = (await get(target)).status
+  if (status !== 200) fail(`redirect target ${target} → HTTP ${status}`)
+}
+
 // ---------------------------------------------------------- robots / 404
 const robots = (await get("/robots.txt")).body
 if (!/Allow: \//.test(robots) || /Disallow: \/\s*$/m.test(robots)) warn(`robots.txt:\n${robots}`)
@@ -168,7 +188,7 @@ for (const h of ["content-security-policy", "x-content-type-options", "referrer-
 if (home.headers.get("x-powered-by")) fail("x-powered-by header is exposed")
 
 // ---------------------------------------------------------------- report
-console.log(`Audited ${pages.size} HTML pages (${indexable.length} indexable), ${sitemapPaths.length} sitemap URLs, ${legacy.length} legacy URLs.`)
+console.log(`Audited ${pages.size} HTML pages (${indexable.length} indexable), ${sitemapPaths.length} sitemap URLs, ${legacy.length} legacy URLs, ${retired.length} retired blog redirects → ${destinations.size} live pages.`)
 if (warnings.length) console.log(`\nWarnings (${warnings.length}):\n  ` + warnings.join("\n  "))
 if (failures.length) {
   console.log(`\nFAILURES (${failures.length}):\n  ` + failures.join("\n  "))

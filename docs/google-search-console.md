@@ -19,9 +19,9 @@ The site is verified with the file `public/googlecc93d528db07d8ad.html`, which i
 1. Left menu → **Sitemaps**.
 2. If an old sitemap is listed, leave it; Google simply re-reads it. (Don't click "Remove" — that doesn't speed anything up.)
 3. In "Add a new sitemap", type `sitemap.xml` → **Submit**.
-4. After it processes (minutes to a day), the status should read **Success** with **60 discovered pages**.
+4. After it processes (minutes to a day), the status should read **Success** with **62 discovered pages**.
 
-> The sitemap contains only pages that should be indexed. You won't see the 27 sub-area location pages, the journal topic pages or the five unreviewed articles in it — that's intentional.
+> The sitemap contains only pages that should be indexed. You won't see the 25 sub-area location pages, the journal topic pages or the five unreviewed articles in it — that's intentional.
 
 ## Step 3 — Ask Google to recrawl the most important pages
 
@@ -56,8 +56,8 @@ https://www.healthelivingwithirika.com/locations/mira-road
 https://www.healthelivingwithirika.com/locations/andheri
 https://www.healthelivingwithirika.com/locations/thane
 https://www.healthelivingwithirika.com/locations/delhi
+https://www.healthelivingwithirika.com/locations/kharghar
 https://www.healthelivingwithirika.com/services/diabetes-diet
-https://www.healthelivingwithirika.com/services/gut-health
 https://www.healthelivingwithirika.com/contact
 ```
 
@@ -71,11 +71,12 @@ Left menu → **Pages**. What you'll see, and what it means:
 
 | What Search Console says | Pages | Is it a problem? |
 |--------------------------|-------|------------------|
-| **Indexed** | Should climb towards ~60 over a few weeks | ✅ Goal |
+| **Indexed** | Should climb towards ~62 over a few weeks | ✅ Goal |
 | **Excluded by 'noindex' tag** | Sub-area pages (e.g. Borivali West, Malad East), `/blog/category/*`, the 5 journal articles, the balanced-plate guide | ✅ Intentional |
 | **Page with redirect** | `http://…` and non-`www` versions | ✅ Normal |
 | **Alternate page with proper canonical tag** | Usually URLs with `?` parameters | ✅ Normal |
-| **Not found (404)** | Should be none — every old URL was kept | ⚠️ If any appear, send me the list |
+| **Not found (404)** | Old blog posts such as `/blog/roti-vs-paratha-vs-naan-which-is-healthier` may show here from the first launch day. They now **redirect** to the closest current page | Open the report → **Validate fix**. Any *other* 404s: send me the list |
+| **Page with redirect** (old blog URLs) | ~300 retired auto-generated blog posts | ✅ Intentional — their value passes to the page they redirect to |
 | **Crawled – currently not indexed** | Possible for some location/city pages at first | ⏳ Wait 2–4 weeks; Google is deciding. Don't resubmit repeatedly |
 | **Discovered – currently not indexed** | Newer pages Google hasn't crawled yet | ⏳ Normal at launch |
 | **Server error (5xx)** | Should be none | ⚠️ Tell me |

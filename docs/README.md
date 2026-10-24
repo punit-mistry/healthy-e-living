@@ -42,7 +42,8 @@ Status key:
 | New design system ("Happy Human Editorial"): palette, Bricolage/DM Sans + editorial italic + handwriting, Happy Plate and scribble motifs, 20 illustrations | ✅ |
 | Homepage: hero with Irika's portrait, trust strip, who-I-help index, Meet Irika, four-step approach, client stories, **Instagram section**, journal, FAQ, **Where I work**, CTA | ✅ |
 | About, Services hub (new), 20 service pages (5 new), How it works (new), FAQ (new), Contact, Journal + 5 rewritten articles, Resources (new, 2 printables), Privacy/Terms/Medical disclaimer (new), custom 404/error | ✅ |
-| Locations: hub (new) + **15 Mumbai-region pages and 12 Indian city pages** with local content (indexable) + 27 sub-area pages kept live (`noindex`) | ✅ |
+| Locations: hub (new) + **17 Mumbai-region pages and 12 Indian city pages** with local content (indexable) + 25 sub-area pages kept live (`noindex`) | ✅ |
+| 298 retired auto-generated blog URLs 308-redirect to the most relevant live page (found via Search Console data) | ✅ |
 | WhatsApp updated to +91 88790 43297 everywhere (links, form, structured data) | ✅ |
 | Happy Plate loader: first homepage visit only, skipped on slow connections, ~0.76s, CSS-only, non-blocking | ✅ |
 | Colour-wipe route transition with focus management and history support | ✅ |
@@ -56,7 +57,7 @@ Status key:
 | Unique titles/descriptions, self-canonicals, OG + Twitter on every page | ✅ (audit on production) |
 | Generated social cards: default (with portrait, 83 KB JPEG) + one per service and article | ✅ |
 | JSON-LD: WebSite/Organization/Person graph, breadcrumbs, Service, FAQPage, BlogPosting; fabricated rating markup removed | ✅ (parses, no forbidden types) |
-| Sitemap (60 URLs) + robots generated from the same indexing rules; previews noindexed | ✅ |
+| Sitemap (62 URLs) + robots generated from the same indexing rules; previews noindexed | ✅ |
 | All 81 previous URLs still return 200 | ✅ (production) |
 | Rich Results Test / Schema validator on live URLs | 🔑 (quick manual check — see seo-aeo.md) |
 | Sitemap submission, indexing requests, Bing import, Google Business Profile | 🔑 [google-search-console.md](google-search-console.md) |

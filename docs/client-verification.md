@@ -84,5 +84,5 @@ The page then shows "Medically reviewed by Dt. Irika Goyal on …", becomes inde
 | 26 | 🟠 New typographic lockup ("healthy e living" with the "e" set in a butter-yellow plate) and a Happy Plate mark replace the brown script logo in the header, favicon and social images | Yes. The original `public/brand-logo.PNG` is untouched |
 | 27 | 🟠 New palette (cream, botanical green, tomato coral, butter yellow) | Tokens in `app/globals.css` |
 | 28 | 🟠 Legal pages (privacy, terms, medical disclaimer) are plain-language drafts | Must be reviewed by the client and ideally a legal adviser |
-| 29 | 🟠 Location pages: 15 Mumbai-region areas + 12 Indian cities indexable with local content; 27 sub-areas `noindex` (URLs still work) | Add local content in `data/locations.ts` to make more indexable — see `docs/seo-aeo.md` |
+| 29 | 🟠 Location pages: 17 Mumbai-region areas + 12 Indian cities indexable with local content; 25 sub-areas `noindex` (URLs still work) | Add local content in `data/locations.ts` to make more indexable — see `docs/seo-aeo.md` |
 | 30 | 🟠 **Practice location.** Pages say in-person sessions are "in Mumbai, location shared on booking" | If the practice is physically in Borivali (or elsewhere), tell us: the copy and structured data can then say so truthfully, and a Google Business Profile becomes possible |

@@ -18,11 +18,11 @@ The root layout deliberately has **no canonical**. The old layout set `canonical
 | Page type | Indexed? | Why |
 |-----------|----------|-----|
 | Home, About, Services hub, 20 service pages, How it works, Journal, Resources, Checklist, FAQ, Contact, Areas hub, legal pages | ✅ | Unique, useful content |
-| 15 Mumbai-region area pages (Mumbai, Borivali, Kandivali, Kandivali West, Kandivali East, Malad, Goregaon, Andheri, Dahisar, Mira Road, Bhayander, Bandra, Powai, Thane, Navi Mumbai) | ✅ | Each has its own local intro, tips and FAQs |
+| 17 Mumbai-region area pages (Mumbai, Borivali, Kandivali, Kandivali West, Kandivali East, Malad, Goregaon, Andheri, Andheri West, Dahisar, Mira Road, Bhayander, Bandra, Powai, Thane, Navi Mumbai, Kharghar) | ✅ | Each has its own local intro, tips and FAQs |
 | 12 city pages, online only (Delhi, Gurugram, Noida, Bengaluru, Hyderabad, Chennai, Kolkata, Pune, Ahmedabad, Jaipur, Lucknow, Chandigarh) | ✅ | Each has city-specific food and lifestyle content; framed honestly as *online* consultations |
 | Journal articles, balanced-plate guide | ⛔ until reviewed | Health content needs Irika's sign-off (`review` field) |
 | Journal topic archives (`/blog/category/*`) | ⛔ `noindex, follow` | One or two posts each: thin archives |
-| 27 sub-area location pages (e.g. Borivali West, Malad East, Colaba) | ⛔ `noindex, follow` | No distinct content yet; URLs kept so existing links don't break, and each links to its main area page |
+| 25 sub-area location pages (e.g. Borivali West, Malad East, Colaba) | ⛔ `noindex, follow` | No distinct content yet; URLs kept so existing links don't break, and each links to its main area page |
 | 404 | ⛔ | — |
 
 The sitemap is generated from the **same flags**, so it can only contain canonical, indexable URLs. `lastmod` uses real content dates, not the build time (the old sitemap stamped `new Date()` on every URL at every build).
@@ -43,7 +43,9 @@ The sitemap is generated from the **same flags**, so it can only contain canonic
 
 These redirects are configured in **Vercel → Project → Domains**, not in code. To remove the two-hop chain, set the apex domain to redirect straight to `https://www.healthelivingwithirika.com` (Vercel's "Redirect to" option).
 
-**No URL changed in the redesign.** All 81 URLs the previous site exposed (`scripts/legacy-urls.txt`) return 200, and the audit re-checks them on every run. Two previously broken targets now exist: `/services` (linked from every service breadcrumb and JSON-LD) and `/locations`.
+**No linked URL changed in the redesign.** All 81 URLs the previous site linked to (`scripts/legacy-urls.txt`) return 200, and the audit re-checks them on every run.
+
+**Retired blog posts.** The previous site also rendered a page for *every* entry in its ~300-topic list (Next.js `dynamicParams`), even though it only linked to five, and Google indexed some of them (e.g. `/blog/roti-vs-paratha-vs-naan-which-is-healthier`, 17 impressions in Search Console). These were auto-generated boilerplate, so they weren't recreated. Instead, all **298** retired URLs (recovered from git history into `data/legacy-blog-posts.json`) **308-redirect to the most relevant current page**, matched by topic and then by category (`lib/legacy-redirects.mjs`); generic topics go to the journal. The audit checks every one of them. Two previously broken targets now exist: `/services` (linked from every service breadcrumb and JSON-LD) and `/locations`.
 
 ### Structured data (JSON-LD)
 - **Site-wide** (root layout): `WebSite`, `Organization` (contact point, area served, Instagram) and `Person` (Irika; LinkedIn), each with a stable `@id`.
@@ -76,7 +78,7 @@ FAQ markup is valid, but Google currently shows FAQ rich results only for a smal
 1. **Google Search Console** — the property is already verified via `public/googlecc93d528db07d8ad.html` (kept). The old `verification: "YOUR_VERIFICATION_CODE"` meta tag was a placeholder and has been removed.
    - Sitemaps → submit `https://www.healthelivingwithirika.com/sitemap.xml`.
    - URL Inspection → "Request indexing" for `/`, `/services`, `/about` and a few service pages.
-   - Watch Pages → "Excluded by noindex": you should see the 27 sub-area location pages, the topic archives and the unreviewed articles. That's expected.
+   - Watch Pages → "Excluded by noindex": you should see the 25 sub-area location pages, the topic archives and the unreviewed articles. That's expected.
 2. **Bing Webmaster Tools** — "Import from Google Search Console" is the fastest route; then submit the same sitemap.
 3. **Rich Results Test** (<https://search.google.com/test/rich-results>) and **Schema Markup Validator** (<https://validator.schema.org/>) — run them on `/`, a service page and an article once live. Locally, the audit only checks that the JSON-LD parses and contains no forbidden types; it can't confirm rich-result eligibility.
 

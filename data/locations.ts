@@ -20,6 +20,8 @@ export type District = "Mumbai City" | "Mumbai Suburban" | "Thane" | "Raigad" | 
 export interface LocalContent {
   intro: string
   tips: { title: string; body: string }[]
+  /** Service slugs to feature, when local search demand differs from the default. */
+  services?: string[]
 }
 
 export interface LocationInfo {
@@ -205,7 +207,25 @@ const local: Record<string, LocalContent> = {
       { title: "Misal and more", body: "Thane's famous misal can stay — with a few tweaks to portions, toppings and what comes alongside." },
     ],
   },
+  "andheri-west": {
+    intro: "Lokhandwala's markets, Versova's cafés and a calendar full of shoots, gym sessions and late dinners — Andheri West is one of the city's busiest neighbourhoods to eat well in.",
+    tips: [
+      { title: "Gym culture", body: "Andheri West has no shortage of gyms and studios. We match protein, carbohydrate and recovery to the training you actually do." },
+      { title: "Cafés and eating out", body: "Brunches, coffee catch-ups and late dinners are part of the week here. A few go-to choices keep them enjoyable without derailing your goals." },
+      { title: "Shoot and shift schedules", body: "Film, TV and media work rarely runs nine to five. We build a meal rhythm around call times, not the clock." },
+    ],
+  },
+  kharghar: {
+    intro: "Kharghar's planned sectors, Central Park and the hills around Pandavkada make it easy to stay active. It's also home to a major cancer treatment and research centre, so many families here are looking for nutrition support during treatment.",
+    tips: [
+      { title: "Support during cancer treatment", body: "If you or a family member is in treatment, nutrition can help with appetite, weight and side effects — always alongside the oncology team. See cancer nutrition support." },
+      { title: "Parks and hill walks", body: "Central Park and the Kharghar hills are made for walking. We plan meals that support the activity you already enjoy." },
+      { title: "Online from home", body: "In-person sessions are held in Mumbai, so most people in Kharghar choose online consultations to save the journey." },
+    ],
+    services: ["cancer-nutrition-support", "weight-loss", "diabetes-diet", "pcos-diet", "gut-health", "thyroid-diet", "pregnancy-nutrition", "heart-health"],
+  },
   "navi-mumbai": {
+    services: ["weight-loss", "diabetes-diet", "pcos-diet", "cancer-nutrition-support", "gut-health", "thyroid-diet", "pregnancy-nutrition", "heart-health"],
     intro: "Planned sectors, IT parks and some of the city's widest walking tracks make Navi Mumbai a great place to build healthy routines.",
     tips: [
       { title: "Seasonal produce", body: "With Vashi's huge APMC wholesale market nearby, fresh seasonal fruit and vegetables are easy to find and affordable. We plan menus around the seasons." },

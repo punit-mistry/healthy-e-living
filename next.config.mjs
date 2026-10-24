@@ -13,6 +13,8 @@
  * not duplicated here.
  */
 
+import { legacyBlogRedirects } from "./lib/legacy-redirects.mjs"
+
 const isDev = process.env.NODE_ENV === "development"
 const isPreview = process.env.VERCEL_ENV === "preview"
 
@@ -63,6 +65,10 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 2592000,
+  },
+  // Retired blog URLs → the most relevant current page (see lib/legacy-redirects.mjs).
+  async redirects() {
+    return legacyBlogRedirects
   },
   async headers() {
     return [
