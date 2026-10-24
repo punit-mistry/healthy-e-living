@@ -91,6 +91,7 @@ export default function Footer() {
             <Column title="Where">
               <FooterLink href="/locations/mumbai">Dietitian in Mumbai</FooterLink>
               <FooterLink href="/locations/borivali">Borivali</FooterLink>
+              <FooterLink href="/locations/kandivali">Kandivali</FooterLink>
               <FooterLink href="/locations/malad">Malad</FooterLink>
               <FooterLink href="/locations/andheri">Andheri</FooterLink>
               <FooterLink href="/locations/thane">Thane</FooterLink>

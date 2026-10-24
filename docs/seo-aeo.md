@@ -17,15 +17,17 @@ The root layout deliberately has **no canonical**. The old layout set `canonical
 
 | Page type | Indexed? | Why |
 |-----------|----------|-----|
-| Home, About, Services hub, 20 service pages, How it works, Journal, Resources, Checklist, FAQ, Contact, Areas hub, `/locations/mumbai`, legal pages | ✅ | Unique, useful content |
+| Home, About, Services hub, 20 service pages, How it works, Journal, Resources, Checklist, FAQ, Contact, Areas hub, legal pages | ✅ | Unique, useful content |
+| 15 Mumbai-region area pages (Mumbai, Borivali, Kandivali, Kandivali West, Kandivali East, Malad, Goregaon, Andheri, Dahisar, Mira Road, Bhayander, Bandra, Powai, Thane, Navi Mumbai) | ✅ | Each has its own local intro, tips and FAQs |
+| 12 city pages, online only (Delhi, Gurugram, Noida, Bengaluru, Hyderabad, Chennai, Kolkata, Pune, Ahmedabad, Jaipur, Lucknow, Chandigarh) | ✅ | Each has city-specific food and lifestyle content; framed honestly as *online* consultations |
 | Journal articles, balanced-plate guide | ⛔ until reviewed | Health content needs Irika's sign-off (`review` field) |
 | Journal topic archives (`/blog/category/*`) | ⛔ `noindex, follow` | One or two posts each: thin archives |
-| 41 suburb location pages | ⛔ `noindex, follow` | Near-duplicate pages. URLs kept so existing links don't break |
+| 27 sub-area location pages (e.g. Borivali West, Malad East, Colaba) | ⛔ `noindex, follow` | No distinct content yet; URLs kept so existing links don't break, and each links to its main area page |
 | 404 | ⛔ | — |
 
 The sitemap is generated from the **same flags**, so it can only contain canonical, indexable URLs. `lastmod` uses real content dates, not the build time (the old sitemap stamped `new Date()` on every URL at every build).
 
-**Before flipping a suburb page to `indexable: true`:** check Search Console → Performance → Pages for `/locations/*`. If a page earns real clicks, give it content specific to that area (as `/locations/mumbai` has) and then flip the flag in `data/locations.ts`.
+**To make another area indexable:** add a `local` entry for it in `data/locations.ts` (an intro and 3 tips genuinely specific to that place). The page, sitemap and indexing follow automatically. Don't copy another area's text with the name swapped — that's exactly what Google treats as doorway pages.
 
 ### Robots and staging protection
 - `app/robots.ts` allows everything in production and **disallows everything on Vercel preview deployments** (`VERCEL_ENV=preview`).
@@ -69,10 +71,12 @@ FAQ markup is valid, but Google currently shows FAQ rich results only for a smal
 
 ## Search Console and Bing setup (needs account access)
 
+**Step-by-step guide: [google-search-console.md](google-search-console.md).** Summary:
+
 1. **Google Search Console** — the property is already verified via `public/googlecc93d528db07d8ad.html` (kept). The old `verification: "YOUR_VERIFICATION_CODE"` meta tag was a placeholder and has been removed.
    - Sitemaps → submit `https://www.healthelivingwithirika.com/sitemap.xml`.
    - URL Inspection → "Request indexing" for `/`, `/services`, `/about` and a few service pages.
-   - Watch Pages → "Excluded by noindex": you should see the 41 suburb pages, the topic archives and the unreviewed articles. That's expected.
+   - Watch Pages → "Excluded by noindex": you should see the 27 sub-area location pages, the topic archives and the unreviewed articles. That's expected.
 2. **Bing Webmaster Tools** — "Import from Google Search Console" is the fastest route; then submit the same sitemap.
 3. **Rich Results Test** (<https://search.google.com/test/rich-results>) and **Schema Markup Validator** (<https://validator.schema.org/>) — run them on `/`, a service page and an article once live. Locally, the audit only checks that the JSON-LD parses and contains no forbidden types; it can't confirm rich-result eligibility.
 

@@ -486,8 +486,10 @@
   display: none;
 }
 
+/* Opt-in: the pre-paint script adds html.hel-intro only on a first homepage
+   visit over a decent connection (see components/site/Loader.tsx). */
 @media (prefers-reduced-motion: no-preference) {
-  .hel-loader {
+  html.hel-intro .hel-loader {
     position: fixed;
     inset: 0;
     z-index: 100;
@@ -495,41 +497,38 @@
     place-items: center;
     background: var(--color-cream);
     pointer-events: none;
-    animation: loader-out 240ms var(--ease-smooth) 720ms forwards;
-  }
-  html.hel-seen .hel-loader {
-    display: none;
+    animation: loader-out 200ms var(--ease-smooth) 560ms forwards;
   }
   .hel-loader__rim {
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
-    animation: draw-stroke 460ms var(--ease-smooth) 20ms forwards;
+    animation: draw-stroke 380ms var(--ease-smooth) forwards;
   }
   .hel-loader__smile {
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
-    animation: draw-stroke 240ms var(--ease-smooth) 380ms forwards;
+    animation: draw-stroke 200ms var(--ease-smooth) 300ms forwards;
   }
   .hel-loader__ray {
     transform-box: fill-box;
     transform-origin: center;
     opacity: 0;
-    animation: ray-pop 280ms var(--ease-pop) forwards;
-    animation-delay: calc(240ms + var(--i) * 24ms);
+    animation: ray-pop 240ms var(--ease-pop) forwards;
+    animation-delay: calc(180ms + var(--i) * 20ms);
   }
   .hel-loader__dot {
     transform-box: fill-box;
     transform-origin: center;
     transform: scale(0);
-    animation: dot-pop 300ms var(--ease-pop) 480ms forwards;
+    animation: dot-pop 240ms var(--ease-pop) 400ms forwards;
   }
   .hel-loader__word {
     clip-path: inset(0 100% 0 0);
-    animation: word-in 420ms var(--ease-smooth) 200ms forwards;
+    animation: word-in 360ms var(--ease-smooth) 160ms forwards;
   }
   .hel-loader__note {
     opacity: 0;
-    animation: fade-in 260ms ease 420ms forwards;
+    animation: fade-in 200ms ease 340ms forwards;
   }
 }
 @keyframes loader-out {

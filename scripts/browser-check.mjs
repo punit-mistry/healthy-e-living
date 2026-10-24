@@ -83,7 +83,14 @@ ws.addEventListener("message", (e) => {
 const send = (method, params = {}, sessionId) =>
   new Promise((resolve, reject) => {
     const id = nextId++
-    pending.set(id, { resolve, reject })
+    const timer = setTimeout(() => {
+      pending.delete(id)
+      reject(new Error(`CDP ${method} timed out after 30s`))
+    }, 30000)
+    pending.set(id, {
+      resolve: (v) => (clearTimeout(timer), resolve(v)),
+      reject: (e) => (clearTimeout(timer), reject(e)),
+    })
     ws.send(JSON.stringify({ id, method, params, sessionId }))
   })
 
@@ -132,9 +139,18 @@ const blocksClicks = await page.evaluate(`getComputedStyle(document.querySelecto
 record(blocksClicks === "none", "Loader never blocks pointer input")
 const h1InHtml = await page.evaluate(`document.querySelector('h1')?.textContent`)
 record(Boolean(h1InHtml), "Real content is in the server-rendered HTML beneath the loader", h1InHtml)
-await page.goto("/about")
-const seen = await page.evaluate(`document.documentElement.classList.contains('hel-seen') && getComputedStyle(document.querySelector('.hel-loader')).display`)
+await page.goto("/")
+const seen = await page.evaluate(`getComputedStyle(document.querySelector('.hel-loader')).display`)
 record(seen === "none", "Loader does not replay on later page loads in the same tab", `display=${seen}`)
+// A search visitor landing straight on a service page (fresh tab) gets content, not an intro.
+const lander = await newPage()
+await lander.viewport(VIEWPORTS[0])
+await lander.goto("/services/pcos-diet")
+const landerLoader = await lander.evaluate(`getComputedStyle(document.querySelector('.hel-loader')).display`)
+record(landerLoader === "none", "No loader when a first visit lands on an inner page", `display=${landerLoader}`)
+// Background tabs are throttled by Chrome — close the extra tab and refocus the main one.
+await send("Target.closeTarget", { targetId: lander.targetId })
+await send("Target.activateTarget", { targetId: page.targetId })
 
 // ---------------------------------------------- 2. Client-side navigation
 await page.goto("/")
@@ -217,6 +233,8 @@ await wait(150)
 const rmWipe = await rm.evaluate(`document.querySelector('.route-wipe') ? getComputedStyle(document.querySelector('.route-wipe')).display : 'none'`)
 record(rmState.loader === "none" && rmState.smooth === "auto" && rmState.reveal === "none" && rmWipe === "none", "prefers-reduced-motion disables loader, wipe, reveals and smooth scroll", JSON.stringify({ ...rmState, wipe: rmWipe }))
 await page.s("Emulation.setEmulatedMedia", { features: [] })
+await send("Target.closeTarget", { targetId: rm.targetId })
+await send("Target.activateTarget", { targetId: page.targetId })
 
 // ------------------------------------------- 7. Layout overflow + errors
 if (SHOTS) mkdirSync(SHOTS, { recursive: true })

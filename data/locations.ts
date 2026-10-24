@@ -117,6 +117,22 @@ const local: Record<string, LocalContent> = {
       { title: "Evening snack lanes", body: "Local snack stalls are part of the fun. We plan for the occasional plate rather than banning it." },
     ],
   },
+  "kandivali-west": {
+    intro: "From Charkop's residential sectors to the evening food stalls around Mahavir Nagar, Kandivali West is busy, family-centred and full of temptation after dark.",
+    tips: [
+      { title: "Evening food stalls", body: "Mahavir Nagar's snack lanes are part of the neighbourhood. We plan how often a plate fits, and what to pair it with, so evenings out don't undo the week." },
+      { title: "Family kitchens", body: "Many homes cook for several generations at once. We adapt one family menu instead of asking you to cook separately." },
+      { title: "Link Road commutes", body: "Traffic-heavy drives and long rides make meal timing slip. We plan breakfasts and snacks that travel well." },
+    ],
+  },
+  "kandivali-east": {
+    intro: "Kandivali East's townships — Thakur Village, Lokhandwala Township and around — mix college students, young professionals and families along the Western Express Highway.",
+    tips: [
+      { title: "Students and young professionals", body: "College canteens, hostel meals and late-night study snacks call for simple, affordable upgrades rather than strict diets." },
+      { title: "Township gyms and gardens", body: "Society gyms and walking tracks make activity easy. We match your meals to the exercise you actually do." },
+      { title: "Highway commutes", body: "Long drives on the Western Express Highway push meals late. We plan earlier, lighter dinners and smarter snacks." },
+    ],
+  },
   malad: {
     intro: "Between Malad's office parks, malls and busy markets, many days are spent eating at a desk or a food court. We make those meals count.",
     tips: [
