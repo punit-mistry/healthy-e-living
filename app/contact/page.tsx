@@ -1,127 +1,115 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import Link from "next/link"
-import Header from "@/components/header"
-import Footer from "@/components/footer/Footer"
+import { HappyPlate, Sparkle } from "@/components/brand/Motifs"
+import ContactForm from "@/components/contact/ContactForm"
+import PageHero from "@/components/sections/PageHero"
+import JsonLd from "@/components/ui-kit/JsonLd"
+import WhatsAppIcon from "@/components/ui-kit/WhatsAppIcon"
+import { ids, pageMetadata, webPageJson } from "@/lib/seo"
+import { contact, serviceArea, social } from "@/lib/site"
+import { waUrl } from "@/lib/whatsapp"
 
-export const metadata: Metadata = {
-  title: "Contact Dt. Irika Goyal | Book Dietitian Consultation Mumbai",
-  description:
-    "Get in touch with Dt. Irika Goyal for personalized nutrition counseling. Book your consultation online or via WhatsApp for weight loss, PCOS, diabetes, and more.",
-  alternates: { canonical: "/contact" },
-    openGraph: {
-      title: "Contact Dt. Irika Goyal | Book Dietitian Consultation Mumbai",
-      description: "Book your nutrition consultation with Dt. Irika Goyal. Online and in-person sessions available.",
-      url: "https://www.healthelivingwithirika.com/contact",
-      siteName: "Nutrition by Irika Goyal",
-      images: [{ url: "https://www.healthelivingwithirika.com/brand-logo.PNG", width: 1200, height: 630 }],
-    },
-}
+const title = "Contact & Book a Consultation"
+const description =
+  "Book a nutrition consultation with clinical dietitian Irika Goyal on WhatsApp, by phone or by email. Online across India and in person in Mumbai."
 
-const contactMethods = [
-  { method: "WhatsApp", value: "+91 9833640891", href: "https://wa.me/919833640891", icon: "💬" },
-  { method: "Phone", value: "+91 9833640891", href: "tel:+919833640891", icon: "📞" },
-  { method: "Email", value: "health.e.living23@gmail.com", href: "mailto:health.e.living23@gmail.com", icon: "✉️" },
+export const metadata: Metadata = pageMetadata({ title, description, path: "/contact" })
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Contact", path: "/contact" },
 ]
 
 export default function ContactPage() {
+  const methods = [
+    { label: "WhatsApp", value: contact.whatsappDisplay, href: waUrl("default"), note: "The quickest way to book", external: true, track: "whatsapp_click" },
+    { label: "Phone", value: contact.phoneDisplay, href: `tel:${contact.phoneE164}`, note: contact.hours, external: false, track: "phone_click" },
+    { label: "Email", value: contact.email, href: `mailto:${contact.email}`, note: "For longer questions and corporate enquiries", external: false, track: "email_click" },
+  ]
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
-      <Header />
-      <main>
-        <section className="min-h-[calc(100vh-4rem)] pt-32 pb-24 bg-gradient-to-br from-yellow-50 via-white to-orange-50 flex items-center">
-          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav className="mb-8 text-sm text-slate-500">
-              <Link href="/" className="hover:text-[#6A431C]">Home</Link>
-              <span className="mx-2">/</span>
-              <span className="text-[#6A431C] font-medium">Contact</span>
-            </nav>
-            <div className="text-center mb-16">
-              <p className="text-[#6A431C] font-semibold text-sm uppercase tracking-widest mb-3">Contact</p>
-              <h1 className="font-serif text-4xl sm:text-5xl font-bold text-slate-900 mb-4">Get in Touch</h1>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Ready to start your health journey? Reach out via any of the channels below and I'll get back to you within 24 hours.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-              <div className="space-y-6">
-                {contactMethods.map((cm) => (
-                  <a
-                    key={cm.method}
-                    href={cm.href}
-                    target={cm.method === "WhatsApp" ? "_blank" : undefined}
-                    rel={cm.method === "WhatsApp" ? "noopener noreferrer" : undefined}
-                    className="flex items-center gap-4 p-6 bg-white border border-slate-200 rounded-2xl hover:border-[#6A431C] hover:shadow-lg transition-all group"
-                  >
-                    <span className="text-3xl">{cm.icon}</span>
-                    <div>
-                      <p className="text-sm text-slate-500">{cm.method}</p>
-                      <p className="font-semibold text-slate-900 group-hover:text-[#6A431C] transition-colors">{cm.value}</p>
-                    </div>
-                  </a>
-                ))}
-                <div className="p-6 bg-white border border-slate-200 rounded-2xl">
-                  <p className="font-medium text-slate-900 mb-2">📍 Location</p>
-                  <p className="text-slate-600">Mumbai, Maharashtra, India</p>
-                  <p className="text-sm text-slate-500 mt-1">In-person & online consultations available</p>
-                </div>
-              </div>
-              <div className="bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-200 rounded-2xl p-8">
-                <h2 className="font-serif text-2xl font-bold text-slate-900 mb-6">Consultation Hours</h2>
-                <div className="space-y-4">
-                  {[
-                    { day: "Monday – Friday", hours: "10:00 AM – 7:00 PM" },
-                    { day: "Saturday", hours: "10:00 AM – 4:00 PM" },
-                    { day: "Sunday", hours: "By Appointment Only" },
-                  ].map((s) => (
-                    <div key={s.day} className="flex justify-between pb-3 border-b border-yellow-200 last:border-0">
-                      <span className="font-medium text-slate-900">{s.day}</span>
-                      <span className="text-slate-600">{s.hours}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-8 space-y-3">
-                  <a
-                    href="https://wa.me/919833640891"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-center px-6 py-3 bg-[#6A431C] text-white rounded-lg hover:bg-[#5A3715] transition-colors font-medium"
-                  >
-                    Book via WhatsApp
-                  </a>
-                  <a
-                    href="tel:+919833640891"
-                    className="block text-center px-6 py-3 border-2 border-[#6A431C] text-[#6A431C] rounded-lg hover:bg-[#6A431C] hover:text-white transition-colors font-medium"
-                  >
-                    Call Now
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+    <>
+      <JsonLd data={webPageJson({ path: "/contact", name: title, description, crumbs, type: "ContactPage", about: { "@id": ids.organization } })} />
 
-        <section className="py-20 bg-white">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="font-serif text-3xl font-bold text-slate-900 mb-6">Prefer a Quick Message?</h2>
-            <p className="text-slate-600 mb-8 max-w-2xl mx-auto">
-              Send a message directly via WhatsApp and I'll respond within 24 hours. 
-              Include your health goals and any questions you have.
-            </p>
-            <a
-              href="https://wa.me/919833640891?text=Hi%21%20I%27d%20like%20to%20know%20more%20about%20your%20nutrition%20consultation%20services."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors font-semibold text-lg"
-            >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" />
-              </svg>
-              Send a WhatsApp Message
-            </a>
+      <PageHero
+        crumbs={crumbs}
+        eyebrow="Contact"
+        title={
+          <>
+            Say hello. <span className="em text-green">Seriously</span>, any question.
+          </>
+        }
+        lede="Tell me a little about what you'd like help with, and you'll get available times and current fees — no pressure to book."
+        aside={<HappyPlate className="bob ml-auto hidden h-48 w-48 lg:block" />}
+      />
+
+      <section aria-labelledby="methods-title" className="wrap pb-6">
+        <h2 id="methods-title" className="sr-only">
+          Ways to get in touch
+        </h2>
+        <ul className="grid gap-4 md:grid-cols-3">
+          {methods.map((m, i) => (
+            <li key={m.label}>
+              <a
+                href={m.href}
+                target={m.external ? "_blank" : undefined}
+                rel={m.external ? "noopener noreferrer" : undefined}
+                data-track={m.track}
+                data-track-location="contact_methods"
+                className={`group flex h-full flex-col rounded-[1.75rem] border-2 border-ink p-6 transition-transform hover:-translate-y-1 ${
+                  ["bg-green text-cream", "bg-paper", "bg-butter-soft"][i]
+                }`}
+              >
+                <span className={`hand text-3xl ${i === 0 ? "text-butter" : "text-coral-deep"}`}>{m.label}</span>
+                <span className="mt-2 break-all font-display text-xl font-bold">{m.value}</span>
+                <span className={`mt-1 text-sm ${i === 0 ? "text-cream/80" : "text-ink-soft"}`}>{m.note}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="form-title" className="wrap py-16 sm:py-20">
+        <div className="grid gap-12 lg:grid-cols-[1.3fr_0.9fr]">
+          <div className="rounded-[2rem] bg-paper p-6 sm:p-10">
+            <h2 id="form-title" className="flex items-center gap-3 text-display-s">
+              <WhatsAppIcon className="h-7 w-7 text-green" />
+              Write your message here
+            </h2>
+            <p className="mt-2 text-ink-soft">Fill this in and it&apos;ll open WhatsApp with your message ready to send.</p>
+            <div className="mt-8">
+              <ContactForm />
+            </div>
           </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+          <div className="space-y-8">
+            <div className="rounded-[2rem] bg-mint p-8">
+              <h2 className="text-display-s">Where</h2>
+              <p className="mt-3">{serviceArea.online}</p>
+              <p className="mt-3">{serviceArea.inPersonNote}</p>
+              <Link href="/consultation" className="link-squiggle mt-5 inline-block">
+                How consultations work
+              </Link>
+            </div>
+            <div className="rounded-[2rem] border-2 border-ink/10 p-8">
+              <h2 className="text-display-s">When</h2>
+              <p className="mt-3">{contact.hours}.</p>
+              <p className="mt-2 text-sm text-ink-soft">Messages are answered as soon as possible during working hours.</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <Sparkle className="h-6 w-6" />
+              <a href={social.instagram} target="_blank" rel="noopener noreferrer" className="font-semibold underline underline-offset-4">
+                Instagram {social.instagramHandle}
+              </a>
+              <span aria-hidden="true">·</span>
+              <a href={social.linkedin} target="_blank" rel="noopener noreferrer" className="font-semibold underline underline-offset-4">
+                LinkedIn
+              </a>
+            </div>
+            <p className="rounded-2xl bg-coral-soft/60 p-5 text-sm">
+              <strong>In an emergency</strong>, please don&apos;t message here — contact your doctor or local emergency services straight away.
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
   )
 }

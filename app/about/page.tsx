@@ -1,168 +1,192 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
-import Header from "@/components/header"
-import Footer from "@/components/footer/Footer"
+import { CurlyArrow, HappyPlate, Sparkle, Underline } from "@/components/brand/Motifs"
+import Approach from "@/components/sections/Approach"
+import CtaBand from "@/components/sections/CtaBand"
+import InstagramStrip from "@/components/sections/InstagramStrip"
+import Stories from "@/components/sections/Stories"
+import Breadcrumbs from "@/components/ui-kit/Breadcrumbs"
+import JsonLd from "@/components/ui-kit/JsonLd"
+import { serviceCategories } from "@/data/services"
+import { ids, pageMetadata, webPageJson } from "@/lib/seo"
+import { confirmedClaims, person, qualifications, serviceArea, social } from "@/lib/site"
+import { waUrl } from "@/lib/whatsapp"
+import portraitFull from "@/public/images/irika-goyal-clinical-dietitian.jpg"
 
-export const metadata: Metadata = {
-  title: "About Dt. Irika Goyal | Clinical Dietitian & Nutritionist Mumbai",
-  description:
-    "Learn about Dt. Irika Goyal, a qualified clinical dietitian and nutritionist with 4+ years of experience helping patients achieve their health goals through personalized nutrition plans.",
-  alternates: { canonical: "/about" },
-    openGraph: {
-      title: "About Dt. Irika Goyal | Clinical Dietitian & Nutritionist Mumbai",
-      description: "Learn about Dt. Irika Goyal's qualifications, experience, and approach to personalized nutrition counseling.",
-      url: "https://www.healthelivingwithirika.com/about",
-      siteName: "Nutrition by Irika Goyal",
-      images: [{ url: "https://www.healthelivingwithirika.com/brand-logo.PNG", width: 1200, height: 630 }],
-    },
-}
+const title = "About Irika Goyal, Clinical Dietitian"
+const description =
+  "Meet Irika Goyal — a clinical dietitian and nutritionist who builds personalised, evidence-based nutrition plans around real life and Indian food. Online and in Mumbai."
 
-const qualifications = [
-  { title: "Clinical Dietitian", detail: "MS in Nutrition Science", org: "Registered Dietitian" },
-  { title: "Medical Nutrition Therapy", detail: "Chronic Disease Management", org: "Clinical Practice" },
+export const metadata: Metadata = pageMetadata({ title, description, path: "/about" })
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Meet Irika", path: "/about" },
+]
+
+const beliefs = [
+  { title: "Real food, real life", body: "Your plan should look like your kitchen — dal, sabzi, rotis and all — and survive office lunches, weddings and late nights." },
+  { title: "Evidence over trends", body: "Advice is grounded in current clinical guidelines, not whatever went viral this week. If something lacks evidence, I'll say so." },
+  { title: "No guilt, no banned lists", body: "Food is culture, comfort and celebration. We work on patterns and portions, not shame." },
+  { title: "Part of your care team", body: "Nutrition works alongside your doctor's treatment. I'll never ask you to stop medication or replace medical advice." },
 ]
 
 export default function AboutPage() {
-  const aboutSchema = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.healthelivingwithirika.com/" },
-          { "@type": "ListItem", position: 2, name: "About", item: "https://www.healthelivingwithirika.com/about" },
-        ],
-      },
-    ],
-  }
-
+  const claims = confirmedClaims()
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }} />
-      <div className="min-h-screen bg-white overflow-hidden">
-        <Header />
-        <main>
-          <section className="min-h-[calc(100vh-4rem)] pt-32 pb-24 bg-gradient-to-br from-yellow-50 via-white to-orange-50 flex items-center">
-            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <nav className="mb-8 text-sm text-slate-500">
-                <Link href="/" className="hover:text-[#6A431C]">Home</Link>
-                <span className="mx-2">/</span>
-                <span className="text-[#6A431C] font-medium">About</span>
-              </nav>
-              <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
-                <div>
-                  <p className="text-[#6A431C] font-semibold text-sm uppercase tracking-widest mb-3">About</p>
-                  <h1 className="font-serif text-4xl sm:text-5xl font-bold text-slate-900 mb-6">
-                    Dt. Irika Goyal
-                  </h1>
-                  <p className="text-lg text-[#6A431C] font-medium mb-4">Clinical Dietitian & Nutritionist</p>
-                  <p className="text-slate-600 leading-relaxed mb-6">
-                    With over 4 years of clinical experience, I specialize in helping individuals transform their health through personalized nutrition therapy. My approach combines evidence-based science with compassionate, patient-centered care.
-                  </p>
-                  <p className="text-slate-600 leading-relaxed mb-8">
-                    I believe that good nutrition should be practical, enjoyable, and sustainable. Whether you are managing a chronic condition, looking to lose weight, or simply want to feel your best, I create customized plans that fit your lifestyle.
-                  </p>
-                  <div className="flex flex-wrap gap-4">
-                    <a
-                      href="https://wa.me/919833640891"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-[#6A431C] text-white rounded-lg hover:bg-[#5A3715] transition-colors font-medium"
-                    >
-                      Book a Consultation
-                    </a>
-                    <a
-                      href="/contact"
-                      className="inline-flex items-center gap-2 px-6 py-3 border-2 border-[#6A431C] text-[#6A431C] rounded-lg hover:bg-[#6A431C] hover:text-white transition-colors font-medium"
-                    >
-                      Get in Touch
-                    </a>
-                  </div>
-                </div>
-                <div className="relative">
-                  <div className="aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl">
-                    <img
-                      src="/header-img.jpg"
-                      alt="Dt. Irika Goyal - Clinical Dietitian & Nutritionist"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-yellow-100 rounded-full -z-10" />
-                  <div className="absolute -top-4 -left-4 w-24 h-24 bg-orange-100 rounded-full -z-10" />
-                </div>
-              </div>
-            </div>
-          </section>
+      <JsonLd data={webPageJson({ path: "/about", name: title, description, crumbs, type: "AboutPage", mainEntity: { "@id": ids.person } })} />
 
-          <section className="py-20 bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid md:grid-cols-4 gap-8 mb-20">
-                {[
-                  { value: "4+", label: "Years Experience" },
-                  { value: "100+", label: "Patients Helped" },
-                  { value: "95%", label: "Client Satisfaction" },
-                  { value: "10+", label: "Specializations" },
-                ].map((stat) => (
-                  <div key={stat.label} className="bg-gradient-to-br from-yellow-50 to-white p-8 rounded-2xl border border-yellow-100 shadow-sm text-center hover:shadow-lg transition-all">
-                    <p className="text-4xl sm:text-5xl font-bold text-[#6A431C] mb-2">{stat.value}</p>
-                    <p className="text-slate-600 font-medium">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
-
-              <h2 className="font-serif text-3xl font-bold text-slate-900 mb-4 text-center">Qualifications & Credentials</h2>
-              <p className="text-slate-600 text-center max-w-2xl mx-auto mb-12">
-                Dedicated to maintaining the highest standards of clinical practice and continuing education.
+      <section className="relative overflow-hidden bg-cream">
+        <div className="wrap pb-16 pt-8 sm:pt-10">
+          <Breadcrumbs crumbs={crumbs} />
+          <div className="mt-10 grid items-center gap-14 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <p className="eyebrow">Meet Irika</p>
+              <h1 className="mt-5 text-display-xl">
+                Hi, I&apos;m{" "}
+                <span className="relative inline-block">
+                  Irika
+                  <Underline className="draw-on-load absolute -bottom-3 left-0 h-5 w-full" />
+                </span>
+                .
+              </h1>
+              <p className="mt-8 max-w-xl text-lede text-ink-soft">
+                I&apos;m a {person.jobTitle.toLowerCase()}, and I help people feel better through food — whether that means managing a health
+                condition, reaching a goal, or simply enjoying eating again.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                {qualifications.map((q) => (
-                  <div key={q.title} className="bg-slate-50 border border-slate-200 rounded-2xl p-8 hover:border-[#6A431C] hover:shadow-lg transition-all">
-                    <div className="w-10 h-10 bg-[#6A431C]/10 rounded-lg flex items-center justify-center mb-4">
-                      <svg className="w-5 h-5 text-[#6A431C]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                      </svg>
-                    </div>
-                    <h3 className="font-semibold text-slate-900 text-lg mb-2">{q.title}</h3>
-                    <p className="text-[#6A431C] font-medium text-sm mb-3">{q.detail}</p>
-                    <p className="text-slate-600 text-sm">{q.org}</p>
-                  </div>
-                ))}
-                <div className="bg-gradient-to-br from-[#6A431C] to-[#8B5A2B] rounded-2xl p-8 text-white hover:shadow-lg transition-all">
-                  <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center mb-4">
-                    <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-lg mb-2">And Many More...</h3>
-                  <p className="text-yellow-200 font-medium text-sm mb-3">Continuous Learning</p>
-                  <p className="text-white/80 text-sm">Regularly updating skills through workshops, conferences, and advanced certifications.</p>
-                </div>
+              <div className="mt-8 space-y-5 text-lg">
+                <p>
+                  I specialise in helping people manage health conditions through personalised nutrition therapy. My approach combines
+                  evidence-based science with compassionate, patient-centred care — because the best plan is the one you&apos;ll actually
+                  follow.
+                </p>
+                <p>
+                  I believe good nutrition should be practical, enjoyable and sustainable. Whether you&apos;re managing a chronic condition,
+                  looking to lose weight or simply want to feel your best, I&apos;ll build a plan that fits your lifestyle, your preferences and
+                  your family table.
+                </p>
+              </div>
+              {claims.length > 0 && (
+                <ul className="mt-8 flex flex-wrap gap-6">
+                  {claims.map((c) => (
+                    <li key={c.label}>
+                      <span className="block font-display text-5xl font-extrabold text-green">{c.value}</span>
+                      <span className="text-ink-soft">{c.label}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <div className="mt-10 flex flex-wrap gap-3">
+                <a href={waUrl("booking")} target="_blank" rel="noopener noreferrer" data-track="whatsapp_click" data-track-location="about_hero" className="btn btn-primary">
+                  Let&apos;s talk about your goals
+                </a>
+                <Link href="/services" className="btn btn-ghost">
+                  How I can help
+                </Link>
               </div>
             </div>
-          </section>
 
-          <section className="py-20 bg-slate-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="font-serif text-3xl font-bold text-slate-900 mb-8 text-center">My Approach</h2>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                {[
-                  { step: "01", title: "Assessment", desc: "Comprehensive health history, dietary analysis, and goal setting." },
-                  { step: "02", title: "Planning", desc: "Personalized nutrition plan tailored to your lifestyle and preferences." },
-                  { step: "03", title: "Education", desc: "Learn the science behind your plan and how to make it work for you." },
-                  { step: "04", title: "Monitoring", desc: "Regular follow-ups and adjustments for optimal results." },
-                ].map((item) => (
-                  <div key={item.step} className="bg-white border border-slate-200 rounded-2xl p-8 text-center hover:shadow-lg transition-all">
-                    <div className="w-12 h-12 bg-[#6A431C] rounded-xl flex items-center justify-center text-white font-bold mx-auto mb-4">{item.step}</div>
-                    <h3 className="font-semibold text-slate-900 mb-2">{item.title}</h3>
-                    <p className="text-sm text-slate-600">{item.desc}</p>
-                  </div>
-                ))}
+            <div className="relative mx-auto w-full max-w-sm lg:col-span-5">
+              <HappyPlate className="absolute -right-8 -top-10 z-10 h-28 w-28 rotate-12" />
+              <div className="relative rotate-[2deg] rounded-[1.5rem] border-[3px] border-ink bg-paper p-3 pb-14 shadow-[8px_8px_0_0_var(--color-green)]">
+                <Image
+                  src={portraitFull}
+                  alt="Irika Goyal, clinical dietitian, standing outdoors among tropical plants"
+                  placeholder="blur"
+                  preload
+                  sizes="(min-width: 1024px) 384px, 90vw"
+                  className="h-auto w-full rounded-[1rem]"
+                />
+                <p className="hand absolute bottom-3 left-0 right-0 text-center text-2xl text-coral-deep">that&apos;s me — say hi!</p>
               </div>
+              <CurlyArrow className="absolute -left-14 bottom-24 hidden h-16 w-20 -scale-x-100 lg:block" />
             </div>
-          </section>
-        </main>
-        <Footer />
-      </div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="beliefs-title" className="bg-green py-20 text-cream sm:py-28">
+        <div className="wrap">
+          <p className="eyebrow text-butter!">What I believe</p>
+          <h2 id="beliefs-title" className="mt-4 max-w-3xl text-display-l">
+            Nutrition care should feel like a <span className="em text-butter">conversation</span>, not a lecture.
+          </h2>
+          <ul className="mt-14 grid gap-10 sm:grid-cols-2">
+            {beliefs.map((b, i) => (
+              <li key={b.title} className="reveal flex gap-5">
+                <Sparkle className="mt-1 h-7 w-7 flex-none" color={i % 2 ? "var(--color-coral)" : "var(--color-butter)"} />
+                <div>
+                  <h3 className="text-display-s">{b.title}</h3>
+                  <p className="mt-2 text-lg text-cream/85">{b.body}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {qualifications.length > 0 && (
+        <section aria-labelledby="qualifications-title" className="wrap py-20">
+          <p className="eyebrow">Qualifications</p>
+          <h2 id="qualifications-title" className="mt-4 text-display-m">
+            Training &amp; credentials
+          </h2>
+          <ul className="mt-8 divide-y-2 divide-ink/10 border-y-2 border-ink">
+            {qualifications.map((q) => (
+              <li key={q.title} className="flex flex-wrap justify-between gap-2 py-4">
+                <span className="font-display text-xl font-bold">{q.title}</span>
+                <span className="text-ink-soft">
+                  {q.institution}
+                  {q.year ? `, ${q.year}` : ""}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <section aria-labelledby="help-title" className="wrap py-20 sm:py-24">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.4fr]">
+          <div>
+            <p className="eyebrow">How I can help</p>
+            <h2 id="help-title" className="mt-4 text-display-m">
+              Where I work with people most
+            </h2>
+            <p className="mt-4 text-ink-soft">
+              {serviceArea.online} {serviceArea.inPersonNote}
+            </p>
+          </div>
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {serviceCategories.map((c) => (
+              <li key={c.id}>
+                <Link href={`/services#${c.id}`} className="group block h-full rounded-3xl border-2 border-ink/10 bg-paper p-6 transition-colors hover:border-ink">
+                  <span className="font-display text-xl font-bold group-hover:text-green">{c.title}</span>
+                  <span className="mt-2 block text-ink-soft">{c.blurb}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <Approach headingId="about-approach" />
+      <Stories headingId="about-stories" />
+      <InstagramStrip headingId="about-instagram" />
+
+      <section aria-labelledby="elsewhere-title" className="wrap pb-4">
+        <div className="flex flex-wrap items-center justify-between gap-6 rounded-[2rem] bg-butter-soft p-8">
+          <h2 id="elsewhere-title" className="text-display-s">
+            Irika&apos;s professional profile
+          </h2>
+          <a href={social.linkedin} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+            View on LinkedIn
+          </a>
+        </div>
+      </section>
+
+      <CtaBand waHref={waUrl("booking")} location="about" />
     </>
   )
 }

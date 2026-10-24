@@ -1,17 +1,24 @@
-const PHONE = "919833640891"
+import { contact } from "./site"
 
-const messages: Record<string, string> = {
-  default: "Hi! I'd like to know more about your nutrition consultation services.",
-  booking: "Hi! I'd like to book a consultation with Dt. Irika Goyal. Can you please share the available slots and pricing?",
-  discuss: "Hi! I'd like to discuss my health needs with Dt. Irika Goyal. Can you help me with more details?",
-  schedule: "Hi! I'd like to schedule a consultation. Could you share the available timings?",
-  weightLoss: "Hi! I'm interested in your weight loss diet plan. Can you share more details?",
-  pcos: "Hi! I'm interested in your PCOS diet plan. Can you share more details?",
-  diabetes: "Hi! I'm interested in your diabetes diet plan. Can you share more details?",
-  gutHealth: "Hi! I'm interested in your gut health diet plan. Can you share more details?",
+const messages = {
+  default: "Hi Irika! I'd like to know more about your nutrition consultations.",
+  booking: "Hi Irika! I'd like to talk about my goals and book a consultation. Could you share available slots and fees?",
+  discuss: "Hi Irika! I'd like to discuss my health needs. Could you tell me how a consultation works?",
+  online: "Hi Irika! I'm interested in an online consultation. Could you share how it works and the fees?",
+  inPerson: "Hi Irika! I'd like an in-person consultation in Mumbai. Could you share available slots and fees?",
+  corporate: "Hi Irika! I'd like to discuss a corporate wellness session for our team.",
+} as const
+
+export type WhatsAppIntent = keyof typeof messages
+
+export function waUrl(intent: WhatsAppIntent = "default"): string {
+  return waUrlWithText(messages[intent])
 }
 
-export function waUrl(key: keyof typeof messages = "default"): string {
-  const text = encodeURIComponent(messages[key] || messages.default)
-  return `https://wa.me/${PHONE}?text=${text}`
+export function waUrlForService(serviceName: string): string {
+  return waUrlWithText(`Hi Irika! I'm interested in nutrition support for ${serviceName.toLowerCase()}. Could you share how you can help and the fees?`)
+}
+
+export function waUrlWithText(text: string): string {
+  return `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(text)}`
 }

@@ -1,132 +1,234 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { getBlogPostBySlug, getRecentBlogPosts } from "@/data/blog-outlines"
-import { services } from "@/data/services"
-import { locations } from "@/data/locations"
-import Header from "@/components/header"
-import Footer from "@/components/footer/Footer"
+import ArtIcon from "@/components/brand/ArtIcon"
+import ArticleBody from "@/components/sections/ArticleBody"
+import ArticleCard from "@/components/sections/ArticleCard"
+import CtaBand from "@/components/sections/CtaBand"
+import References from "@/components/sections/References"
+import Breadcrumbs from "@/components/ui-kit/Breadcrumbs"
+import FaqList from "@/components/ui-kit/FaqList"
+import JsonLd from "@/components/ui-kit/JsonLd"
+import { articles, getArticle, isReviewed, readingMinutes } from "@/data/articles"
+import { getServiceBySlug } from "@/data/services"
+import { formatDate } from "@/lib/format"
+import { faqEntities, ids, pageMetadata, webPageJson } from "@/lib/seo"
+import { absoluteUrl, person } from "@/lib/site"
+import { waUrl } from "@/lib/whatsapp"
 
 interface Props {
   params: Promise<{ slug: string }>
 }
 
-export async function generateStaticParams() {
-  return getRecentBlogPosts(5).map((p) => ({ slug: p.slug }))
+export const dynamicParams = false
+
+export function generateStaticParams() {
+  return articles.map((a) => ({ slug: a.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const post = getBlogPostBySlug(slug)
-  if (!post) return {}
-  return {
-    title: post.metaTitle,
-    description: post.metaDescription,
-    alternates: { canonical: `/blog/${slug}` },
-      openGraph: {
-        title: post.metaTitle,
-        description: post.metaDescription,
-        url: `https://www.healthelivingwithirika.com/blog/${slug}`,
-        siteName: "Nutrition by Irika Goyal",
-        images: [{ url: "https://www.healthelivingwithirika.com/brand-logo.PNG", width: 1200, height: 630 }],
-      },
-  }
+  const article = getArticle(slug)
+  if (!article) return {}
+  return pageMetadata({
+    title: article.metaTitle,
+    description: article.description,
+    path: `/blog/${slug}`,
+    type: "article",
+    publishedTime: article.published,
+    modifiedTime: article.updated,
+    // Health content is only offered to search engines once a qualified
+    // professional has reviewed it.
+    noindex: !isReviewed(article),
+    ownImage: true,
+  })
 }
 
-export default async function BlogPostPage({ params }: Props) {
+export default async function ArticlePage({ params }: Props) {
   const { slug } = await params
-  const post = getBlogPostBySlug(slug)
-  if (!post) notFound()
+  const article = getArticle(slug)
+  if (!article) notFound()
+
+  const path = `/blog/${slug}`
+  const url = absoluteUrl(path)
+  const reviewed = isReviewed(article)
+  const headings = article.body.filter((b) => b.type === "h2")
+  const relatedServices = article.relatedServices.map(getServiceBySlug).filter((s) => s !== undefined)
+  const more = articles.filter((a) => a.slug !== slug).slice(0, 3)
+  const crumbs = [
+    { name: "Home", path: "/" },
+    { name: "Journal", path: "/blog" },
+    { name: article.title, path },
+  ]
+
+  const jsonLd = webPageJson({
+    path,
+    name: article.metaTitle,
+    description: article.description,
+    crumbs,
+    type: "MedicalWebPage",
+    mainEntity: { "@id": `${url}#article` },
+    pageProps: article.review ? { reviewedBy: { "@id": ids.person }, lastReviewed: article.review.on } : undefined,
+    extra: [
+      {
+        "@type": "BlogPosting",
+        "@id": `${url}#article`,
+        headline: article.title,
+        description: article.description,
+        url,
+        mainEntityOfPage: { "@id": `${url}#webpage` },
+        image: `${url}/opengraph-image/card`,
+        datePublished: article.published,
+        dateModified: article.updated,
+        inLanguage: "en-IN",
+        articleSection: article.category.name,
+        author: { "@id": ids.organization },
+        publisher: { "@id": ids.organization },
+        citation: article.references.map((r) => r.url),
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        mainEntity: faqEntities(article.faqs),
+      },
+    ],
+  })
 
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
-      <Header />
-      <main>
-        <article className="pt-32 pb-20">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav className="mb-8 text-sm text-slate-500">
-              <Link href="/" className="hover:text-[#6A431C]">Home</Link>
-              <span className="mx-2">/</span>
-              <Link href="/blog" className="hover:text-[#6A431C]">Blog</Link>
-              <span className="mx-2">/</span>
-              <span className="text-[#6A431C] font-medium">{post.title}</span>
-            </nav>
+    <>
+      <JsonLd data={jsonLd} />
 
-            <span className="text-xs font-semibold text-[#6A431C] uppercase tracking-wider">{post.category}</span>
-            <h1 className="font-serif text-4xl sm:text-5xl font-bold text-slate-900 mt-3 mb-6">{post.h1}</h1>
-            <p className="text-lg text-slate-600 mb-8">{post.intro}</p>
-
-            <div className="prose prose-slate max-w-none">
-              {post.headings.map((heading, i) => (
-                <div key={i} className="mb-8">
-                  <h2 className="font-serif text-2xl font-bold text-slate-900 mb-4">{heading}</h2>
-                  <p className="text-slate-600 leading-relaxed">
-                    {post.title} is an important topic in {post.category.toLowerCase()} nutrition. 
-                    Dt. Irika Goyal provides expert guidance on this subject, helping you make informed 
-                    decisions about your health and dietary choices. This section covers key aspects 
-                    that you need to understand for better health outcomes.
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-12 p-6 bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-200 rounded-2xl">
-              <h3 className="font-serif text-xl font-bold text-slate-900 mb-3">Need Personalized Guidance?</h3>
-              <p className="text-slate-600 mb-4">
-                Book a one-on-one consultation with Dt. Irika Goyal for a personalized nutrition plan tailored to your needs.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <a
-                  href="https://wa.me/919833640891"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#6A431C] text-white rounded-lg hover:bg-[#5A3715] transition-colors font-medium text-sm"
-                >
-                  Book Consultation
-                </a>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-[#6A431C] text-[#6A431C] rounded-lg hover:bg-[#6A431C] hover:text-white transition-colors font-medium text-sm"
-                >
-                  Contact Us
+      <article>
+        <header className="bg-cream">
+          <div className="wrap pb-12 pt-8 sm:pb-16 sm:pt-10">
+            <Breadcrumbs crumbs={crumbs} />
+            <div className="mt-10 grid items-end gap-10 lg:grid-cols-[1.6fr_1fr]">
+              <div>
+                <Link href={`/blog/category/${article.category.slug}`} className="chip">
+                  {article.category.name}
                 </Link>
+                <h1 className="mt-5 text-display-l">{article.title}</h1>
+                <p className="mt-6 max-w-2xl text-lede text-ink-soft">{article.description}</p>
+                <p className="mt-6 flex flex-wrap gap-x-4 gap-y-1 text-sm font-semibold text-ink-soft">
+                  <span>
+                    Published <time dateTime={article.published}>{formatDate(article.published)}</time>
+                  </span>
+                  {article.updated !== article.published && (
+                    <span>
+                      Updated <time dateTime={article.updated}>{formatDate(article.updated)}</time>
+                    </span>
+                  )}
+                  <span>{readingMinutes(article)} min read</span>
+                </p>
               </div>
-            </div>
-
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-5 bg-white border border-slate-200 rounded-2xl">
-                <h4 className="font-semibold text-slate-900 mb-3 text-sm uppercase tracking-wider">Related Services</h4>
-                <div className="flex flex-wrap gap-2">
-                  {services.slice(0, 5).map((s) => (
-                    <Link
-                      key={s.slug}
-                      href={`/services/${s.slug}`}
-                      className="text-xs px-3 py-1.5 bg-yellow-50 border border-yellow-200 rounded-full text-[#6A431C] hover:bg-[#6A431C] hover:text-white transition-colors"
-                    >
-                      {s.shortName}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-              <div className="p-5 bg-white border border-slate-200 rounded-2xl">
-                <h4 className="font-semibold text-slate-900 mb-3 text-sm uppercase tracking-wider">Available in</h4>
-                <div className="flex flex-wrap gap-2">
-                  {locations.slice(0, 6).map((l) => (
-                    <Link
-                      key={l.slug}
-                      href={`/locations/${l.slug}`}
-                      className="text-xs px-3 py-1.5 bg-yellow-50 border border-yellow-200 rounded-full text-[#6A431C] hover:bg-[#6A431C] hover:text-white transition-colors"
-                    >
-                      {l.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
+              <ArtIcon name={article.art} tone={2} className="bob mx-auto hidden h-56 w-56 lg:block" />
             </div>
           </div>
-        </article>
-      </main>
-      <Footer />
-    </div>
+        </header>
+
+        <div className="wrap grid gap-12 py-12 lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-16 lg:py-16">
+          <div className="min-w-0">
+            {reviewed && article.review ? (
+              <p className="flex flex-wrap items-center gap-2 rounded-2xl bg-mint px-5 py-4 text-[0.95rem]">
+                <svg viewBox="0 0 20 20" className="h-5 w-5 text-green" aria-hidden="true">
+                  <path d="M3 11c2 1 4 3 5 5 2-5 5-9 9-12" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+                </svg>
+                <span>
+                  Medically reviewed by{" "}
+                  <Link href="/about" className="font-bold underline underline-offset-4">
+                    {person.displayName}
+                  </Link>
+                  , {person.jobTitle}, on <time dateTime={article.review.on}>{formatDate(article.review.on)}</time>.
+                </span>
+              </p>
+            ) : (
+              <p className="rounded-2xl border-2 border-dashed border-coral-deep/60 bg-paper px-5 py-4 text-[0.95rem]">
+                <strong>Awaiting clinical review.</strong> This article is being reviewed by {person.displayName} and is shared as general
+                information in the meantime.
+              </p>
+            )}
+
+            <section aria-labelledby="short-answer" className="mt-8 rounded-[1.75rem] bg-butter p-6 sm:p-8">
+              <h2 id="short-answer" className="hand text-3xl text-ink">
+                the short answer
+              </h2>
+              <p className="mt-2 text-lg leading-relaxed">{article.shortAnswer}</p>
+            </section>
+
+            <div className="mt-10">
+              <ArticleBody blocks={article.body} />
+            </div>
+
+            <section aria-labelledby="article-faq" className="mt-16">
+              <h2 id="article-faq" className="mb-6 text-display-s">
+                Frequently asked questions
+              </h2>
+              <FaqList faqs={article.faqs} />
+            </section>
+
+            <div className="mt-14">
+              <References items={article.references} />
+            </div>
+
+            <p className="mt-8 text-sm text-ink-soft">
+              This article is general, educational information and not personal medical advice. If you have a health condition, are pregnant or
+              take medication, please speak to your doctor or a qualified dietitian before changing your diet. See the{" "}
+              <Link href="/medical-disclaimer" className="underline underline-offset-4">
+                medical disclaimer
+              </Link>
+              .
+            </p>
+          </div>
+
+          <aside className="lg:sticky lg:top-28 lg:self-start">
+            <nav aria-labelledby="toc-title" className="rounded-3xl bg-paper p-6">
+              <h2 id="toc-title" className="font-sans text-xs font-bold uppercase tracking-[0.16em] text-green">
+                In this article
+              </h2>
+              <ol className="mt-4 space-y-2.5 text-[0.95rem]">
+                {headings.map((h) =>
+                  h.type === "h2" ? (
+                    <li key={h.id}>
+                      <a href={`#${h.id}`} className="hover:text-green hover:underline">
+                        {h.text}
+                      </a>
+                    </li>
+                  ) : null,
+                )}
+              </ol>
+            </nav>
+            {relatedServices.length > 0 && (
+              <div className="mt-6 rounded-3xl bg-mint p-6">
+                <p className="font-display text-lg font-bold">Want help putting this into practice?</p>
+                <ul className="mt-3 space-y-2">
+                  {relatedServices.map((s) => (
+                    <li key={s.slug}>
+                      <Link href={`/services/${s.slug}`} className="font-semibold text-green underline underline-offset-4">
+                        {s.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </aside>
+        </div>
+      </article>
+
+      <section aria-labelledby="more-title" className="bg-cream-deep py-16 sm:py-20">
+        <div className="wrap">
+          <h2 id="more-title" className="text-display-m">
+            More from the journal
+          </h2>
+          <div className="mt-10 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+            {more.map((a, i) => (
+              <ArticleCard key={a.slug} article={a} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CtaBand waHref={waUrl("discuss")} location={`article_${slug}`} />
+    </>
   )
 }

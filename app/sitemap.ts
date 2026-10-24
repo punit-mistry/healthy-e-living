@@ -1,29 +1,36 @@
 import type { MetadataRoute } from "next"
-import { locationSlugs } from "@/data/locations"
-import { serviceSlugs } from "@/data/services"
+import { articles, isReviewed } from "@/data/articles"
+import { locations } from "@/data/locations"
+import { isResourceIndexable, resources } from "@/data/resources"
+import { services } from "@/data/services"
+import { absoluteUrl } from "@/lib/site"
 
+/** Bump when page copy meaningfully changes, so lastmod stays truthful. */
+const CONTENT_UPDATED = "2026-10-24"
+
+/**
+ * Canonical, indexable URLs only. Anything rendered with `noindex`
+ * (unreviewed articles, thin location pages, topic archives) is excluded.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.healthelivingwithirika.com"
+  const page = (path: string, lastModified = CONTENT_UPDATED) => ({ url: absoluteUrl(path), lastModified })
 
-  const staticPages = [
-    { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 1 },
-    { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.8 },
-    { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.7 },
+  return [
+    page("/"),
+    page("/about"),
+    page("/services"),
+    ...services.map((s) => page(`/services/${s.slug}`)),
+    page("/consultation"),
+    page("/blog"),
+    ...articles.filter(isReviewed).map((a) => page(`/blog/${a.slug}`, a.updated)),
+    page("/resources"),
+    ...resources.filter(isResourceIndexable).map((r) => page(`/resources/${r.slug}`, r.updated)),
+    page("/faq"),
+    page("/contact"),
+    page("/locations"),
+    ...locations.filter((l) => l.indexable).map((l) => page(`/locations/${l.slug}`)),
+    page("/privacy"),
+    page("/terms"),
+    page("/medical-disclaimer"),
   ]
-
-  const locationPages = locationSlugs.map((slug) => ({
-    url: `${baseUrl}/locations/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }))
-
-  const servicePages = serviceSlugs.map((slug) => ({
-    url: `${baseUrl}/services/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }))
-
-  return [...staticPages, ...locationPages, ...servicePages]
 }

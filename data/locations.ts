@@ -1,607 +1,317 @@
+/**
+ * Location pages.
+ *
+ * Every URL that existed before the redesign is preserved. A location is
+ * indexable only when it has its own local content below — a page that is
+ * genuinely about that place, not a find-and-replace copy. Sub-areas without
+ * local content (e.g. Borivali West) stay live as `noindex, follow` pages that
+ * link up to their main area.
+ *
+ * Honesty rules for this file:
+ * - In-person sessions happen in Mumbai; the exact location is shared on
+ *   booking. Never imply a clinic in a specific suburb unless one exists.
+ * - Cities outside the Mumbai region are served online only.
+ * - Local notes use general, well-known facts about a place — never claims
+ *   about local clients, results or rankings.
+ */
+
+export type District = "Mumbai City" | "Mumbai Suburban" | "Thane" | "Raigad" | "India"
+
+export interface LocalContent {
+  intro: string
+  tips: { title: string; body: string }[]
+}
+
 export interface LocationInfo {
   slug: string
   name: string
-  area: string
-  city: string
-  district: string
-  pincode: string
-  description: string
-  metaTitle: string
-  metaDescription: string
-  h1: string
-  intro: string
-  image: string
+  district: District
+  /** Parent area for sub-areas, e.g. borivali-west → borivali. */
+  parent?: string
+  indexable: boolean
+  local?: LocalContent
 }
 
-export const locations: LocationInfo[] = [
-  {
-    slug: "mumbai",
-    name: "Mumbai",
-    area: "Mumbai City",
-    city: "Mumbai",
-    district: "Mumbai City",
-    pincode: "400001",
-    description: "Mumbai, the city of dreams, where health meets hustle. As a clinical dietitian serving Mumbai, I provide personalized nutrition counseling for weight management, PCOS, diabetes, gut health, and more.",
-    metaTitle: "Best Dietitian in Mumbai | Clinical Nutritionist | Healthy E Living",
-    metaDescription: "Looking for the best dietitian in Mumbai? Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book your consultation today!",
-    h1: "Best Dietitian in Mumbai – Personalized Nutrition by Dt. Irika Goyal",
-    intro: "Mumbai never stops moving, and neither do your nutritional needs. Whether you're a busy professional in Bandra Kurla Complex, a fitness enthusiast in Andheri, or a growing family in Borivali, I provide customized dietary plans that fit your lifestyle, medical history, and health goals.",
-    image: "/placeholder.jpg",
+const rows: [slug: string, name: string, district: District, parent?: string][] = [
+  ["mumbai", "Mumbai", "Mumbai City"],
+  ["borivali", "Borivali", "Mumbai Suburban"],
+  ["borivali-west", "Borivali West", "Mumbai Suburban", "borivali"],
+  ["borivali-east", "Borivali East", "Mumbai Suburban", "borivali"],
+  ["malad", "Malad", "Mumbai Suburban"],
+  ["malad-west", "Malad West", "Mumbai Suburban", "malad"],
+  ["malad-east", "Malad East", "Mumbai Suburban", "malad"],
+  ["kandivali", "Kandivali", "Mumbai Suburban"],
+  ["kandivali-west", "Kandivali West", "Mumbai Suburban", "kandivali"],
+  ["kandivali-east", "Kandivali East", "Mumbai Suburban", "kandivali"],
+  ["andheri", "Andheri", "Mumbai Suburban"],
+  ["andheri-west", "Andheri West", "Mumbai Suburban", "andheri"],
+  ["andheri-east", "Andheri East", "Mumbai Suburban", "andheri"],
+  ["goregaon", "Goregaon", "Mumbai Suburban"],
+  ["jogeshwari", "Jogeshwari", "Mumbai Suburban", "andheri"],
+  ["mira-road", "Mira Road", "Thane"],
+  ["bhayander", "Bhayander", "Thane"],
+  ["dahisar", "Dahisar", "Mumbai Suburban"],
+  ["santacruz", "Santacruz", "Mumbai Suburban", "bandra"],
+  ["bandra", "Bandra", "Mumbai Suburban"],
+  ["powai", "Powai", "Mumbai Suburban"],
+  ["mulund", "Mulund", "Mumbai Suburban", "thane"],
+  ["ghatkopar", "Ghatkopar", "Mumbai Suburban", "powai"],
+  ["thane", "Thane", "Thane"],
+  ["navi-mumbai", "Navi Mumbai", "Thane"],
+  ["vashi", "Vashi", "Thane", "navi-mumbai"],
+  ["airoli", "Airoli", "Thane", "navi-mumbai"],
+  ["kharghar", "Kharghar", "Raigad", "navi-mumbai"],
+  ["panvel", "Panvel", "Raigad", "navi-mumbai"],
+  ["chembur", "Chembur", "Mumbai Suburban", "mumbai"],
+  ["dadar", "Dadar", "Mumbai City", "mumbai"],
+  ["lower-parel", "Lower Parel", "Mumbai City", "mumbai"],
+  ["colaba", "Colaba", "Mumbai City", "mumbai"],
+  ["churchgate", "Churchgate", "Mumbai City", "mumbai"],
+  ["worli", "Worli", "Mumbai City", "mumbai"],
+  ["juhu", "Juhu", "Mumbai Suburban", "andheri"],
+  ["versova", "Versova", "Mumbai Suburban", "andheri"],
+  ["bkc", "BKC", "Mumbai Suburban", "bandra"],
+  ["prabhadevi", "Prabhadevi", "Mumbai City", "mumbai"],
+  ["matunga", "Matunga", "Mumbai City", "mumbai"],
+  ["sion", "Sion", "Mumbai City", "mumbai"],
+  ["kurla", "Kurla", "Mumbai Suburban", "mumbai"],
+  // Major Indian cities — online consultations only.
+  ["delhi", "Delhi", "India"],
+  ["gurugram", "Gurugram", "India"],
+  ["noida", "Noida", "India"],
+  ["bengaluru", "Bengaluru", "India"],
+  ["hyderabad", "Hyderabad", "India"],
+  ["chennai", "Chennai", "India"],
+  ["kolkata", "Kolkata", "India"],
+  ["pune", "Pune", "India"],
+  ["ahmedabad", "Ahmedabad", "India"],
+  ["jaipur", "Jaipur", "India"],
+  ["lucknow", "Lucknow", "India"],
+  ["chandigarh", "Chandigarh", "India"],
+]
+
+const local: Record<string, LocalContent> = {
+  /* ---------------------------------------------------- Mumbai region */
+  mumbai: {
+    intro: "Mumbai runs on long commutes, packed calendars and some of the best street food in the country. Your plan should work with that, not against it.",
+    tips: [
+      { title: "Long commutes", body: "Hours on the train or in traffic make meal timing tricky. We plan portable breakfasts and snacks — and a dabba that actually travels well." },
+      { title: "Street-food city", body: "Vada pav, pav bhaji and chaat are part of life here. We work out how and when they fit, instead of pretending they don't exist." },
+      { title: "Heat, humidity & monsoon", body: "Sticky summers mean higher fluid needs; the monsoon brings food-safety questions and comfort cravings. Both get planned for." },
+      { title: "Festival season", body: "From Ganeshotsav modaks to Diwali sweets and wedding season, we plan for celebrations rather than around them." },
+    ],
   },
-  {
-    slug: "borivali",
-    name: "Borivali",
-    area: "Borivali",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400092",
-    description: "Borivali, a vibrant suburb of Mumbai, deserves access to top-tier nutrition counseling. I help Borivali residents achieve their health goals with evidence-based diet plans.",
-    metaTitle: "Best Dietitian in Borivali | Top Nutritionist | Healthy E Living",
-    metaDescription: "Looking for the best dietitian in Borivali? Dt. Irika Goyal provides expert nutrition counseling for weight loss, PCOS, diabetes & more in Borivali West & East.",
-    h1: "Best Dietitian in Borivali – Expert Nutrition Counseling",
-    intro: "Borivali is one of Mumbai's largest suburbs, and its residents deserve personalized nutrition care. From Borivali West to Borivali East, I help you achieve sustainable health transformations through customized diet plans.",
-    image: "/placeholder.jpg",
+  borivali: {
+    intro: "Borivali mornings often start with a walk near Sanjay Gandhi National Park and end with a long ride home on the Western line. Good nutrition here means fitting around both.",
+    tips: [
+      { title: "Walkers and early risers", body: "If your day starts with a walk or a workout, we plan what to have before (if anything) and a breakfast that actually refuels you afterwards." },
+      { title: "Western line days", body: "Long rides into town mean breakfast on the go and lunch from a dabba. We build both to keep you full through the commute." },
+      { title: "Gujarati and Maharashtrian kitchens", body: "Thepla, dhokla, poha, varan-bhaat — the dishes many Borivali homes cook every day stay on the menu, with smarter portions and pairings." },
+    ],
   },
-  {
-    slug: "borivali-west",
-    name: "Borivali West",
-    area: "Borivali West",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400103",
-    description: "Borivali West residents can now access expert dietitian services for weight management, PCOS, diabetes, and overall wellness through personalized nutrition plans.",
-    metaTitle: "Dietitian in Borivali West | Nutritionist | Healthy E Living",
-    metaDescription: "Find the best dietitian in Borivali West. Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & gut health. Book online!",
-    h1: "Dietitian in Borivali West – Your Partner in Health",
-    intro: "Living in Borivali West? I provide personalized nutrition counseling tailored to your lifestyle and health needs. Let's work together to achieve your wellness goals.",
-    image: "/placeholder.jpg",
+  kandivali: {
+    intro: "Kandivali is busy family territory — school runs, tuition timings and a commute for most of the household. The best plan is one the whole family can share.",
+    tips: [
+      { title: "Family-first meals", body: "One kitchen, several needs. We make one menu work for a diabetic parent, a growing child and you, rather than cooking three separate meals." },
+      { title: "School tiffins", body: "Quick, packable tiffin ideas that children actually eat, without relying on packaged snacks." },
+      { title: "Evening snack lanes", body: "Local snack stalls are part of the fun. We plan for the occasional plate rather than banning it." },
+    ],
   },
-  {
-    slug: "borivali-east",
-    name: "Borivali East",
-    area: "Borivali East",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400066",
-    description: "Borivali East residents can achieve their health goals with customized nutrition plans from a clinical dietitian specializing in medical nutrition therapy.",
-    metaTitle: "Dietitian in Borivali East | Nutritionist | Healthy E Living",
-    metaDescription: "Looking for a dietitian in Borivali East? Dt. Irika Goyal offers expert nutrition counseling for weight loss, diabetes, PCOS & more. Book your session today!",
-    h1: "Dietitian in Borivali East – Science-Based Nutrition Care",
-    intro: "Borivali East is home to many families and professionals seeking better health. I provide tailored nutrition plans that fit your unique needs and busy schedule.",
-    image: "/placeholder.jpg",
+  malad: {
+    intro: "Between Malad's office parks, malls and busy markets, many days are spent eating at a desk or a food court. We make those meals count.",
+    tips: [
+      { title: "Office-park lunches", body: "Canteen, cafeteria or order-in — we work out the best choices from what's actually available near your desk." },
+      { title: "Food-court weekends", body: "Mall outings don't have to undo the week. A few simple rules make food courts and restaurants easy to navigate." },
+      { title: "Late shifts", body: "If you work evening or night shifts, meal timing matters as much as meal content. We plan around your hours." },
+    ],
   },
-  {
-    slug: "malad",
-    name: "Malad",
-    area: "Malad",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400064",
-    description: "Malad residents can access premium dietitian services. Whether you need weight loss, PCOS management, or diabetes control, I create plans that work for you.",
-    metaTitle: "Best Dietitian in Malad | Nutritionist | Healthy E Living",
-    metaDescription: "Searching for a dietitian in Malad? Dt. Irika Goyal provides personalized nutrition plans for weight loss, PCOS, diabetes & gut health in Malad West & East.",
-    h1: "Best Dietitian in Malad – Transform Your Health Today",
-    intro: "Malad is a bustling suburb with diverse nutritional needs. From Malad West to Malad East, I offer personalized diet plans to help you achieve lasting health.",
-    image: "/placeholder.jpg",
+  goregaon: {
+    intro: "From studio shoots to office towers along the highway, Goregaon keeps unusual hours. Nutrition needs to flex with your schedule.",
+    tips: [
+      { title: "Irregular schedules", body: "Shoots, shifts and long meetings make regular mealtimes impossible. We build a flexible rhythm instead of a rigid clock." },
+      { title: "Green escapes", body: "Aarey's tree-lined roads are a favourite for walks and cycling. We match your fuel to your activity." },
+      { title: "Set catering and craft services", body: "If you eat what's provided at work, we work out how to choose well from it." },
+    ],
   },
-  {
-    slug: "malad-west",
-    name: "Malad West",
-    area: "Malad West",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400095",
-    description: "Malad West dietitian services for weight management, therapeutic diets, and wellness optimization. Get expert guidance from a qualified clinical nutritionist.",
-    metaTitle: "Dietitian in Malad West | Nutritionist | Healthy E Living",
-    metaDescription: "Find a trusted dietitian in Malad West. Dt. Irika Goyal offers customized nutrition plans for weight loss, PCOS, diabetes & more. Book online consultation!",
-    h1: "Dietitian in Malad West – Personalized Nutrition Plans",
-    intro: "Malad West residents deserve access to expert nutrition care. I provide personalized dietary solutions that fit your lifestyle and health goals.",
-    image: "/placeholder.jpg",
+  andheri: {
+    intro: "Andheri is Mumbai at full speed — the Metro, the airport, media offices and cafés that stay open late. We plan for a life that rarely slows down.",
+    tips: [
+      { title: "Late nights", body: "Late shoots, late meetings and late dinners are common. We plan lighter evening meals and smarter snacks that don't wreck your sleep." },
+      { title: "Café culture", body: "Lokhandwala and Versova cafés are part of the social calendar. Simple swaps keep coffee catch-ups enjoyable." },
+      { title: "Frequent travellers", body: "Living near the airport often means flying a lot. We build a travel kit and airport-food strategy you can repeat every trip." },
+    ],
   },
-  {
-    slug: "malad-east",
-    name: "Malad East",
-    area: "Malad East",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400097",
-    description: "Malad East nutritionist offering evidence-based dietary counseling for weight loss, PCOS, diabetes, thyroid disorders, and digestive health.",
-    metaTitle: "Dietitian in Malad East | Nutritionist | Healthy E Living",
-    metaDescription: "Looking for a dietitian in Malad East? Dt. Irika Goyal provides science-based nutrition plans for weight loss, PCOS, diabetes & gut health. Book now!",
-    h1: "Dietitian in Malad East – Evidence-Based Nutrition",
-    intro: "Whether you live in Malad East or work nearby, I offer flexible nutrition counseling to help you achieve your health goals without compromising your lifestyle.",
-    image: "/placeholder.jpg",
+  dahisar: {
+    intro: "At Mumbai's northern edge, Dahisar mixes family homes with long commutes into the city. Your plan needs to work from your own kitchen.",
+    tips: [
+      { title: "Home-cooked first", body: "Most meals here are cooked at home, which is a real advantage. We tune familiar recipes rather than replacing them." },
+      { title: "Commuter breakfasts", body: "Early departures call for breakfasts you can eat quickly or carry, with enough protein to last until lunch." },
+      { title: "Online when it's easier", body: "If a trip into town for a session doesn't suit you, online follow-ups keep your plan on track." },
+    ],
   },
-  {
-    slug: "kandivali",
-    name: "Kandivali",
-    area: "Kandivali",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400067",
-    description: "Kandivali dietitian offering personalized nutrition therapy for weight management, chronic disease management, and overall wellness optimization.",
-    metaTitle: "Best Dietitian in Kandivali | Nutritionist | Healthy E Living",
-    metaDescription: "Searching for a dietitian in Kandivali? Dt. Irika Goyal offers customized nutrition plans for weight loss, PCOS, diabetes & more in Kandivali West & East.",
-    h1: "Best Dietitian in Kandivali – Your Health Journey Starts Here",
-    intro: "Kandivali is a thriving suburb where health and wellness matter. I provide personalized nutrition plans that respect your cultural preferences and health requirements.",
-    image: "/placeholder.jpg",
+  "mira-road": {
+    intro: "Mira Road has grown into a busy township of young families, many of whom commute into Mumbai every day. Time is the scarcest ingredient.",
+    tips: [
+      { title: "Time-saving meal prep", body: "Batch-cooked dals, chopped vegetables and ready chutneys make weekday dinners quick without turning to takeaway." },
+      { title: "Weekend eating out", body: "Weekend outings are part of family life. We plan for them so they fit the week rather than reset it." },
+      { title: "Online or in Mumbai", body: "Online sessions save the commute; in-person sessions are held in Mumbai if you prefer to meet." },
+    ],
   },
-  {
-    slug: "kandivali-west",
-    name: "Kandivali West",
-    area: "Kandivali West",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400067",
-    description: "Kandivali West dietitian providing expert nutrition counseling for weight loss, PCOS, diabetes management, and gut health optimization.",
-    metaTitle: "Dietitian in Kandivali West | Nutritionist | Healthy E Living",
-    metaDescription: "Find the best dietitian in Kandivali West. Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book today!",
-    h1: "Dietitian in Kandivali West – Expert Care, Real Results",
-    intro: "Kandivali West residents can now access professional nutrition counseling without traveling far. I offer both online and in-person consultations.",
-    image: "/placeholder.jpg",
+  bhayander: {
+    intro: "From the fishing villages of Uttan to busy station markets, Bhayander's kitchens range from fresh seafood to strictly vegetarian and Jain homes. Plans here have to respect both.",
+    tips: [
+      { title: "Fresh fish, cooked well", body: "Local fish is an excellent source of protein. We look at portions and cooking methods — more curries and grills, fewer fries." },
+      { title: "Vegetarian and Jain plans", body: "For vegetarian and Jain households, we build protein from dals, dairy and other allowed foods, without onion or garlic where needed." },
+      { title: "Online or in Mumbai", body: "Most people in Bhayander choose online sessions; in-person sessions are held in Mumbai if you'd rather meet." },
+    ],
   },
-  {
-    slug: "kandivali-east",
-    name: "Kandivali East",
-    area: "Kandivali East",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400101",
-    description: "Kandivali East clinical dietitian offering specialized nutrition therapy for weight management, therapeutic diets, and preventive healthcare.",
-    metaTitle: "Dietitian in Kandivali East | Nutritionist | Healthy E Living",
-    metaDescription: "Looking for a dietitian in Kandivali East? Dt. Irika Goyal offers science-based nutrition plans for weight loss, diabetes, PCOS & more. Book online!",
-    h1: "Dietitian in Kandivali East – Science Meets Nutrition",
-    intro: "Kandivali East is a growing residential area where health awareness is rising. I help residents make informed dietary choices for lasting health.",
-    image: "/placeholder.jpg",
+  bandra: {
+    intro: "Bandra eats out: bakeries, brunches and café-hopping, with evening walks along Carter Road and Bandstand. We keep the joy and add some balance.",
+    tips: [
+      { title: "Brunch and bakeries", body: "Weekend brunch and a local bakery habit can both fit. We look at frequency and pairing rather than cutting them out." },
+      { title: "Promenade walks", body: "Carter Road and Bandstand make daily walks easy. We plan meals that support the activity you already enjoy." },
+      { title: "Social calendars", body: "Dinners out and drinks with friends are common. A few go-to strategies make them stress-free." },
+    ],
   },
-  {
-    slug: "andheri",
-    name: "Andheri",
-    area: "Andheri",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400053",
-    description: "Andheri dietitian offering comprehensive nutrition services for busy professionals, families, and fitness enthusiasts across Andheri West and East.",
-    metaTitle: "Best Dietitian in Andheri | Nutritionist | Healthy E Living",
-    metaDescription: "Searching for a dietitian in Andheri? Dt. Irika Goyal provides personalized nutrition plans for weight loss, PCOS, diabetes & more. Book consultation now!",
-    h1: "Best Dietitian in Andheri – Nutrition for a Busy Life",
-    intro: "Andheri is the heart of Mumbai's corporate and entertainment world. I design nutrition plans that work with your hectic schedule, not against it.",
-    image: "/placeholder.jpg",
+  powai: {
+    intro: "Lakeside walks, tech campuses and student hostels — Powai's days are long and often spent at a desk. We plan food that keeps up.",
+    tips: [
+      { title: "Desk-bound days", body: "Long hours at a screen call for steady energy: protein at lunch, smart snacks and enough water." },
+      { title: "Hostel and PG eating", body: "Students and young professionals often eat what's served. We work with mess menus and simple add-ons." },
+      { title: "Lakeside activity", body: "Running or cycling around Powai Lake? We match fuel and recovery to your training." },
+    ],
   },
-  {
-    slug: "andheri-west",
-    name: "Andheri West",
-    area: "Andheri West",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400058",
-    description: "Andheri West dietitian providing expert nutrition counseling for weight management, PCOS, diabetes, and sports nutrition optimization.",
-    metaTitle: "Dietitian in Andheri West | Nutritionist | Healthy E Living",
-    metaDescription: "Find a trusted dietitian in Andheri West. Dt. Irika Goyal offers customized nutrition plans for weight loss, PCOS, diabetes & gut health. Book today!",
-    h1: "Dietitian in Andheri West – Personalized Nutrition Care",
-    intro: "Andheri West is home to many professionals and families seeking better health. I provide flexible consultation options to fit your lifestyle.",
-    image: "/placeholder.jpg",
+  thane: {
+    intro: "Thane — the city of lakes — combines Central line commutes with a strong home-cooking tradition. Your plan can be built around both.",
+    tips: [
+      { title: "Central line commutes", body: "Early trains and late returns make dinner the biggest meal of the day. We rebalance so it isn't." },
+      { title: "Lake walks", body: "Upvan and Masunda lakes make walking an easy daily habit. Pair it with a plan, and it adds up." },
+      { title: "Misal and more", body: "Thane's famous misal can stay — with a few tweaks to portions, toppings and what comes alongside." },
+    ],
   },
-  {
-    slug: "andheri-east",
-    name: "Andheri East",
-    area: "Andheri East",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400069",
-    description: "Andheri East clinical dietitian offering medical nutrition therapy for chronic disease management, weight loss, and preventive health optimization.",
-    metaTitle: "Dietitian in Andheri East | Nutritionist | Healthy E Living",
-    metaDescription: "Looking for a dietitian in Andheri East? Dt. Irika Goyal offers science-based nutrition plans for weight loss, diabetes, PCOS & more. Book now!",
-    h1: "Dietitian in Andheri East – Evidence-Based Dietary Solutions",
-    intro: "Andheri East is a major commercial and residential hub. I help you navigate your nutrition journey with practical, sustainable diet plans.",
-    image: "/placeholder.jpg",
+  "navi-mumbai": {
+    intro: "Planned sectors, IT parks and some of the city's widest walking tracks make Navi Mumbai a great place to build healthy routines.",
+    tips: [
+      { title: "Seasonal produce", body: "With Vashi's huge APMC wholesale market nearby, fresh seasonal fruit and vegetables are easy to find and affordable. We plan menus around the seasons." },
+      { title: "IT-park routines", body: "Office shifts at business parks mean predictable days. We use that predictability to build a steady meal rhythm." },
+      { title: "Walking tracks and hills", body: "From Palm Beach Road to Kharghar's hills, there's space to move. We fuel the activity you enjoy." },
+    ],
   },
-  {
-    slug: "goregaon",
-    name: "Goregaon",
-    area: "Goregaon",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400062",
-    description: "Goregaon dietitian offering personalized nutrition plans for weight management, PCOS, diabetes, gut health, and overall wellness transformation.",
-    metaTitle: "Best Dietitian in Goregaon | Nutritionist | Healthy E Living",
-    metaDescription: "Searching for a dietitian in Goregaon? Dt. Irika Goyal provides customized nutrition plans for weight loss, PCOS, diabetes & more. Book consultation!",
-    h1: "Best Dietitian in Goregaon – Transform Your Health",
-    intro: "Goregaon is a vibrant suburb with diverse nutritional needs. I create customized diet plans that respect your health goals and cultural preferences.",
-    image: "/placeholder.jpg",
+
+  /* ------------------------------------------------ Indian cities (online) */
+  delhi: {
+    intro: "Delhi eats with gusto — parathas in winter, chole bhature on weekends and chaat on every corner. Online consultations bring personalised care to your Delhi kitchen.",
+    tips: [
+      { title: "Winter comfort food", body: "Parathas, gajar ka halwa and rich gravies are part of the season. We plan portions and pairings so winter doesn't undo the year." },
+      { title: "Street-food favourites", body: "Chole bhature and chaat can fit in a balanced week — we work out how often and with what." },
+      { title: "Poor air-quality days", body: "When pollution makes outdoor exercise a bad idea, we plan indoor activity and adjust meals to match." },
+    ],
   },
-  {
-    slug: "jogeshwari",
-    name: "Jogeshwari",
-    area: "Jogeshwari",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400060",
-    description: "Jogeshwari dietitian providing expert nutrition counseling for weight loss, therapeutic diets, and chronic disease prevention and management.",
-    metaTitle: "Dietitian in Jogeshwari | Nutritionist | Healthy E Living",
-    metaDescription: "Find the best dietitian in Jogeshwari. Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book online!",
-    h1: "Dietitian in Jogeshwari – Your Nutrition Partner",
-    intro: "Jogeshwari residents deserve access to quality nutrition care. I provide personalized dietary guidance to help you achieve your health goals.",
-    image: "/placeholder.jpg",
+  gurugram: {
+    intro: "Corporate towers, long commutes and food delivered to the desk — Gurugram's pace leaves little time to think about food. That's where a plan helps.",
+    tips: [
+      { title: "Desk lunches and delivery apps", body: "We build a shortlist of better choices from the delivery apps you already use." },
+      { title: "Meetings that run late", body: "Late calls with global teams push dinner later. We plan lighter evening meals and smarter snacks." },
+      { title: "Weekend dining out", body: "Busy weekend food scenes can fit into the week with a few simple strategies." },
+    ],
   },
-  {
-    slug: "mira-road",
-    name: "Mira Road",
-    area: "Mira Road",
-    city: "Mumbai",
-    district: "Thane",
-    pincode: "401107",
-    description: "Mira Road dietitian offering comprehensive nutrition services for weight management, PCOS, diabetes, and family wellness optimization.",
-    metaTitle: "Best Dietitian in Mira Road | Nutritionist | Healthy E Living",
-    metaDescription: "Looking for a dietitian in Mira Road? Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book consultation!",
-    h1: "Best Dietitian in Mira Road – Expert Nutrition Care",
-    intro: "Mira Road is a rapidly growing suburb where health and wellness are becoming priorities. I help residents build healthier eating habits for life.",
-    image: "/placeholder.jpg",
+  noida: {
+    intro: "From IT parks to busy sector markets, Noida's days are long and its momos are tempting. Online consultations fit around your shifts.",
+    tips: [
+      { title: "Shift-friendly eating", body: "Rotating or late shifts need a meal plan built around your actual hours, not a 9-to-5 template." },
+      { title: "Market snacks", body: "Momos, rolls and chaat from sector markets can fit — we plan the how and how often." },
+      { title: "North Indian winters", body: "Cold months bring heavier food and less movement. We plan for the season in advance." },
+    ],
   },
-  {
-    slug: "bhayander",
-    name: "Bhayander",
-    area: "Bhayander",
-    city: "Mumbai",
-    district: "Thane",
-    pincode: "401101",
-    description: "Bhayander dietitian offering personalized nutrition therapy for weight management, chronic disease management, and wellness optimization.",
-    metaTitle: "Dietitian in Bhayander | Nutritionist | Healthy E Living",
-    metaDescription: "Searching for a dietitian in Bhayander? Dt. Irika Goyal provides customized nutrition plans for weight loss, PCOS, diabetes & more. Book today!",
-    h1: "Dietitian in Bhayander – Science-Based Nutrition Plans",
-    intro: "Bhayander residents can now access professional nutrition counseling without traveling to the city. I offer flexible online and in-person consultations.",
-    image: "/placeholder.jpg",
+  bengaluru: {
+    intro: "Bengaluru's mild weather is made for walking and cycling, its breakfasts are legendary, and its tech hours are long. We plan for all three.",
+    tips: [
+      { title: "Darshini breakfasts", body: "Idli, dosa and filter coffee can be a great start to the day — we tune portions and add protein so it lasts until lunch." },
+      { title: "Ragi, the local hero", body: "Ragi mudde and ragi dosa are traditional Karnataka staples, and ragi is one of the richest cereal sources of calcium." },
+      { title: "Tech-hour fatigue", body: "Long screen days call for steady energy, regular meals and fewer late-night snacks." },
+    ],
   },
-  {
-    slug: "dahisar",
-    name: "Dahisar",
-    area: "Dahisar",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400068",
-    description: "Dahisar dietitian providing expert nutrition counseling for weight management, PCOS, diabetes, and gut health optimization.",
-    metaTitle: "Dietitian in Dahisar | Nutritionist | Healthy E Living",
-    metaDescription: "Find the best dietitian in Dahisar. Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book online now!",
-    h1: "Dietitian in Dahisar – Personalized Dietary Solutions",
-    intro: "Dahisar, the gateway to Western Mumbai, deserves top-quality nutrition care. I help residents achieve their wellness goals with practical diet plans.",
-    image: "/placeholder.jpg",
+  hyderabad: {
+    intro: "Hyderabad means biryani, haleem season and long days in the HITEC City corridor. Online consultations help you enjoy the food the city is famous for.",
+    tips: [
+      { title: "Biryani, sensibly", body: "Biryani can stay on the menu — we look at portion size, how often, and what to serve alongside." },
+      { title: "Ramzan and fasting", body: "During Ramzan we plan sehri and iftar that keep you energised, hydrated and steady through the fast." },
+      { title: "IT-corridor routines", body: "Long office days need planned lunches and snacks rather than whatever's nearest." },
+    ],
   },
-  {
-    slug: "santacruz",
-    name: "Santacruz",
-    area: "Santacruz",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400054",
-    description: "Santacruz dietitian offering comprehensive nutrition services for weight management, sports nutrition, and therapeutic dietary counseling.",
-    metaTitle: "Dietitian in Santacruz | Nutritionist | Healthy E Living",
-    metaDescription: "Looking for a dietitian in Santacruz? Dt. Irika Goyal offers customized nutrition plans for weight loss, PCOS, diabetes & more. Book consultation!",
-    h1: "Dietitian in Santacruz – Expert Nutrition Guidance",
-    intro: "Santacruz, with its vibrant culture and health-conscious community, is the perfect place for transformative nutrition counseling.",
-    image: "/placeholder.jpg",
+  chennai: {
+    intro: "Chennai's heat, humidity and rice-centred meals shape how the city eats. Online consultations bring a plan made for your plate and your climate.",
+    tips: [
+      { title: "Hydration in the heat", body: "Hot, humid months raise fluid needs. We plan drinks and water-rich foods, beyond just plain water." },
+      { title: "Rice-based meals", body: "Sambar, rasam, kootu and curd rice stay — we balance portions and add protein and vegetables." },
+      { title: "Filter coffee habits", body: "We look at how much sugar your coffee habit adds up to, and how to enjoy it without the extra." },
+    ],
   },
-  {
-    slug: "bandra",
-    name: "Bandra",
-    area: "Bandra",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400050",
-    description: "Bandra dietitian offering premium nutrition counseling for weight management, wellness optimization, and therapeutic dietary interventions.",
-    metaTitle: "Best Dietitian in Bandra | Nutritionist | Healthy E Living",
-    metaDescription: "Searching for a dietitian in Bandra? Dt. Irika Goyal provides personalized nutrition plans for weight loss, PCOS, diabetes & gut health. Book now!",
-    h1: "Best Dietitian in Bandra – Nutrition for a Vibrant Life",
-    intro: "Bandra is the heart of Mumbai's style and wellness scene. I help you achieve your health goals with customized nutrition plans that fit your lifestyle.",
-    image: "/placeholder.jpg",
+  kolkata: {
+    intro: "Fish and rice, puchka on the go and sweets for every occasion — Kolkata's food culture is a joy. Online consultations help you keep it in balance.",
+    tips: [
+      { title: "Fish and rice", body: "Fish is a great source of protein. We balance it with vegetables and sensible rice portions." },
+      { title: "Mishti, mindfully", body: "Rosogolla and sandesh are part of celebrations — we plan for them rather than banning them." },
+      { title: "Festival season", body: "Durga Puja brings days of feasting. We plan the weeks around it so the festival can be fully enjoyed." },
+    ],
   },
-  {
-    slug: "powai",
-    name: "Powai",
-    area: "Powai",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400076",
-    description: "Powai dietitian providing expert nutrition counseling for corporates, families, and fitness enthusiasts in this tech hub of Mumbai.",
-    metaTitle: "Dietitian in Powai | Nutritionist | Healthy E Living",
-    metaDescription: "Find the best dietitian in Powai. Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book online consultation!",
-    h1: "Dietitian in Powai – Smart Nutrition for Smart People",
-    intro: "Powai is Mumbai's technology and innovation hub. I provide science-based nutrition plans that help you perform at your best, both mentally and physically.",
-    image: "/placeholder.jpg",
+  pune: {
+    intro: "Students, IT professionals and weekend trekkers make Pune an active, busy city. Online consultations fit around lectures, shifts and Sinhagad mornings.",
+    tips: [
+      { title: "Student and PG eating", body: "Mess food and late-night snacks are common. We work with what's available and add simple upgrades." },
+      { title: "Misal and poha", body: "Local favourites stay on the menu with smarter portions and protein-rich add-ons." },
+      { title: "Weekend treks", body: "Trekking needs the right fuel and recovery — we plan both." },
+    ],
   },
-  {
-    slug: "mulund",
-    name: "Mulund",
-    area: "Mulund",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400080",
-    description: "Mulund dietitian offering personalized nutrition therapy for weight management, chronic disease prevention, and family wellness.",
-    metaTitle: "Best Dietitian in Mulund | Nutritionist | Healthy E Living",
-    metaDescription: "Looking for a dietitian in Mulund? Dt. Irika Goyal provides customized nutrition plans for weight loss, PCOS, diabetes & more. Book today!",
-    h1: "Best Dietitian in Mulund – Your Health, Our Priority",
-    intro: "Mulund is a well-planned suburb where families thrive. I help you and your family build healthier eating habits for a lifetime of wellness.",
-    image: "/placeholder.jpg",
+  ahmedabad: {
+    intro: "Ahmedabad's vegetarian thalis, farsan and festive Navratri nights are part of daily life. Online consultations build on the Gujarati kitchen you already have.",
+    tips: [
+      { title: "Gujarati thali balance", body: "Dal, shaak, rotli and rice already make a great base. We look at sweetness, oil and protein." },
+      { title: "Farsan, sensibly", body: "Dhokla and khaman are steamed and light; fried farsan is a treat. We plan the mix." },
+      { title: "Navratri nights", body: "Nine nights of garba need energy — and fasting days need care. We plan both." },
+    ],
   },
-  {
-    slug: "ghatkopar",
-    name: "Ghatkopar",
-    area: "Ghatkopar",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400086",
-    description: "Ghatkopar dietitian providing comprehensive nutrition services for weight management, PCOS, diabetes, and overall health optimization.",
-    metaTitle: "Dietitian in Ghatkopar | Nutritionist | Healthy E Living",
-    metaDescription: "Searching for a dietitian in Ghatkopar? Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book consultation!",
-    h1: "Dietitian in Ghatkopar – Evidence-Based Nutrition Care",
-    intro: "Ghatkopar is a bustling eastern suburb where health meets convenience. I provide practical, sustainable diet plans that deliver real results.",
-    image: "/placeholder.jpg",
+  jaipur: {
+    intro: "Dal baati churma, ghee-rich sweets and long, hot summers define Jaipur's food life. Online consultations help you keep tradition and health together.",
+    tips: [
+      { title: "Ghee and tradition", body: "Rajasthani food is famously rich. We keep the flavour while finding the right amount of ghee for you." },
+      { title: "Summer heat", body: "Hot months raise fluid needs. Buttermilk, lemon water and water-rich foods help." },
+      { title: "Millet heritage", body: "Bajra rotis and raab are traditional Rajasthani foods — and great for a balanced plate." },
+    ],
   },
-  {
-    slug: "thane",
-    name: "Thane",
-    area: "Thane",
-    city: "Thane",
-    district: "Thane",
-    pincode: "400601",
-    description: "Thane dietitian offering expert nutrition counseling for weight management, PCOS, diabetes, gut health, and family wellness programs.",
-    metaTitle: "Best Dietitian in Thane | Nutritionist | Healthy E Living",
-    metaDescription: "Find the best dietitian in Thane. Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book online now!",
-    h1: "Best Dietitian in Thane – Transform Your Health Journey",
-    intro: "Thane is the Lake City of Mumbai, known for its quality of life. I help Thane residents achieve their health goals with customized nutrition plans.",
-    image: "/placeholder.jpg",
+  lucknow: {
+    intro: "Awadhi kebabs, biryani and chaat give Lucknow one of India's richest food cultures. Online consultations help you enjoy it without the guilt.",
+    tips: [
+      { title: "Kebabs and biryani", body: "We look at portions, frequency and what to pair with rich Awadhi dishes." },
+      { title: "Chaat culture", body: "Basket chaat and tikki can fit in — with a little planning around the rest of the day." },
+      { title: "Winter months", body: "North Indian winters bring heavier food and less movement. We plan ahead for the season." },
+    ],
   },
-  {
-    slug: "navi-mumbai",
-    name: "Navi Mumbai",
-    area: "Navi Mumbai",
-    city: "Navi Mumbai",
-    district: "Thane",
-    pincode: "400614",
-    description: "Navi Mumbai dietitian providing expert nutrition services across all nodes including Vashi, Nerul, Belapur, Kharghar, and Airoli.",
-    metaTitle: "Best Dietitian in Navi Mumbai | Nutritionist | Healthy E Living",
-    metaDescription: "Looking for a dietitian in Navi Mumbai? Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book consultation!",
-    h1: "Best Dietitian in Navi Mumbai – Nutrition for Modern Living",
-    intro: "Navi Mumbai is a planned city with health-conscious residents. I serve clients across all nodes with customized nutrition plans tailored to your needs.",
-    image: "/placeholder.jpg",
+  chandigarh: {
+    intro: "Lassi, paneer and generous Punjabi meals — alongside morning walks at Sukhna Lake. Chandigarh makes an active, well-fed life easy. Online consultations help you balance it.",
+    tips: [
+      { title: "Dairy-rich diets", body: "Paneer, curd and lassi provide good protein and calcium; we look at portions and added sugar." },
+      { title: "Punjabi portions", body: "Generous servings are part of the hospitality. We find ways to enjoy them without overdoing it." },
+      { title: "Active mornings", body: "Walking and cycling are easy in a planned city — we fuel the activity you enjoy." },
+    ],
   },
-  {
-    slug: "vashi",
-    name: "Vashi",
-    area: "Vashi",
-    city: "Navi Mumbai",
-    district: "Thane",
-    pincode: "400703",
-    description: "Vashi dietitian offering personalized nutrition counseling for weight management, corporate wellness, and therapeutic dietary interventions.",
-    metaTitle: "Dietitian in Vashi | Nutritionist | Healthy E Living",
-    metaDescription: "Searching for a dietitian in Vashi? Dt. Irika Goyal provides customized nutrition plans for weight loss, PCOS, diabetes & more. Book today!",
-    h1: "Dietitian in Vashi – Expert Nutrition for Busy Lives",
-    intro: "Vashi is the commercial heart of Navi Mumbai. I help busy professionals and families achieve optimal health through practical nutrition plans.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "airoli",
-    name: "Airoli",
-    area: "Airoli",
-    city: "Navi Mumbai",
-    district: "Thane",
-    pincode: "400708",
-    description: "Airoli dietitian providing expert nutrition services for the IT corridor, families, and health-conscious individuals seeking dietary transformation.",
-    metaTitle: "Dietitian in Airoli | Nutritionist | Healthy E Living",
-    metaDescription: "Find the best dietitian in Airoli. Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book online!",
-    h1: "Dietitian in Airoli – Nutrition for the Tech Generation",
-    intro: "Airoli is home to Mumbai's IT corridor. I design nutrition plans that boost energy, focus, and overall health for the tech-savvy generation.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "kharghar",
-    name: "Kharghar",
-    area: "Kharghar",
-    city: "Navi Mumbai",
-    district: "Raigad",
-    pincode: "410210",
-    description: "Kharghar dietitian offering comprehensive nutrition services for weight management, PCOS, diabetes, and holistic wellness optimization.",
-    metaTitle: "Dietitian in Kharghar | Nutritionist | Healthy E Living",
-    metaDescription: "Looking for a dietitian in Kharghar? Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book consultation!",
-    h1: "Dietitian in Kharghar – Personalized Nutrition Plans",
-    intro: "Kharghar is a beautiful hill station suburb with a growing health-conscious community. I help residents achieve their wellness goals with customized diet plans.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "panvel",
-    name: "Panvel",
-    area: "Panvel",
-    city: "Navi Mumbai",
-    district: "Raigad",
-    pincode: "410206",
-    description: "Panvel dietitian offering expert nutrition counseling for weight management, therapeutic diets, and preventive healthcare services.",
-    metaTitle: "Dietitian in Panvel | Nutritionist | Healthy E Living",
-    metaDescription: "Searching for a dietitian in Panvel? Dt. Irika Goyal provides customized nutrition plans for weight loss, PCOS, diabetes & more. Book today!",
-    h1: "Dietitian in Panvel – Science-Based Dietary Solutions",
-    intro: "Panvel is the gateway to Navi Mumbai and Pune. I provide accessible nutrition counseling for residents seeking evidence-based dietary guidance.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "chembur",
-    name: "Chembur",
-    area: "Chembur",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400071",
-    description: "Chembur dietitian offering personalized nutrition therapy for weight management, chronic disease management, and family wellness.",
-    metaTitle: "Dietitian in Chembur | Nutritionist | Healthy E Living",
-    metaDescription: "Find the best dietitian in Chembur. Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book now!",
-    h1: "Dietitian in Chembur – Your Wellness Partner",
-    intro: "Chembur is a green suburb with a strong sense of community. I help residents achieve their health goals through personalized, practical nutrition plans.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "dadar",
-    name: "Dadar",
-    area: "Dadar",
-    city: "Mumbai",
-    district: "Mumbai City",
-    pincode: "400014",
-    description: "Dadar dietitian providing expert nutrition counseling for weight management, sports nutrition, and therapeutic dietary interventions.",
-    metaTitle: "Dietitian in Dadar | Nutritionist | Healthy E Living",
-    metaDescription: "Looking for a dietitian in Dadar? Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book consultation!",
-    h1: "Dietitian in Dadar – Expert Nutrition in the Heart of Mumbai",
-    intro: "Dadar is the cultural and commercial center of Mumbai. I provide nutrition counseling for the city's diverse population with customized dietary plans.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "lower-parel",
-    name: "Lower Parel",
-    area: "Lower Parel",
-    city: "Mumbai",
-    district: "Mumbai City",
-    pincode: "400013",
-    description: "Lower Parel dietitian offering premium nutrition services for corporate professionals, wellness enthusiasts, and busy families.",
-    metaTitle: "Dietitian in Lower Parel | Nutritionist | Healthy E Living",
-    metaDescription: "Searching for a dietitian in Lower Parel? Dt. Irika Goyal provides customized nutrition plans for weight loss, PCOS, diabetes & more. Book today!",
-    h1: "Dietitian in Lower Parel – Nutrition for Urban Professionals",
-    intro: "Lower Parel is Mumbai's premier corporate and residential hub. I design nutrition plans that complement your fast-paced urban lifestyle.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "colaba",
-    name: "Colaba",
-    area: "Colaba",
-    city: "Mumbai",
-    district: "Mumbai City",
-    pincode: "400005",
-    description: "Colaba dietitian offering expert nutrition counseling for South Mumbai residents seeking personalized dietary solutions for optimal health.",
-    metaTitle: "Dietitian in Colaba | Nutritionist | Healthy E Living",
-    metaDescription: "Find the best dietitian in Colaba. Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book now!",
-    h1: "Dietitian in Colaba – Premium Nutrition Care",
-    intro: "Colaba is the southern tip of Mumbai with a unique cosmopolitan culture. I provide tailored nutrition plans that respect your sophisticated palate and health goals.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "churchgate",
-    name: "Churchgate",
-    area: "Churchgate",
-    city: "Mumbai",
-    district: "Mumbai City",
-    pincode: "400020",
-    description: "Churchgate dietitian providing personalized nutrition counseling for South Mumbai's corporate and residential community.",
-    metaTitle: "Dietitian in Churchgate | Nutritionist | Healthy E Living",
-    metaDescription: "Looking for a dietitian in Churchgate? Dt. Irika Goyal offers customized nutrition plans for weight loss, PCOS, diabetes & more. Book consultation!",
-    h1: "Dietitian in Churchgate – Nutrition Excellence in South Mumbai",
-    intro: "Churchgate is the heart of South Mumbai's business district. I help busy professionals maintain optimal health through smart nutrition choices.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "worli",
-    name: "Worli",
-    area: "Worli",
-    city: "Mumbai",
-    district: "Mumbai City",
-    pincode: "400018",
-    description: "Worli dietitian offering premium nutrition services for sea-facing neighborhoods with personalized dietary and wellness programs.",
-    metaTitle: "Dietitian in Worli | Nutritionist | Healthy E Living",
-    metaDescription: "Searching for a dietitian in Worli? Dt. Irika Goyal provides personalized nutrition plans for weight loss, PCOS, diabetes & more. Book today!",
-    h1: "Dietitian in Worli – Nutrition with a View",
-    intro: "Worli is one of Mumbai's most prestigious addresses. I provide world-class nutrition counseling to help you achieve your health and wellness goals.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "juhu",
-    name: "Juhu",
-    area: "Juhu",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400049",
-    description: "Juhu dietitian providing expert nutrition counseling for the celebrity neighborhood with customized wellness and dietary programs.",
-    metaTitle: "Dietitian in Juhu | Nutritionist | Healthy E Living",
-    metaDescription: "Find the best dietitian in Juhu. Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book now!",
-    h1: "Dietitian in Juhu – Personalized Wellness Plans",
-    intro: "Juhu is Mumbai's glamorous beachside neighborhood. I help you achieve your health goals with customized nutrition plans that fit your lifestyle.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "versova",
-    name: "Versova",
-    area: "Versova",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400061",
-    description: "Versova dietitian offering personalized nutrition counseling for the creative community and families seeking healthier lifestyles.",
-    metaTitle: "Dietitian in Versova | Nutritionist | Healthy E Living",
-    metaDescription: "Looking for a dietitian in Versova? Dt. Irika Goyal offers customized nutrition plans for weight loss, PCOS, diabetes & more. Book consultation!",
-    h1: "Dietitian in Versova – Nutrition for Creative Minds",
-    intro: "Versova is known for its artistic community and village-like charm. I provide nutrition plans that fuel your creativity and support your health journey.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "bkc",
-    name: "BKC",
-    area: "Bandra Kurla Complex",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400051",
-    description: "BKC dietitian offering corporate wellness programs and personalized nutrition counseling for the business district's professionals.",
-    metaTitle: "Dietitian in BKC | Corporate Nutritionist | Healthy E Living",
-    metaDescription: "Searching for a dietitian in BKC? Dt. Irika Goyal offers corporate wellness programs and personalized nutrition plans. Book a consultation!",
-    h1: "Dietitian in BKC – Corporate Wellness & Personal Nutrition",
-    intro: "Bandra Kurla Complex is Mumbai's premier business district. I help corporate professionals optimize their health through strategic nutrition planning.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "prabhadevi",
-    name: "Prabhadevi",
-    area: "Prabhadevi",
-    city: "Mumbai",
-    district: "Mumbai City",
-    pincode: "400025",
-    description: "Prabhadevi dietitian providing expert nutrition counseling for weight management, therapeutic diets, and holistic wellness.",
-    metaTitle: "Dietitian in Prabhadevi | Nutritionist | Healthy E Living",
-    metaDescription: "Find the best dietitian in Prabhadevi. Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book now!",
-    h1: "Dietitian in Prabhadevi – Holistic Nutrition Care",
-    intro: "Prabhadevi is a central Mumbai neighborhood with a rich cultural heritage. I provide personalized nutrition guidance for lasting health transformations.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "matunga",
-    name: "Matunga",
-    area: "Matunga",
-    city: "Mumbai",
-    district: "Mumbai City",
-    pincode: "400019",
-    description: "Matunga dietitian offering personalized nutrition services for this traditional Mumbai neighborhood with customized dietary solutions.",
-    metaTitle: "Dietitian in Matunga | Nutritionist | Healthy E Living",
-    metaDescription: "Looking for a dietitian in Matunga? Dt. Irika Goyal offers customized nutrition plans for weight loss, PCOS, diabetes & more. Book consultation!",
-    h1: "Dietitian in Matunga – Traditional Values, Modern Nutrition",
-    intro: "Matunga is known for its South Indian heritage and educational institutions. I help residents embrace modern nutrition while respecting traditional food habits.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "sion",
-    name: "Sion",
-    area: "Sion",
-    city: "Mumbai",
-    district: "Mumbai City",
-    pincode: "400022",
-    description: "Sion dietitian providing expert nutrition counseling for weight management, chronic disease management, and family wellness.",
-    metaTitle: "Dietitian in Sion | Nutritionist | Healthy E Living",
-    metaDescription: "Searching for a dietitian in Sion? Dt. Irika Goyal provides personalized nutrition plans for weight loss, PCOS, diabetes & more. Book today!",
-    h1: "Dietitian in Sion – Accessible Nutrition Care",
-    intro: "Sion is a central Mumbai neighborhood with easy access to healthcare. I provide convenient nutrition counseling for residents seeking better health.",
-    image: "/placeholder.jpg",
-  },
-  {
-    slug: "kurla",
-    name: "Kurla",
-    area: "Kurla",
-    city: "Mumbai",
-    district: "Mumbai Suburban",
-    pincode: "400070",
-    description: "Kurla dietitian offering comprehensive nutrition services for this central Mumbai suburb with diverse dietary needs.",
-    metaTitle: "Dietitian in Kurla | Nutritionist | Healthy E Living",
-    metaDescription: "Find the best dietitian in Kurla. Dt. Irika Goyal offers personalized nutrition plans for weight loss, PCOS, diabetes & more. Book now!",
-    h1: "Dietitian in Kurla – Nutrition for Every Body",
-    intro: "Kurla is a central Mumbai suburb with a diverse population. I provide inclusive nutrition counseling that respects your cultural and dietary preferences.",
-    image: "/placeholder.jpg",
-  },
+}
+
+export const locations: LocationInfo[] = rows.map(([slug, name, district, parent]) => ({
+  slug,
+  name,
+  district,
+  parent,
+  local: local[slug],
+  indexable: Boolean(local[slug]),
+}))
+
+export const districts: { id: District; title: string }[] = [
+  { id: "Mumbai City", title: "South & central Mumbai" },
+  { id: "Mumbai Suburban", title: "Mumbai suburbs" },
+  { id: "Thane", title: "Thane, Mira–Bhayander & Navi Mumbai" },
+  { id: "Raigad", title: "Panvel & Kharghar" },
+  { id: "India", title: "Across India (online)" },
 ]
 
 export const locationSlugs = locations.map((l) => l.slug)
@@ -610,10 +320,23 @@ export function getLocationBySlug(slug: string): LocationInfo | undefined {
   return locations.find((l) => l.slug === slug)
 }
 
-export function getNearbyLocations(currentSlug: string): LocationInfo[] {
-  const current = getLocationBySlug(currentSlug)
-  if (!current) return []
-  return locations
-    .filter((l) => l.district === current.district && l.slug !== currentSlug)
-    .slice(0, 5)
+/** Within Mumbai's city limits. */
+export function isWithinMumbai(location: LocationInfo): boolean {
+  return location.district === "Mumbai City" || location.district === "Mumbai Suburban"
 }
+
+/** Outside the Mumbai region: online consultations only. */
+export function isOnlineOnly(location: LocationInfo): boolean {
+  return location.district === "India"
+}
+
+export function getNearbyLocations(location: LocationInfo, count = 8): LocationInfo[] {
+  const featured = (l: LocationInfo) => (l.indexable ? 0 : 1)
+  return locations
+    .filter((l) => l.slug !== location.slug && (isOnlineOnly(location) ? isOnlineOnly(l) : !isOnlineOnly(l)))
+    .sort((a, b) => featured(a) - featured(b))
+    .slice(0, count)
+}
+
+export const featuredMumbaiAreas = locations.filter((l) => l.indexable && !isOnlineOnly(l))
+export const featuredCities = locations.filter((l) => l.indexable && isOnlineOnly(l))
