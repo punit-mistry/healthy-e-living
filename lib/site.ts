@@ -88,3 +88,29 @@ export const consultationFormat = {
 export function absoluteUrl(path = "/"): string {
   return new URL(path, site.url).toString()
 }
+
+/**
+ * Seasonal offer shown on the homepage hero. The price is display-only:
+ * booking still happens on WhatsApp, where the pre-filled message names the
+ * offer so it can be honoured by hand. Set `active: false` to retire it.
+ */
+export const diwaliOffer = {
+  active: true,
+  label: "Diwali special",
+  title: "One-time consultation",
+  regularPrice: 2000,
+  offerPrice: 1000,
+  /** Session length for this offer, as given by the client. */
+  duration: "30–45 min",
+  /** Filmy one-liners that rotate on the card. Keep them light — no health claims. */
+  dialogues: [
+    "Ab nahi kiya, toh kabhi nahi!",
+    "Rishte mein toh hum aapke dietitian lagte hain. Naam hai… Irika!",
+    "Bade bade festivals mein, chhoti chhoti portions chalti rehti hain.",
+    "Kehte hain dil se chaho toh… aadhi fees mein mil jaata hai.",
+    "Mogambo khush hua — fees aadhi, khushi double!",
+    "Kaju katli bhi, fitness bhi. Tension nahi lene ka!",
+    "Picture abhi baaki hai… pehle plate set karte hain.",
+    "Happy Diwali, happier you!",
+  ],
+} as const

@@ -20,6 +20,7 @@ The site should feel like meeting Irika: warm, cheerful and expressive, but clin
 | `ink` | `#252D27` | Text |
 | `ink-soft` | `#4A544C` | Secondary text (7.3:1 on cream) |
 | `line` | `#E6D5B8` | Hairlines and borders |
+| `marigold` | `#E9A23B` | Festive gold for small decorative marks only (sparks, confetti). Never text |
 
 Rules: one strong colour per section. Text on coral is always `ink`, never white (white on coral fails contrast).
 
@@ -66,6 +67,14 @@ CSS classes: `.wrap` (page container), `.btn` + `.btn-primary | -coral | -ghost 
 - **Route transition:** a coral-then-green colour wipe with a hand-drawn trailing edge, ~0.6s, only on client-side navigation. Focus moves to `<main>`.
 - **Reveals:** `.reveal` (fade-up on scroll), `.draw-on-view` / `.draw-on-load` (SVG stroke drawing).
 - **Idle:** `.spin-slow`, `.bob`. Use on one element per view at most.
+
+## Seasonal offer — Diwali ("Happy Diwali, happier you")
+
+- **What:** `sections/DiwaliOffer` (the card: "only for you!" gift tag, rocket on a dotted trail, 50% OFF sticker, diya, anar, bursts — all inline SVG) inside `site/DiwaliOfferModal` (native `<dialog>`), homepage only. Behind the card, `DiwaliSky` fires rockets that burst around the screen for three rounds (~15–20s) after opening, then rests.
+- **Filmy lines:** `sections/DiwaliFilmyLine` rotates `diwaliOffer.dialogues` every 8s (paused on hover/focus, off under reduced motion); the 🎬 clapperboard skips to the next one. Edit or add lines in `lib/site.ts` — keep them light, with no health claims.
+- **Behaviour:** opens once, 5s after landing (kept off first paint for LCP and Google's mobile interstitial rules); bottom sheet on phones, centred from `sm`. ✕, Escape, backdrop or CTA closes it and snoozes it for 24h (`localStorage` key `hel-diwali-offer`). A "Diwali offer" pill bottom-left reopens it. Motion is `.diwali-*` in `globals.css`, all off under reduced motion.
+- **Prices and copy** live in `diwaliOffer` (`lib/site.ts`); the discount % is calculated from them. The CTA opens WhatsApp with a pre-filled Diwali message (`waUrl("diwali")`) — there's no payment integration, so the offer is honoured by hand.
+- **To retire it after Diwali:** set `diwaliOffer.active = false`. Nothing else renders.
 
 ## Content model — how to add things
 

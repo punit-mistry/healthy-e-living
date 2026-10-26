@@ -6,17 +6,19 @@ import { CurlyArrow, HappyPlate, Loop, Sparkle, Sprig, Underline } from "@/compo
 import Approach from "@/components/sections/Approach"
 import ArticleCard from "@/components/sections/ArticleCard"
 import CtaBand from "@/components/sections/CtaBand"
+import DiwaliOffer from "@/components/sections/DiwaliOffer"
 import Stories from "@/components/sections/Stories"
 import InstagramStrip from "@/components/sections/InstagramStrip"
 import FaqList from "@/components/ui-kit/FaqList"
 import JsonLd from "@/components/ui-kit/JsonLd"
+import DiwaliOfferModal from "@/components/site/DiwaliOfferModal"
 import WhatsAppIcon from "@/components/ui-kit/WhatsAppIcon"
 import { articles } from "@/data/articles"
 import { homeFaqs } from "@/data/faqs"
 import { featuredCities, featuredMumbaiAreas } from "@/data/locations"
 import { getServicesByCategory, serviceCategories } from "@/data/services"
 import { ids, pageMetadata, webPageJson } from "@/lib/seo"
-import { confirmedClaims, person, serviceArea, site } from "@/lib/site"
+import { confirmedClaims, diwaliOffer, person, serviceArea, site } from "@/lib/site"
 import { waUrl } from "@/lib/whatsapp"
 import portrait from "@/public/images/irika-goyal-dietitian-smiling.jpg"
 
@@ -328,6 +330,12 @@ export default function HomePage() {
       </section>
 
       <CtaBand waHref={waUrl("booking")} location="home" />
+
+      {diwaliOffer.active && (
+        <DiwaliOfferModal>
+          <DiwaliOffer />
+        </DiwaliOfferModal>
+      )}
     </>
   )
 }

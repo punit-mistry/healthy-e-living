@@ -17,6 +17,7 @@
   --color-coral-soft: #fbd3c9;
   --color-butter: #f3d66c;
   --color-butter-soft: #faecb4;
+  --color-marigold: #e9a23b; /* festive gold for small decorative marks only */
   --color-mint: #dde9d6;
   --color-mint-deep: #c3d8b8;
   --color-ink: #252d27;
@@ -475,6 +476,269 @@
     animation: draw-stroke 900ms var(--ease-smooth) forwards;
     animation-delay: var(--draw-delay, 400ms);
   }
+}
+
+/* --------------------------------------------------------------------------
+   Diwali offer card (components/sections/DiwaliOffer.tsx) — seasonal.
+   Everything is visible and static without motion; animations only add.
+   -------------------------------------------------------------------------- */
+
+/* The dialog fills the screen (the fireworks need a sky); the panel inside is
+   a bottom sheet on phones and a centred card from sm up. Its padding leaves
+   room for the close button and for decorations that overhang the card. */
+.diwali-modal {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  color: var(--color-ink);
+}
+.diwali-modal[open] {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+.diwali-modal__panel {
+  position: relative;
+  width: 100%;
+  max-height: 100%;
+  padding: 6rem 0.875rem 1.25rem;
+  overflow: hidden auto;
+  overscroll-behavior: contain;
+}
+@media (min-width: 640px) {
+  .diwali-modal[open] {
+    justify-content: center;
+  }
+  .diwali-modal__panel {
+    width: min(100% - 2rem, 38rem);
+    padding: 6.75rem 2.25rem 1.5rem;
+  }
+}
+.diwali-modal::backdrop {
+  background: rgb(29 36 31 / 0.72);
+}
+
+/* Fireworks layer — only exists for people who are fine with motion. */
+.diwali-sky {
+  display: none;
+}
+.diwali-shot {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+/* The shot is a zero-size anchor, so opt out of the base svg max-width. */
+.diwali-shot > svg {
+  max-width: none;
+}
+.diwali-shot__rocket {
+  position: absolute;
+  left: -6px;
+  top: -14px;
+  width: 12px;
+  rotate: var(--tilt);
+  opacity: 0;
+}
+.diwali-shot__burst {
+  position: absolute;
+  left: calc(var(--size) * -4.5rem);
+  top: calc(var(--size) * -4.5rem);
+  width: calc(var(--size) * 9rem);
+  opacity: 0;
+}
+
+.diwali-tag {
+  rotate: -5deg;
+}
+.diwali-clapper {
+  transition: rotate 200ms var(--ease-pop);
+}
+.diwali-clapper:hover {
+  rotate: -8deg;
+}
+.diwali-clapper__arm {
+  transform-box: fill-box;
+  transform-origin: 0 100%;
+  transition: transform 120ms ease-out;
+}
+.diwali-clapper:active .diwali-clapper__arm {
+  transform: rotate(12deg);
+}
+html:has(.diwali-modal[open]) {
+  overflow: hidden;
+}
+
+.diwali-card {
+  box-shadow: 6px 6px 0 0 var(--color-green);
+  transition: translate 260ms var(--ease-smooth), box-shadow 260ms var(--ease-smooth);
+}
+.diwali-was {
+  text-decoration-line: line-through;
+  text-decoration-color: var(--color-coral-deep);
+  text-decoration-thickness: 0.11em;
+}
+.diwali-badge {
+  rotate: 9deg;
+}
+.diwali-cta__arrow {
+  transition: translate 220ms var(--ease-pop);
+}
+.diwali-cta:hover .diwali-cta__arrow,
+.diwali-cta:focus-visible .diwali-cta__arrow {
+  translate: 3px 0;
+}
+@media (hover: hover) {
+  .diwali-card:hover {
+    translate: 0 -3px;
+    box-shadow: 8px 9px 0 0 var(--color-green);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Entrance: the sheet slides up, then the two prices, then the sticker pops on. */
+  .diwali-modal[open] .diwali-modal__panel {
+    animation: diwali-sheet-in 460ms var(--ease-smooth) both;
+  }
+  .diwali-modal[open]::backdrop {
+    animation: diwali-fade 300ms ease both;
+  }
+  .diwali-line {
+    animation: diwali-line-in 380ms var(--ease-pop) both;
+  }
+
+  /* The show: a few rounds of rockets and bursts as the offer opens, then calm. */
+  .diwali-sky {
+    display: block;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .diwali-shot__rocket {
+    animation: diwali-shot-rocket var(--dur) linear var(--delay) 3 both;
+  }
+  .diwali-shot__burst {
+    animation: diwali-shot-burst var(--dur) ease-out var(--delay) 3 both;
+  }
+  .diwali-pill {
+    animation: diwali-rise 420ms var(--ease-pop) both;
+  }
+  .diwali-stagger {
+    animation: diwali-rise 520ms var(--ease-smooth) var(--delay, 300ms) both;
+  }
+  .diwali-badge {
+    animation: diwali-sticker 620ms var(--ease-pop) 640ms both;
+  }
+
+  /* Idle: occasional, staggered, never in sync. */
+  .diwali-rocket-fly {
+    animation: diwali-fly 7s var(--ease-smooth) 1.6s infinite;
+  }
+  .diwali-flame {
+    transform-box: fill-box;
+    transform-origin: 50% 0;
+    animation: diwali-flicker 1.1s ease-in-out infinite alternate;
+  }
+  .diwali-flame--diya {
+    transform-origin: 50% 100%;
+  }
+  .diwali-pop {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: diwali-pop 7s ease-out infinite;
+  }
+  .diwali-pop--rocket {
+    animation-delay: 2.15s;
+  }
+  .diwali-pop--corner {
+    animation-duration: 5.3s;
+    animation-delay: 3.4s;
+  }
+  .diwali-spark {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: diwali-spark var(--dur, 3s) ease-out var(--delay, 0s) infinite;
+  }
+  .diwali-twinkle {
+    animation: diwali-twinkle 2.8s ease-in-out 1.4s infinite;
+  }
+  .diwali-confetti {
+    animation: diwali-drift 6.5s ease-in-out var(--delay, 0s) infinite alternate;
+  }
+}
+/* Rocket climbs for the first ~20% of the cycle, then the burst takes over. */
+@keyframes diwali-shot-rocket {
+  0% { opacity: 0; translate: var(--dx) var(--dy); }
+  3% { opacity: 1; }
+  19% { opacity: 1; translate: 0 0; }
+  21%, 100% { opacity: 0; translate: 0 0; }
+}
+@keyframes diwali-shot-burst {
+  0%, 19% { opacity: 0; scale: 0.15; translate: 0 0; }
+  23% { opacity: 1; scale: 0.8; }
+  38% { opacity: 0.95; scale: 1; translate: 0 4px; }
+  52% { opacity: 0; scale: 1.06; translate: 0 12px; }
+  100% { opacity: 0; scale: 1.06; translate: 0 12px; }
+}
+@keyframes diwali-line-in {
+  from { opacity: 0; translate: 0 8px; rotate: -1.5deg; }
+  to { opacity: 1; translate: 0 0; rotate: 0deg; }
+}
+@keyframes diwali-sheet-in {
+  from { opacity: 0; transform: translateY(32px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes diwali-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes diwali-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes diwali-sticker {
+  from { opacity: 0; scale: 0.4; rotate: -24deg; }
+  to { opacity: 1; scale: 1; rotate: 9deg; }
+}
+/* A quick hop forward along the trail, then an unhurried drift back. */
+@keyframes diwali-fly {
+  0%, 100% { transform: translate(0, 0); }
+  5% { transform: translate(-1.5px, -6px) rotate(-3deg); }
+  9% { transform: translate(0, -10px) rotate(2deg); }
+  40% { transform: translate(0, -2px); }
+}
+@keyframes diwali-flicker {
+  from { transform: scale(1, 1); }
+  to { transform: scale(0.82, 0.88); }
+}
+@keyframes diwali-pop {
+  0% { opacity: 0; transform: scale(0.3); }
+  4% { opacity: 1; transform: scale(1); }
+  14% { opacity: 0; transform: scale(1.12); }
+  100% { opacity: 0; transform: scale(1.12); }
+}
+@keyframes diwali-spark {
+  0% { opacity: 0; transform: translate(var(--fx), var(--fy)) scale(0.4); }
+  18% { opacity: 1; }
+  55% { opacity: 0; transform: none; }
+  100% { opacity: 0; transform: none; }
+}
+@keyframes diwali-twinkle {
+  0%, 100% { scale: 1; rotate: 0deg; opacity: 1; }
+  50% { scale: 0.65; rotate: 30deg; opacity: 0.7; }
+}
+@keyframes diwali-drift {
+  from { translate: 0 0; }
+  to { translate: 2px -6px; }
 }
 
 /* --------------------------------------------------------------------------

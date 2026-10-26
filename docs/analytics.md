@@ -17,6 +17,9 @@ Clicks on elements carrying `data-track` are sent by `components/site/TrackClick
 | `phone_click` | Phone number tapped | `contact_methods` |
 | `email_click` | Email tapped | `contact_methods` |
 | `instagram_click` | Instagram section | `instagram_section`, `instagram_photo` |
+| `whatsapp_click` (Diwali) | "Book Your Consultation" in the Diwali offer popup | `diwali_modal` |
+| `diwali_offer_open` | "Diwali offer" pill tapped to reopen the popup | `offer_pill` |
+| `diwali_dialogue` | 🎬 clapperboard tapped for the next filmy line | `diwali_modal` |
 
 > Custom events require a Vercel **Pro** (or Enterprise) plan. On the free Hobby plan, page views are still counted but these events are silently ignored. Nothing breaks either way.
 
