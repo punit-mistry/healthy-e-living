@@ -7,6 +7,7 @@ import Approach from "@/components/sections/Approach"
 import ArticleCard from "@/components/sections/ArticleCard"
 import CtaBand from "@/components/sections/CtaBand"
 import DiwaliOffer from "@/components/sections/DiwaliOffer"
+import Pricing from "@/components/sections/Pricing"
 import Stories from "@/components/sections/Stories"
 import InstagramStrip from "@/components/sections/InstagramStrip"
 import FaqList from "@/components/ui-kit/FaqList"
@@ -328,6 +329,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <Pricing location="home" />
 
       <CtaBand waHref={waUrl("booking")} location="home" />
 

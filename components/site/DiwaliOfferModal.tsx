@@ -8,31 +8,13 @@ import { DiwaliSky, Diya, percentOff } from "@/components/sections/DiwaliOffer"
  *
  * - Opens once, 5s after landing (never over first paint, which keeps it
  *   clear of LCP and of Google's intrusive-interstitial rules on mobile).
- * - Closing it in any way (✕, Escape, tapping the backdrop, or tapping the
- *   CTA) snoozes it for a day; a small pill bottom-left reopens it.
+ * - Shown on every page load. Closing it in any way (✕, Escape, tapping the
+ *   backdrop, or tapping the CTA) leaves a small pill bottom-left to reopen it.
  * - Native <dialog>: focus is trapped while open and returned on close, and
  *   the rest of the page is inert. Without JavaScript nothing is shown.
  */
 
-const STORAGE_KEY = "hel-diwali-offer"
 const OPEN_DELAY = 5000
-const SNOOZE = 24 * 60 * 60 * 1000
-
-function isSnoozed() {
-  try {
-    return Date.now() - Number(localStorage.getItem(STORAGE_KEY) ?? 0) < SNOOZE
-  } catch {
-    return false
-  }
-}
-
-function snooze() {
-  try {
-    localStorage.setItem(STORAGE_KEY, String(Date.now()))
-  } catch {
-    /* private mode: it simply shows again next visit */
-  }
-}
 
 export default function DiwaliOfferModal({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDialogElement>(null)
@@ -45,20 +27,41 @@ export default function DiwaliOfferModal({ children }: { children: ReactNode }) 
     setShowPill(false)
   }, [])
 
+  // Whatever the screen size, shrink the card until all of it fits: the popup
+  // should never need a scrollbar.
   useEffect(() => {
-    const snoozed = isSnoozed()
+    const dialog = ref.current
+    const panel = dialog?.querySelector<HTMLElement>(".diwali-modal__panel")
+    if (!dialog || !panel) return
+    const fit = () => {
+      if (!dialog.open) return
+      panel.style.zoom = "1"
+      const ratio = dialog.clientHeight / panel.scrollHeight
+      panel.style.zoom = ratio < 1 ? String(Math.max(ratio * 0.99, 0.3)) : "1"
+    }
+    dialog.addEventListener("toggle", fit)
+    window.addEventListener("resize", fit)
+    const observer = new MutationObserver(fit)
+    observer.observe(dialog, { attributes: true, attributeFilter: ["open"] })
+    return () => {
+      dialog.removeEventListener("toggle", fit)
+      window.removeEventListener("resize", fit)
+      observer.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
+    // Shown on every page load (refresh included); closing it only hides it
+    // until the next load, and the pill reopens it meanwhile.
     const timer = window.setTimeout(() => {
       // Don't interrupt someone who's using the mobile menu or another dialog.
-      if (snoozed || document.querySelector("dialog[open], details[open]")) setShowPill(true)
+      if (document.querySelector("dialog[open], details[open]")) setShowPill(true)
       else open()
-    }, snoozed ? 0 : OPEN_DELAY)
+    }, OPEN_DELAY)
     return () => window.clearTimeout(timer)
   }, [open])
 
-  const onClose = () => {
-    snooze()
-    setShowPill(true)
-  }
+  const onClose = () => setShowPill(true)
 
   // The dialog fills the screen; a click anywhere outside the card closes it.
   const onClick = (e: MouseEvent<HTMLDialogElement>) => {

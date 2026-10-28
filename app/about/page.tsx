@@ -5,7 +5,6 @@ import { CurlyArrow, HappyPlate, Sparkle, Underline } from "@/components/brand/M
 import Approach from "@/components/sections/Approach"
 import CtaBand from "@/components/sections/CtaBand"
 import InstagramStrip from "@/components/sections/InstagramStrip"
-import Stories from "@/components/sections/Stories"
 import Breadcrumbs from "@/components/ui-kit/Breadcrumbs"
 import JsonLd from "@/components/ui-kit/JsonLd"
 import { serviceCategories } from "@/data/services"
@@ -172,7 +171,6 @@ export default function AboutPage() {
       </section>
 
       <Approach headingId="about-approach" />
-      <Stories headingId="about-stories" />
       <InstagramStrip headingId="about-instagram" />
 
       <section aria-labelledby="elsewhere-title" className="wrap pb-4">

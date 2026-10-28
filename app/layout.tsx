@@ -5,6 +5,7 @@ import FloatingWhatsApp from "@/components/site/FloatingWhatsApp"
 import Footer from "@/components/site/Footer"
 import Header from "@/components/site/Header"
 import Loader, { LOADER_SEEN_SCRIPT } from "@/components/site/Loader"
+import SmoothScroll from "@/components/site/SmoothScroll"
 import RouteTransition from "@/components/site/RouteTransition"
 import TrackClicks from "@/components/site/TrackClicks"
 import JsonLd from "@/components/ui-kit/JsonLd"
@@ -80,6 +81,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </main>
         <Footer />
         <FloatingWhatsApp />
+        <SmoothScroll />
         <RouteTransition />
         <TrackClicks />
         <JsonLd data={siteGraph()} />

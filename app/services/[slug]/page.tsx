@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import ArtIcon from "@/components/brand/ArtIcon"
+import OnlineEnquiryForm from "@/components/contact/OnlineEnquiryForm"
 import ArticleCard from "@/components/sections/ArticleCard"
 import ConsultationSteps from "@/components/sections/ConsultationSteps"
 import CtaBand from "@/components/sections/CtaBand"
@@ -173,17 +174,37 @@ export default async function ServicePage({ params }: Props) {
         </ol>
       </section>
 
-      {/* What a consultation involves */}
-      <section aria-labelledby="steps-title" className="bg-cream-deep py-16 sm:py-20">
-        <div className="wrap">
-          <h2 id="steps-title" className="text-display-m">
-            What happens next
-          </h2>
-          <div className="mt-8">
-            <ConsultationSteps />
+      {/* Online enquiry form */}
+      {slug === "online-consultation" && (
+        <section id="enquiry" aria-labelledby="enquiry-title" className="bg-mint py-16 sm:py-20">
+          <div className="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <p className="eyebrow">Enquire</p>
+              <h2 id="enquiry-title" className="mt-4 text-display-m">
+                Request an online consultation
+              </h2>
+              <p className="mt-4 text-ink-soft">Tell us a little about your goal and when you&apos;re free. You&apos;ll hear back with available slots and fees.</p>
+            </div>
+            <div className="rounded-[2rem] bg-paper p-6 sm:p-9">
+              <OnlineEnquiryForm />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* What a consultation involves (not shown for corporate sessions) */}
+      {slug !== "corporate-wellness" && (
+        <section aria-labelledby="steps-title" className="bg-cream-deep py-16 sm:py-20">
+          <div className="wrap">
+            <h2 id="steps-title" className="text-display-m">
+              What happens next
+            </h2>
+            <div className="mt-8">
+              <ConsultationSteps />
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* FAQ + sources */}
       <section aria-labelledby="service-faq-title" className="wrap py-16 sm:py-24">

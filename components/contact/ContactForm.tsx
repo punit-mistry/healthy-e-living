@@ -21,7 +21,7 @@ const TOPICS = [
   "Something else",
 ]
 
-const FORMATS = ["Online", "In person in Mumbai", "Not sure yet"]
+const FORMATS = ["Online", "In person in Mumbai", "Either works for me"]
 
 const LIMITS = { name: 60, message: 400 }
 

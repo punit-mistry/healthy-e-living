@@ -114,3 +114,10 @@ export const diwaliOffer = {
     "Happy Diwali, happier you!",
   ],
 } as const
+
+/** Programme fees, as given by the client. Shown on the home and consultation pages. */
+export const pricingPlans = [
+  { id: "1-month", name: "1 month", price: 3500, blurb: "A focused start: build the plan and see how it fits your week." },
+  { id: "3-month", name: "3 months", price: 10000, blurb: "Time to settle new habits, with regular follow-ups.", popular: true },
+  { id: "6-month", name: "6 months", price: 18000, blurb: "The full journey, for lasting change and steady support." },
+] as const

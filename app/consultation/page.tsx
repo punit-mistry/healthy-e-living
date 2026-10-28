@@ -3,6 +3,7 @@ import Link from "next/link"
 import ArtIcon from "@/components/brand/ArtIcon"
 import Approach from "@/components/sections/Approach"
 import CtaBand from "@/components/sections/CtaBand"
+import Pricing from "@/components/sections/Pricing"
 import PageHero from "@/components/sections/PageHero"
 import FaqList from "@/components/ui-kit/FaqList"
 import JsonLd from "@/components/ui-kit/JsonLd"
@@ -135,7 +136,7 @@ export default function ConsultationPage() {
               </div>
               <div className="flex flex-wrap justify-between gap-2 py-4">
                 <dt className="font-semibold">Fees</dt>
-                <dd className="max-w-sm text-ink-soft sm:text-right">Shared on WhatsApp before you book</dd>
+                <dd className="max-w-sm text-ink-soft sm:text-right">From ₹3,500 — see pricing below</dd>
               </div>
             </dl>
           </div>
@@ -157,6 +158,8 @@ export default function ConsultationPage() {
           </div>
         </div>
       </section>
+
+      <Pricing location="consultation" />
 
       <Approach headingId="consultation-approach" />
 

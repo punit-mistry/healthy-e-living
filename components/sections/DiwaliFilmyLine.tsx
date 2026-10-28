@@ -31,7 +31,7 @@ export default function DiwaliFilmyLine({ lines }: { lines: readonly string[] })
   const resume = () => (paused.current = false)
 
   return (
-    <div ref={ref} className="mt-6 flex items-center gap-3 pr-12 sm:gap-4 sm:pr-16" onMouseEnter={pause} onMouseLeave={resume} onFocus={pause} onBlur={resume}>
+    <div ref={ref} className="mt-5 flex items-center gap-2.5 pr-0 sm:mt-6 sm:gap-4 sm:pr-10" onMouseEnter={pause} onMouseLeave={resume} onFocus={pause} onBlur={resume}>
       <button
         type="button"
         onClick={next}
@@ -49,7 +49,7 @@ export default function DiwaliFilmyLine({ lines }: { lines: readonly string[] })
           <path d="M6 14h7M6 17h4.5" stroke="var(--color-butter)" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       </button>
-      <p key={index} className="diwali-line hand flex min-h-[3.2rem] items-center text-[1.4rem] leading-[1.15] text-coral-deep sm:min-h-[3.6rem] sm:text-[1.7rem]">
+      <p key={index} className="diwali-line hand flex min-h-[2.5rem] items-center text-[0.98rem] min-[360px]:text-[1.1rem] leading-[1.15] text-coral-deep sm:min-h-[3.3rem] sm:text-[1.45rem]">
         &ldquo;{lines[index]}&rdquo;
       </p>
     </div>
