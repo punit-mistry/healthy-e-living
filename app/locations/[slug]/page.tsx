@@ -47,8 +47,8 @@ function copyFor(location: LocationInfo) {
   return {
     title: `Dietitian & Nutritionist for ${name}`,
     h1: `A dietitian for ${name}`,
-    description: `Looking for a dietitian in ${name}? Online consultations from home, or in-person sessions in Mumbai, with clinical dietitian Irika Goyal.`,
-    lede: `Talk online from home in ${name}, or meet in person in Mumbai — the exact location is shared when you book.`,
+    description: `Looking for a dietitian in ${name}? Online consultations from home, or in-person sessions at a mutually convenient place, with clinical dietitian Irika Goyal.`,
+    lede: `Talk online from home in ${name}, or meet in person at a mutually convenient place, agreed when you book.`,
     eyebrow: location.district === "Thane" || location.district === "Raigad" ? "Mumbai region" : "Mumbai",
   }
 }
@@ -63,7 +63,7 @@ function faqsFor(location: LocationInfo) {
     ]
   }
   return [
-    { question: `Do you offer in-person consultations near ${name}?`, answer: `In-person sessions are held in Mumbai, and the exact location is shared when you book. Many people in ${name} also choose online sessions to save travel time.` },
+    { question: `Do you offer in-person consultations near ${name}?`, answer: `In-person sessions are held at a mutually convenient place, agreed when you book. Many people in ${name} also choose online sessions to save travel time.` },
     { question: "How long is the first consultation?", answer: `Usually ${consultationFormat.initial}, online or in person. Follow-ups usually take ${consultationFormat.followUp}.` },
     { question: "How do I book?", answer: "Send a WhatsApp message with a line about what you'd like help with. You'll get available times and current fees before anything is booked." },
   ]
@@ -119,7 +119,7 @@ export default async function LocationPage({ params }: Props) {
               areaServed: { "@type": "City", name: location.name, containedInPlace: { "@type": "Country", name: "India" } },
               availableChannel: [
                 { "@type": "ServiceChannel", name: "Online video consultation", serviceUrl: absoluteUrl("/services/online-consultation") },
-                ...(online ? [] : [{ "@type": "ServiceChannel", name: "In-person consultation in Mumbai", serviceUrl: absoluteUrl("/services/offline-consultation") }]),
+                ...(online ? [] : [{ "@type": "ServiceChannel", name: "In-person consultation at a mutually convenient place", serviceUrl: absoluteUrl("/services/offline-consultation") }]),
               ],
             },
             ...(location.indexable ? [{ "@type": "FAQPage", "@id": `${absoluteUrl(path)}#faq`, mainEntity: faqEntities(faqs) }] : []),
@@ -185,14 +185,14 @@ export default async function LocationPage({ params }: Props) {
               <ArtIcon name="pin" tone={0} className="h-16 w-16 flex-none" />
               <span>
                 <span className="block font-display text-2xl font-bold">Visiting Mumbai?</span>
-                <span className="mt-1 block text-ink-soft">In-person sessions are held in Mumbai, so you can meet face to face when you&apos;re in town.</span>
+                <span className="mt-1 block text-ink-soft">In-person sessions are held at a mutually convenient place, so you can meet face to face.</span>
               </span>
             </div>
           ) : (
             <Link href="/services/offline-consultation" className="group flex gap-5 rounded-[2rem] bg-mint p-7 transition-transform hover:-translate-y-1">
               <ArtIcon name="pin" tone={0} className="h-16 w-16 flex-none" />
               <span>
-                <span className="block font-display text-2xl font-bold group-hover:text-green">In person in Mumbai</span>
+                <span className="block font-display text-2xl font-bold group-hover:text-green">In person, at a mutually convenient place</span>
                 <span className="mt-1 block text-ink-soft">Face-to-face sessions. The exact location is shared when you book.</span>
               </span>
             </Link>

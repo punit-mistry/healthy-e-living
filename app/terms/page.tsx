@@ -16,7 +16,7 @@ export default function TermsPage() {
     <LegalPage path="/terms" title="Terms of service" description={description} updated="2026-10-24">
       <h2 id="service">What we offer</h2>
       <p>
-        {site.name} provides nutrition counselling and education by a clinical dietitian, online and in person in Mumbai. Nutrition care
+        {site.name} provides nutrition counselling and education by a clinical dietitian, online and in person at a mutually convenient place. Nutrition care
         supports — but does not replace — care from your doctor. We don&apos;t diagnose medical conditions, prescribe medicines or change
         medication.
       </p>

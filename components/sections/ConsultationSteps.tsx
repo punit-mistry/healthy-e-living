@@ -3,7 +3,7 @@ import { consultationFormat } from "@/lib/site"
 
 const steps = [
   { title: "Say hello on WhatsApp", body: "A line about what you'd like help with is plenty. You'll get available times and current fees before anything is booked." },
-  { title: "Your first consultation", body: `Usually ${consultationFormat.initial}, online or in person in Mumbai. We go through your health, routine and goals.` },
+  { title: "Your first consultation", body: `Usually ${consultationFormat.initial}, online or in person at a mutually convenient place. We go through your health, routine and goals.` },
   { title: "Your personalised plan", body: "Built around your food, your kitchen and your week — shared with you digitally." },
   { title: "Follow-ups that adjust", body: `Shorter check-ins (${consultationFormat.followUp}) to review progress and fine-tune the plan.` },
 ]

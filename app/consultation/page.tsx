@@ -15,7 +15,7 @@ import { waUrl } from "@/lib/whatsapp"
 
 const title = "How Nutrition Consultations Work"
 const description =
-  "What to expect from a nutrition consultation with Irika Goyal — booking on WhatsApp, online or in-person sessions in Mumbai, what to bring, session length and follow-ups."
+  "What to expect from a nutrition consultation with Irika Goyal — booking on WhatsApp, online or in-person sessions at a mutually convenient place, what to bring, session length and follow-ups."
 
 export const metadata: Metadata = pageMetadata({ title, description, path: "/consultation" })
 
@@ -35,7 +35,7 @@ const formats = [
   },
   {
     art: "pin" as const,
-    title: `In person in ${serviceArea.inPerson}`,
+    title: `In person, at a mutually convenient place`,
     body: serviceArea.inPersonNote,
     points: ["Face-to-face conversation", "Family members welcome to join", "Mix with online follow-ups if that's easier"],
     href: "/services/offline-consultation",

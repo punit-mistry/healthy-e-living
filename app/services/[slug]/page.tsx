@@ -97,7 +97,7 @@ export default async function ServicePage({ params }: Props) {
               <dl className="mt-3 space-y-2 text-[0.95rem]">
                 <div className="flex justify-between gap-4 border-b border-line pb-2">
                   <dt className="font-semibold">Format</dt>
-                  <dd className="text-right text-ink-soft">Online, or in person in {serviceArea.inPerson}</dd>
+                  <dd className="text-right text-ink-soft">Online, or in person at a mutually convenient place</dd>
                 </div>
                 <div className="flex justify-between gap-4 border-b border-line pb-2">
                   <dt className="font-semibold">First session</dt>

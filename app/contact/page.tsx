@@ -11,7 +11,7 @@ import { waUrl } from "@/lib/whatsapp"
 
 const title = "Contact & Book a Consultation"
 const description =
-  "Book a nutrition consultation with clinical dietitian Irika Goyal on WhatsApp, by phone or by email. Online across India and in person in Mumbai."
+  "Book a nutrition consultation with clinical dietitian Irika Goyal on WhatsApp, by phone or by email. Online across India and in person at a mutually convenient place."
 
 export const metadata: Metadata = pageMetadata({ title, description, path: "/contact" })
 

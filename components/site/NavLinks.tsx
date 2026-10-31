@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { primaryNav } from "./nav"
+import { scrollToTop } from "./SmoothScroll"
 
 function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`)
@@ -18,6 +19,7 @@ export function DesktopNavLinks() {
           <li key={item.href}>
             <Link
               href={item.href}
+              onClick={() => pathname === item.href && scrollToTop()}
               aria-current={active ? "page" : undefined}
               className={`relative rounded-full px-3.5 py-2 text-[0.95rem] font-semibold transition-colors hover:bg-cream-deep ${
                 active ? "text-green" : "text-ink"
@@ -47,6 +49,7 @@ export function MobileNavLinks() {
           <li key={item.href} className="border-b-2 border-ink/10">
             <Link
               href={item.href}
+              onClick={() => pathname === item.href && scrollToTop()}
               aria-current={active ? "page" : undefined}
               className="flex items-baseline justify-between py-4 font-display text-3xl font-bold tracking-tight"
             >

@@ -11,7 +11,7 @@ import { waUrl } from "@/lib/whatsapp"
 
 const title = "Dietitian in Mumbai & Online Across India"
 const description =
-  "Nutrition consultations with Irika Goyal: in person in Mumbai, and online everywhere else — Thane, Navi Mumbai, Delhi, Bengaluru, Pune and across India."
+  "Nutrition consultations with Irika Goyal: in person at a mutually convenient place, and online everywhere else — Thane, Navi Mumbai, Delhi, Bengaluru, Pune and across India."
 
 export const metadata: Metadata = pageMetadata({ title, description, path: "/locations" })
 
@@ -29,7 +29,7 @@ export default function LocationsPage() {
         eyebrow="Areas we serve"
         title={
           <>
-            Mumbai in person. <span className="em text-green">Everywhere</span> online.
+            In person, where it suits us both. <span className="em text-green">Everywhere</span> online.
           </>
         }
         lede={`${serviceArea.inPersonNote} ${serviceArea.online}`}

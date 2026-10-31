@@ -31,7 +31,7 @@ const SHOT_PAGES = process.env.SHOT_PAGES?.split(",")
 const PORT = 9333
 
 const PAGES = [
-  "/", "/about", "/services", "/services/pcos-diet", "/services/online-consultation", "/consultation",
+  "/", "/about", "/services", "/services/pcos-diet", "/services/online-consultation", "/consultation", "/pricing",
   "/blog", "/blog/10-best-protein-sources-for-vegetarians-in-india", "/blog/category/pcos", "/resources",
   "/resources/first-consultation-checklist", "/resources/indian-balanced-plate", "/faq", "/contact",
   "/locations", "/locations/mumbai", "/locations/borivali", "/locations/borivali-west", "/locations/delhi", "/privacy", "/terms", "/medical-disclaimer", "/no-such-page",

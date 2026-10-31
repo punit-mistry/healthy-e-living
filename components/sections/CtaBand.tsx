@@ -24,30 +24,30 @@ export default function CtaBand({
   secondary = { href: "/consultation", label: "How consultations work" },
 }: CtaBandProps) {
   return (
-    <section aria-labelledby={`cta-${location}`} className="wrap my-20 sm:my-28">
-      <div className="relative overflow-hidden rounded-[2rem] bg-coral px-6 py-14 sm:px-12 sm:py-20 lg:px-20">
-        <HappyPlate className="spin-slow pointer-events-none absolute -right-16 -top-16 h-64 w-64 opacity-90 sm:h-80 sm:w-80" />
+    <section aria-labelledby={`cta-${location}`} className="wrap my-14 sm:my-28">
+      <div className="relative overflow-hidden rounded-[1.5rem] bg-coral px-5 py-10 sm:rounded-[2rem] sm:px-12 sm:py-20 lg:px-20">
+        <HappyPlate className="spin-slow pointer-events-none absolute -right-10 -top-10 h-28 w-28 opacity-40 sm:-right-16 sm:-top-16 sm:h-80 sm:w-80 sm:opacity-90" />
         <Sparkle className="absolute bottom-10 right-[38%] hidden h-8 w-8 sm:block" color="var(--color-butter)" />
         <div className="relative max-w-2xl">
-          <p className="hand text-2xl text-ink sm:text-3xl">ready when you are</p>
-          <h2 id={`cta-${location}`} className="mt-2 text-display-m text-ink">
+          <p className="hand text-xl text-ink sm:text-3xl">ready when you are</p>
+          <h2 id={`cta-${location}`} className="mt-2 text-[1.6rem] leading-tight text-ink sm:text-display-m">
             {title}
           </h2>
           <p className="mt-5 max-w-xl text-lede text-ink">{body}</p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center">
             <a
               href={waHref}
               target="_blank"
               rel="noopener noreferrer"
               data-track="whatsapp_click"
               data-track-location={`cta_${location}`}
-              className="btn btn-primary"
+              className="btn btn-primary w-full sm:w-auto"
             >
               <WhatsAppIcon className="h-5 w-5" />
               Let&apos;s talk about your goals
             </a>
             {secondary && (
-              <Link href={secondary.href} className="btn btn-ghost">
+              <Link href={secondary.href} className="btn btn-ghost w-full sm:w-auto">
                 {secondary.label}
               </Link>
             )}

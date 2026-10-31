@@ -21,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     page("/services"),
     ...services.map((s) => page(`/services/${s.slug}`)),
     page("/consultation"),
+    page("/pricing"),
     page("/blog"),
     ...articles.filter(isReviewed).map((a) => page(`/blog/${a.slug}`, a.updated)),
     page("/resources"),

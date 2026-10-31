@@ -4,17 +4,16 @@ import Link from "next/link"
 import ArtIcon from "@/components/brand/ArtIcon"
 import { CurlyArrow, HappyPlate, Loop, Sparkle, Sprig, Underline } from "@/components/brand/Motifs"
 import Approach from "@/components/sections/Approach"
-import ArticleCard from "@/components/sections/ArticleCard"
 import CtaBand from "@/components/sections/CtaBand"
 import DiwaliOffer from "@/components/sections/DiwaliOffer"
-import Pricing from "@/components/sections/Pricing"
+import ScrollMarquee from "@/components/sections/ScrollMarquee"
 import Stories from "@/components/sections/Stories"
+import Parallax from "@/components/site/Parallax"
 import InstagramStrip from "@/components/sections/InstagramStrip"
 import FaqList from "@/components/ui-kit/FaqList"
 import JsonLd from "@/components/ui-kit/JsonLd"
 import DiwaliOfferModal from "@/components/site/DiwaliOfferModal"
 import WhatsAppIcon from "@/components/ui-kit/WhatsAppIcon"
-import { articles } from "@/data/articles"
 import { homeFaqs } from "@/data/faqs"
 import { featuredCities, featuredMumbaiAreas } from "@/data/locations"
 import { getServicesByCategory, serviceCategories } from "@/data/services"
@@ -24,7 +23,7 @@ import { waUrl } from "@/lib/whatsapp"
 import portrait from "@/public/images/irika-goyal-dietitian-smiling.jpg"
 
 const description =
-  "Personalised, Indian food-first nutrition with clinical dietitian Irika Goyal for weight, PCOS, diabetes, gut health and more. Online, or in person in Mumbai."
+  "Personalised, Indian food-first nutrition with clinical dietitian Irika Goyal for weight, PCOS, diabetes, gut health and more. Online, or in person at a mutually convenient place."
 
 export const metadata: Metadata = pageMetadata({
   title: "Healthy E Living: Dietitian Irika Goyal, Mumbai & Online",
@@ -38,7 +37,7 @@ const trust = [
   "Clinical dietitian & nutritionist",
   "Indian, food-first plans",
   "Online across India & abroad",
-  `In person in ${serviceArea.inPerson}`,
+  "In person at a mutually convenient place",
   "Works alongside your doctor",
 ]
 
@@ -46,7 +45,6 @@ const helpCategories = serviceCategories.filter((c) => c.id !== "formats")
 
 export default function HomePage() {
   const claims = confirmedClaims()
-  const [featured, ...rest] = articles
 
   return (
     <>
@@ -54,6 +52,10 @@ export default function HomePage() {
 
       {/* ------------------------------------------------------------ Hero */}
       <section className="relative overflow-hidden" aria-labelledby="hero-title">
+        <Parallax speed={-0.12} spin={0.05} className="absolute left-[4%] top-[58%] hidden lg:block"><Sprig className="h-40 w-28 opacity-60" /></Parallax>
+        <Parallax speed={0.18} spin={-0.08} className="absolute right-[3%] top-[12%]"><Sparkle className="h-9 w-9 sm:h-14 sm:w-14" color="var(--color-coral)" /></Parallax>
+        <Parallax speed={-0.22} className="absolute left-[46%] top-[8%] hidden lg:block"><Sparkle className="h-8 w-8" color="var(--color-butter)" /></Parallax>
+        <Parallax speed={0.1} spin={0.1} className="absolute bottom-[6%] right-[40%] hidden sm:block"><Loop className="h-12 w-20" /></Parallax>
         <div className="wrap grid items-center gap-12 pb-16 pt-8 sm:pt-12 lg:grid-cols-12 lg:gap-8 lg:pb-24">
           <div className="relative z-10 lg:col-span-7">
             <p className="eyebrow">Clinical dietitian · Mumbai &amp; online</p>
@@ -239,35 +241,7 @@ export default function HomePage() {
       {/* -------------------------------------------------------- Instagram */}
       <InstagramStrip />
 
-      {/* ---------------------------------------------------------- Journal */}
-      <section aria-labelledby="journal-title" className="bg-cream-deep py-20 sm:py-28">
-        <div className="wrap">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div className="max-w-2xl">
-              <p className="eyebrow">From the journal</p>
-              <h2 id="journal-title" className="mt-4 text-display-l">
-                Good nutrition doesn&apos;t need to feel <span className="em text-green">complicated</span>.
-              </h2>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/blog" className="btn btn-ghost">
-                Read the journal
-              </Link>
-              <Link href="/resources" className="btn btn-coral">
-                Free resources
-              </Link>
-            </div>
-          </div>
-          <div className="mt-14 grid gap-10 lg:grid-cols-[1.3fr_1fr]">
-            <ArticleCard article={featured} size="lg" />
-            <div className="grid gap-10">
-              {rest.slice(0, 2).map((a, i) => (
-                <ArticleCard key={a.slug} article={a} index={i + 1} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <ScrollMarquee />
 
       {/* -------------------------------------------------------------- FAQ */}
       <section aria-labelledby="faq-title" className="wrap py-20 sm:py-28">
@@ -292,7 +266,7 @@ export default function HomePage() {
           <div>
             <p className="eyebrow">Where I work</p>
             <h2 id="where-title" className="mt-4 text-display-m">
-              In person in Mumbai. <span className="em text-green">Online</span> everywhere.
+              In person, at a mutually convenient place. <span className="em text-green">Online</span> everywhere.
             </h2>
             <p className="mt-4 text-ink-soft">{serviceArea.inPersonNote}</p>
           </div>
@@ -329,8 +303,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      <Pricing location="home" />
 
       <CtaBand waHref={waUrl("booking")} location="home" />
 

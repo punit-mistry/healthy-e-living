@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { CurlyArrow, HappyPlate, Sparkle, Underline } from "@/components/brand/Motifs"
-import Approach from "@/components/sections/Approach"
 import CtaBand from "@/components/sections/CtaBand"
 import InstagramStrip from "@/components/sections/InstagramStrip"
 import Breadcrumbs from "@/components/ui-kit/Breadcrumbs"
@@ -40,8 +39,8 @@ export default function AboutPage() {
       <section className="relative overflow-hidden bg-cream">
         <div className="wrap pb-16 pt-8 sm:pt-10">
           <Breadcrumbs crumbs={crumbs} />
-          <div className="mt-10 grid items-center gap-14 lg:grid-cols-12">
-            <div className="lg:col-span-7">
+          <div className="mt-10 grid gap-x-14 gap-y-10 lg:grid-cols-12 lg:gap-y-0">
+            <div className="lg:col-span-7 lg:self-end">
               <p className="eyebrow">Meet Irika</p>
               <h1 className="mt-5 text-display-xl">
                 Hi, I&apos;m{" "}
@@ -51,7 +50,26 @@ export default function AboutPage() {
                 </span>
                 .
               </h1>
-              <p className="mt-8 max-w-xl text-lede text-ink-soft">
+            </div>
+
+            <div className="relative mx-auto w-full max-w-sm lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:row-start-1 lg:self-center">
+              <HappyPlate className="absolute -right-8 -top-10 z-10 h-28 w-28 rotate-12" />
+              <div className="relative rotate-[2deg] rounded-[1.5rem] border-[3px] border-ink bg-paper p-3 pb-14 shadow-[8px_8px_0_0_var(--color-green)]">
+                <Image
+                  src={portraitFull}
+                  alt="Irika Goyal, clinical dietitian, standing outdoors among tropical plants"
+                  placeholder="blur"
+                  preload
+                  sizes="(min-width: 1024px) 384px, 90vw"
+                  className="h-auto w-full rounded-[1rem]"
+                />
+                <p className="hand absolute bottom-3 left-0 right-0 text-center text-2xl text-coral-deep">that&apos;s me — say hi!</p>
+              </div>
+              <CurlyArrow className="absolute -left-14 bottom-24 hidden h-16 w-20 -scale-x-100 lg:block" />
+            </div>
+
+            <div className="lg:col-span-7 lg:col-start-1">
+              <p className="max-w-xl text-lede text-ink-soft lg:mt-8">
                 I&apos;m a {person.jobTitle.toLowerCase()}, and I help people feel better through food — whether that means managing a health
                 condition, reaching a goal, or simply enjoying eating again.
               </p>
@@ -85,22 +103,6 @@ export default function AboutPage() {
                   How I can help
                 </Link>
               </div>
-            </div>
-
-            <div className="relative mx-auto w-full max-w-sm lg:col-span-5">
-              <HappyPlate className="absolute -right-8 -top-10 z-10 h-28 w-28 rotate-12" />
-              <div className="relative rotate-[2deg] rounded-[1.5rem] border-[3px] border-ink bg-paper p-3 pb-14 shadow-[8px_8px_0_0_var(--color-green)]">
-                <Image
-                  src={portraitFull}
-                  alt="Irika Goyal, clinical dietitian, standing outdoors among tropical plants"
-                  placeholder="blur"
-                  preload
-                  sizes="(min-width: 1024px) 384px, 90vw"
-                  className="h-auto w-full rounded-[1rem]"
-                />
-                <p className="hand absolute bottom-3 left-0 right-0 text-center text-2xl text-coral-deep">that&apos;s me — say hi!</p>
-              </div>
-              <CurlyArrow className="absolute -left-14 bottom-24 hidden h-16 w-20 -scale-x-100 lg:block" />
             </div>
           </div>
         </div>
@@ -170,7 +172,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Approach headingId="about-approach" />
       <InstagramStrip headingId="about-instagram" />
 
       <section aria-labelledby="elsewhere-title" className="wrap pb-4">

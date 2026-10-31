@@ -3,6 +3,7 @@ import { HappyPlate, Sprig, Wordmark } from "@/components/brand/Motifs"
 import { getServiceBySlug } from "@/data/services"
 import { contact, serviceArea, site, social } from "@/lib/site"
 import { waUrl } from "@/lib/whatsapp"
+import HomeLink from "./HomeLink"
 
 const featuredServices = ["weight-loss", "pcos-diet", "diabetes-diet", "gut-health", "pregnancy-nutrition", "sports-nutrition"]
   .map(getServiceBySlug)
@@ -12,6 +13,7 @@ const practiceLinks = [
   { href: "/about", label: "Meet Irika" },
   { href: "/consultation", label: "How consultations work" },
   { href: "/services", label: "All services" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/blog", label: "Nutrition journal" },
   { href: "/resources", label: "Free resources" },
   { href: "/faq", label: "FAQ" },
@@ -51,13 +53,13 @@ export default function Footer() {
       <div className="wrap relative">
         <div className="grid gap-12 lg:grid-cols-[1.25fr_2fr]">
           <div>
-            <Link href="/" className="inline-flex items-center gap-3">
+            <HomeLink className="inline-flex items-center gap-3">
               <HappyPlate className="h-14 w-14" />
               <Wordmark tone="cream" className="text-3xl" />
-            </Link>
+            </HomeLink>
             <p className="hand mt-4 text-2xl text-butter">{site.tagline}</p>
             <p className="mt-4 max-w-sm text-cream/80">
-              Personalised nutrition care with clinical dietitian Irika Goyal. {serviceArea.online} In-person sessions in {serviceArea.inPerson}.
+              Personalised nutrition care with clinical dietitian Irika Goyal. {serviceArea.online} In-person sessions at a mutually convenient place.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <a

@@ -21,7 +21,7 @@ const TOPICS = [
   "Something else",
 ]
 
-const FORMATS = ["Online", "In person in Mumbai", "Either works for me"]
+const FORMATS = ["Online", "In person at a mutually convenient place", "Either works for me"]
 
 const LIMITS = { name: 60, message: 400 }
 
@@ -89,7 +89,7 @@ export default function ContactForm({ location = "contact_page" }: { location?: 
           </select>
         </div>
         <fieldset>
-          <legend className="font-semibold">Online or in person?</legend>
+          <legend className="font-semibold">Online or at a mutually convenient place?</legend>
           <div className="mt-2 flex flex-wrap gap-2">
             {FORMATS.map((f) => (
               <label

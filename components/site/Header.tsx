@@ -1,7 +1,7 @@
-import Link from "next/link"
 import { HappyPlate, Wordmark } from "@/components/brand/Motifs"
 import WhatsAppIcon from "@/components/ui-kit/WhatsAppIcon"
 import { waUrl } from "@/lib/whatsapp"
+import HomeLink from "./HomeLink"
 import MobileMenu from "./MobileMenu"
 import { DesktopNavLinks, MobileNavLinks } from "./NavLinks"
 
@@ -9,13 +9,13 @@ export default function Header() {
   return (
     <header role="banner" className="sticky top-0 z-50 border-b-2 border-ink/10 bg-cream/95 supports-[backdrop-filter]:bg-cream/90">
       <div className="wrap relative flex h-[4.5rem] items-center justify-between gap-4">
-        <Link href="/" className="group flex items-center gap-2.5 rounded-full py-1 pr-2">
+        <HomeLink className="group flex items-center gap-2.5 rounded-full py-1 pr-2">
           <HappyPlate className="h-10 w-10 transition-transform duration-500 group-hover:rotate-[24deg]" />
           <span className="flex flex-col">
             <Wordmark className="text-[1.35rem]" />
             <span className="mt-0.5 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-ink-soft">with Irika Goyal</span>
           </span>
-        </Link>
+        </HomeLink>
 
         <nav aria-label="Main" className="hidden lg:block">
           <DesktopNavLinks />

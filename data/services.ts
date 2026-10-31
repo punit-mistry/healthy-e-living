@@ -19,7 +19,7 @@ export const serviceCategories: ServiceCategory[] = [
   { id: "gut", title: "Gut & food reactions", blurb: "Bloating, IBS, allergies and intolerances — calmer digestion without unnecessary restriction." },
   { id: "life-stages", title: "Life stages", blurb: "Pregnancy, growing children and healthy ageing each ask something different of your plate." },
   { id: "performance", title: "Performance & strength", blurb: "Fuel for training, competing, recovering and building muscle." },
-  { id: "formats", title: "Ways to work together", blurb: "Online, in person in Mumbai, or with your whole team." },
+  { id: "formats", title: "Ways to work together", blurb: "Online, in person at a mutually convenient place, or with your whole team." },
 ]
 
 export interface Faq {
@@ -60,7 +60,7 @@ export const services: Service[] = [
     art: "scale",
     metaTitle: "Weight Loss Dietitian in Mumbai & Online",
     metaDescription:
-      "Personalised, Indian food-first weight loss support from clinical dietitian Irika Goyal. No crash diets or banned foods. Online across India or in person in Mumbai.",
+      "Personalised, Indian food-first weight loss support from clinical dietitian Irika Goyal. No crash diets or banned foods. Online across India or in person at a mutually convenient place.",
     h1: "Weight loss that fits the way you actually eat",
     lede: "A personalised, Indian food-first plan to help you lose weight at a steady pace — without crash diets, banned foods or guilt.",
     summary: "Steady, realistic weight loss built around the food you already love.",
@@ -784,9 +784,9 @@ export const services: Service[] = [
     art: "pin",
     metaTitle: "In-Person Dietitian Consultation in Mumbai",
     metaDescription:
-      "Prefer to meet face to face? In-person nutrition consultations with clinical dietitian Irika Goyal are available in Mumbai — the location is shared when you book.",
-    h1: "In-person nutrition consultations in Mumbai",
-    lede: "Prefer to talk face to face? In-person sessions are available in Mumbai. The exact location is shared when you book.",
+      "Prefer to meet face to face? In-person nutrition consultations with clinical dietitian Irika Goyal are available at a mutually convenient place — agreed when you book.",
+    h1: "In-person nutrition consultations at a mutually convenient place",
+    lede: "Prefer to talk face to face? In-person sessions are held at a mutually convenient place, agreed when you book.",
     summary: "Face-to-face sessions in Mumbai.",
     whoFor: [
       "People in Mumbai who prefer to meet in person",
@@ -805,7 +805,7 @@ export const services: Service[] = [
       { title: "Family welcome", body: "If someone else cooks for you or shares your meals, they're welcome to join." },
     ],
     faqs: [
-      { question: "Where are in-person sessions held?", answer: "In Mumbai. The exact location is shared when your appointment is confirmed." },
+      { question: "Where are in-person sessions held?", answer: "At a mutually convenient place, agreed when your appointment is confirmed." },
       { question: "How long is an in-person consultation?", answer: "The first consultation usually takes 45–60 minutes, and follow-ups 20–30 minutes." },
       { question: "Can I switch between in-person and online sessions?", answer: "Ask when you book — mixing the two is often the most convenient option." },
     ],

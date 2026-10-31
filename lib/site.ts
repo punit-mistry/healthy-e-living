@@ -16,7 +16,7 @@ export const site = {
   locale: "en_IN",
   language: "en-IN",
   description:
-    "Personalised, food-first nutrition care from clinical dietitian Irika Goyal. Online consultations across India and in-person sessions in Mumbai.",
+    "Personalised, food-first nutrition care from clinical dietitian Irika Goyal. Online consultations across India and in-person sessions at a mutually convenient place.",
 } as const
 
 export const person = {
@@ -45,7 +45,7 @@ export const social = {
 
 export const serviceArea = {
   inPerson: "Mumbai",
-  inPersonNote: "In-person sessions are held in Mumbai. The exact location is shared when you book.",
+  inPersonNote: "In-person sessions are held at a mutually convenient place, agreed when you book.",
   online: "Online video consultations for clients across India and abroad.",
 } as const
 
