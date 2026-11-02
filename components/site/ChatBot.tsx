@@ -137,37 +137,16 @@ export default function ChatBot() {
     return () => window.removeEventListener("keydown", onKey)
   }, [open])
 
-  const ask = async (q: string, useAi = true) => {
+  const ask = (q: string) => {
     const clean = q.trim()
     if (!clean || typing) return
-    const history = [...msgs, { from: "me" as const, text: clean }]
-    setMsgs(history)
+    setMsgs((m) => [...m, { from: "me", text: clean }])
     setText("")
     setTyping(true)
-    let reply: Omit<Msg, "from"> | null = null
-    if (useAi) {
-      try {
-        const res = await fetch("/api/chat", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({
-            messages: history
-              .slice(1)
-              .map((m) => ({ role: m.from === "me" ? "user" : "assistant", content: m.text })),
-          }),
-        })
-        if (res.ok) {
-          const data = (await res.json()) as { reply?: string }
-          if (data.reply) reply = { text: data.reply, link: { href: waUrl("default"), label: "Talk to Irika on WhatsApp" } }
-        }
-      } catch {
-        /* fall back below */
-      }
-    } else {
-      await new Promise((r) => setTimeout(r, 500))
-    }
-    setMsgs((m) => [...m, { from: "bot", ...(reply ?? answer(clean)) }])
-    setTyping(false)
+    window.setTimeout(() => {
+      setMsgs((m) => [...m, { from: "bot", ...answer(clean) }])
+      setTyping(false)
+    }, 900 + Math.random() * 600)
   }
 
   const pill =
@@ -184,8 +163,8 @@ export default function ChatBot() {
         >
           <div className="flex items-center justify-between gap-3 bg-green px-4 py-3 text-cream">
             <div>
-              <p className="font-display text-lg font-bold leading-tight">Ask Healthy E Living</p>
-              <p className="text-xs text-cream/80">AI helper · not medical advice</p>
+              <p className="font-display text-lg font-bold leading-tight">Ask our assistant</p>
+              <p className="text-xs text-cream/80">Virtual assistant · not medical advice</p>
             </div>
             <button
               type="button"
@@ -249,7 +228,7 @@ export default function ChatBot() {
             {intents
               .filter((i) => i.chip)
               .map((i) => (
-                <button key={i.id} type="button" onClick={() => ask(i.chip!, false)} className={pill}>
+                <button key={i.id} type="button" onClick={() => ask(i.chip!)} className={pill}>
                   {i.chip}
                 </button>
               ))}
