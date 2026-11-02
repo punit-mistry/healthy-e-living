@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Bricolage_Grotesque, Caveat, DM_Sans, Instrument_Serif } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import ChatBot from "@/components/site/ChatBot"
 import FloatingWhatsApp from "@/components/site/FloatingWhatsApp"
 import Footer from "@/components/site/Footer"
 import Header from "@/components/site/Header"
@@ -82,6 +83,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </main>
         <Footer />
         <FloatingWhatsApp />
+        <ChatBot />
         <ScrollToTop />
         <SmoothScroll />
         <RouteTransition />

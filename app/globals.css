@@ -915,3 +915,38 @@ html:has(.diwali-modal[open]) {
     text-decoration: none;
   }
 }
+
+/* Themed scrollbars: page + any element with .themed-scroll */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-green) var(--color-cream-deep);
+}
+.themed-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-green-soft) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-green);
+  border-radius: 999px;
+  border: 2px solid var(--color-cream-deep);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-green-deep);
+}
+.themed-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.themed-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.themed-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-green-soft);
+  border: 0;
+}

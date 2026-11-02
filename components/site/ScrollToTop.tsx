@@ -26,7 +26,7 @@ export default function ScrollToTop() {
       aria-label="Scroll to top"
       onClick={() => scrollToTop()}
       tabIndex={visible ? 0 : -1}
-      className={`no-print fixed bottom-20 right-4 z-40 grid h-12 w-12 place-items-center rounded-full bg-paper text-ink shadow-[0_3px_0_0_var(--color-ink),0_10px_24px_-12px_rgb(37_45_39/0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-coral sm:bottom-24 sm:right-6 ${
+      className={`no-print fixed bottom-36 right-4 z-40 grid h-12 w-12 place-items-center rounded-full bg-paper text-ink shadow-[0_3px_0_0_var(--color-ink),0_10px_24px_-12px_rgb(37_45_39/0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-coral sm:bottom-40 sm:right-6 ${
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
       }`}
     >
