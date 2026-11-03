@@ -132,9 +132,17 @@ const page = await newPage()
 await page.viewport(VIEWPORTS[3])
 await page.goto("/")
 const loaderEarly = await page.evaluate(`getComputedStyle(document.querySelector('.hel-loader')).display`)
-await wait(1200)
-const loaderLate = await page.evaluate(`getComputedStyle(document.querySelector('.hel-loader')).visibility`)
-record(loaderEarly === "grid" && loaderLate === "hidden", "Loader shows on first visit and hides itself", `display=${loaderEarly}, visibility after 1.6s=${loaderLate}`)
+await wait(3000)
+const loaderLate = await page.evaluate(`Number(getComputedStyle(document.querySelector('.hel-loader')).opacity)`)
+record(loaderEarly === "grid" && loaderLate < 0.01, "Loader shows on first visit and fades away", `display=${loaderEarly}, opacity after 3s=${loaderLate}`)
+const marqueeStart = await page.evaluate(`[...document.querySelectorAll('.marquee-track')].map((el) => ({ animation: getComputedStyle(el).animationName, transform: getComputedStyle(el).transform }))`)
+await wait(200)
+const marqueeEnd = await page.evaluate(`[...document.querySelectorAll('.marquee-track')].map((el) => getComputedStyle(el).transform)`)
+record(
+  marqueeStart.length === 2 && marqueeStart.every((item, i) => item.animation === "continuous-marquee" && item.transform !== marqueeEnd[i]),
+  "Trust strip and headline marquee move continuously",
+  JSON.stringify(marqueeStart.map((item, i) => ({ animation: item.animation, moving: item.transform !== marqueeEnd[i] }))),
+)
 const blocksClicks = await page.evaluate(`getComputedStyle(document.querySelector('.hel-loader')).pointerEvents`)
 record(blocksClicks === "none", "Loader never blocks pointer input")
 const h1InHtml = await page.evaluate(`document.querySelector('h1')?.textContent`)

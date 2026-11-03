@@ -25,12 +25,11 @@ function Card({
   const s = styles[i % styles.length]
   const [open, setOpen] = useState(false)
   const long = t.quote.length > LONG
-  const quoteRef = useRef<HTMLQuoteElement>(null)
   return (
     <figure
       data-card
       className={`group relative flex w-[85%] shrink-0 snap-start flex-col rounded-[1.5rem] p-5 pt-8 transition-all duration-500 ease-out hover:-translate-y-1 sm:w-[26rem] sm:p-6 sm:pt-9 ${s.card} ${
-        active ? "opacity-100" : "opacity-70 sm:scale-[0.98]"
+        active || open ? "opacity-100" : "opacity-70 sm:scale-[0.98]"
       }`}
     >
       <span
@@ -41,23 +40,18 @@ function Card({
       </span>
       <div className="relative">
         <blockquote
-          ref={quoteRef}
-          style={long ? { maxHeight: open ? (quoteRef.current?.scrollHeight ?? 2000) : 272 } : undefined}
-          className={`space-y-3 overflow-hidden text-base leading-relaxed text-ink transition-[max-height] duration-500 ease-in-out ${
-            long ? "" : ""
-          }`}
+          style={long ? { maxHeight: open ? 2000 : 272 } : undefined}
+          className="space-y-3 overflow-hidden text-base leading-relaxed text-ink transition-[max-height] duration-500 ease-in-out"
         >
           {t.title && <p className="font-display text-lg font-bold">{t.title}</p>}
           {t.quote.split("\n\n").map((para, j) => (
             <p key={j}>{para}</p>
           ))}
         </blockquote>
-        {long && (
+        {long && !open && (
           <div
             aria-hidden="true"
-            className={`pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t ${s.fade} to-transparent transition-opacity duration-300 ${
-              open ? "opacity-0" : "opacity-100"
-            }`}
+            className={`pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t ${s.fade} to-transparent`}
           />
         )}
       </div>
@@ -154,7 +148,7 @@ export default function StoriesCarousel({ items }: { items: Testimonial[] }) {
         aria-roledescription="carousel"
         aria-label="Client stories"
         tabIndex={0}
-        className="-mx-4 flex snap-x snap-mandatory items-stretch gap-5 overflow-x-auto px-4 pb-4 pt-5 [scrollbar-width:none] sm:mx-0 sm:px-0 [&::-webkit-scrollbar]:hidden"
+        className="-mx-4 flex snap-x snap-mandatory items-start gap-5 overflow-x-auto px-4 pb-4 pt-5 [scrollbar-width:none] sm:mx-0 sm:px-0 [&::-webkit-scrollbar]:hidden"
       >
         {items.map((t, i) => (
           <Card

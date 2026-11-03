@@ -12,10 +12,10 @@ const posts = [
 ]
 
 
-/** Instagram section: real photos, polaroid-style, linking to the profile. Sized to fit one screen. */
+/** Instagram section: real photos in polaroid-style frames, linking to the profile. */
 export default function InstagramStrip({ headingId = "instagram-title" }: { headingId?: string }) {
   return (
-    <section aria-labelledby={headingId} className="relative flex items-center overflow-hidden bg-mint py-10 sm:py-14 lg:min-h-[calc(100svh-4.5rem)]">
+    <section aria-labelledby={headingId} className="relative flex items-center overflow-hidden bg-mint py-10 sm:py-14">
       <Sparkle className="absolute left-[6%] top-8 h-8 w-8" color="var(--color-coral)" />
       <div className="wrap grid w-full items-center gap-8 lg:grid-cols-[0.8fr_1.7fr] lg:gap-10">
         <div className="max-w-md">

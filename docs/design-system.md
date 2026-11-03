@@ -63,7 +63,7 @@ CSS classes: `.wrap` (page container), `.btn` + `.btn-primary | -coral | -ghost 
 ## Motion rules
 
 - **All motion is CSS, and all of it switches off under `prefers-reduced-motion`.** Content is never hidden waiting for an animation; where scroll-driven animation isn't supported, things simply appear.
-- **Loader (The Happy Plate):** plays only on a first visit that lands on the **homepage**, and never on slow connections or Data Saver. Opaque for ~0.56s, gone by ~0.76s; `pointer-events: none`, `aria-hidden`, and dismisses itself in CSS. It's this rare on purpose: measured under mobile throttling, an always-on full-screen loader pushed homepage LCP from ~2.9s to 4–5.7s, because Chrome doesn't count content as painted while it's covered.
+- **Loader (The Happy Plate):** plays only on a first visit that lands on the **homepage**, and never on slow connections or Data Saver. Visible for ~2.2s, then fades out over ~0.3s; `pointer-events: none`, `aria-hidden`, and dismisses itself in CSS. It remains limited to that first homepage visit because a full-screen loader delays the page's largest contentful paint.
 - **Route transition:** a coral-then-green colour wipe with a hand-drawn trailing edge, ~0.6s, only on client-side navigation. Focus moves to `<main>`.
 - **Reveals:** `.reveal` (fade-up on scroll), `.draw-on-view` / `.draw-on-load` (SVG stroke drawing).
 - **Idle:** `.spin-slow`, `.bob`. Use on one element per view at most.

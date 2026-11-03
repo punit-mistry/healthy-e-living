@@ -417,6 +417,37 @@
    Content is fully visible without it.
    -------------------------------------------------------------------------- */
 
+/* Seamless, continuously moving headline and trust bands. */
+.marquee-viewport {
+  overflow: hidden;
+}
+.marquee-track {
+  --marquee-duration: 36s;
+  animation: continuous-marquee var(--marquee-duration) linear infinite;
+  will-change: transform;
+}
+.marquee-track--trust {
+  --marquee-duration: 28s;
+}
+.marquee-track--headline {
+  --marquee-duration: 42s;
+}
+@keyframes continuous-marquee {
+  to { transform: translate3d(-50%, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-viewport {
+    overflow-x: auto;
+  }
+  .marquee-track {
+    animation: none;
+    will-change: auto;
+  }
+  .marquee-duplicate {
+    display: none;
+  }
+}
+
 /* Scroll-driven reveals (no JavaScript). */
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
@@ -760,7 +791,7 @@ html:has(.diwali-modal[open]) {
 
 /* --------------------------------------------------------------------------
    The Happy Plate loader
-   First visit per tab only, ~0.8s, pure CSS so it can never trap the page.
+   First visit per tab only, ~2.5s, pure CSS so it can never trap the page.
    -------------------------------------------------------------------------- */
 
 .hel-loader {
@@ -778,7 +809,7 @@ html:has(.diwali-modal[open]) {
     place-items: center;
     background: var(--color-cream);
     pointer-events: none;
-    animation: loader-out 200ms var(--ease-smooth) 560ms forwards;
+    animation: loader-out 300ms var(--ease-smooth) 2200ms forwards;
   }
   .hel-loader__rim {
     stroke-dasharray: 1;

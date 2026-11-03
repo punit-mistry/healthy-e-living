@@ -24,7 +24,7 @@ const crumbs = [
 ]
 
 const beliefs = [
-  { title: "Real food, real life", body: "Your plan should look like your kitchen — dal, sabzi, rotis and all — and survive office lunches, weddings and late nights." },
+  { title: "Real food, real life", body: "Your plan should look like your kitchen and survive office lunches, weddings and late nights." },
   { title: "Evidence over trends", body: "Advice is grounded in current clinical guidelines, not whatever went viral this week. If something lacks evidence, I'll say so." },
   { title: "No guilt, no banned lists", body: "Food is culture, comfort and celebration. We work on patterns and portions, not shame." },
   { title: "Part of your care team", body: "Nutrition works alongside your doctor's treatment. I'll never ask you to stop medication or replace medical advice." },

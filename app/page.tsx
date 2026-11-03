@@ -52,7 +52,6 @@ export default function HomePage() {
 
       {/* ------------------------------------------------------------ Hero */}
       <section className="relative overflow-hidden" aria-labelledby="hero-title">
-        <Parallax speed={-0.12} spin={0.05} className="absolute left-[4%] top-[58%] hidden lg:block"><Sprig className="h-40 w-28 opacity-60" /></Parallax>
         <Parallax speed={0.18} spin={-0.08} className="absolute right-[3%] top-[12%]"><Sparkle className="h-9 w-9 sm:h-14 sm:w-14" color="var(--color-coral)" /></Parallax>
         <Parallax speed={-0.22} className="absolute left-[46%] top-[8%] hidden lg:block"><Sparkle className="h-8 w-8" color="var(--color-butter)" /></Parallax>
         <Parallax speed={0.1} spin={0.1} className="absolute bottom-[6%] right-[40%] hidden sm:block"><Loop className="h-12 w-20" /></Parallax>
@@ -124,19 +123,29 @@ export default function HomePage() {
 
       {/* ------------------------------------------------------- Trust strip */}
       <section aria-label="About the practice" className="bg-green text-cream">
-        <ul className="wrap flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-5 text-[0.95rem] font-semibold sm:justify-between">
-          {claims.map((c) => (
-            <li key={c.label} className="flex items-center gap-2">
-              <span className="font-display text-xl font-extrabold text-butter">{c.value}</span> {c.label}
-            </li>
-          ))}
-          {trust.map((t) => (
-            <li key={t} className="flex items-center gap-2">
-              <Sparkle className="h-3.5 w-3.5" />
-              {t}
-            </li>
-          ))}
-        </ul>
+        <div className="marquee-viewport wrap">
+          <div className="marquee-track marquee-track--trust flex w-max">
+            {[0, 1].map((group) => (
+              <ul
+                key={group}
+                aria-hidden={group === 1 ? "true" : undefined}
+                className={`flex min-w-[100vw] flex-none items-center justify-between gap-x-6 whitespace-nowrap px-6 py-5 text-[0.9rem] font-semibold ${group === 1 ? "marquee-duplicate" : ""}`}
+              >
+                {claims.map((c) => (
+                  <li key={c.label} className="flex flex-none items-center gap-2">
+                    <span className="font-display text-xl font-extrabold text-butter">{c.value}</span> {c.label}
+                  </li>
+                ))}
+                {trust.map((t) => (
+                  <li key={t} className="flex flex-none items-center gap-2">
+                    <Sparkle className="h-3.5 w-3.5" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ------------------------------------------------------- Who I help */}
@@ -195,7 +204,7 @@ export default function HomePage() {
 
       {/* ------------------------------------------------------- Meet Irika */}
       <section aria-labelledby="meet-title" className="relative overflow-hidden bg-mint py-20 sm:py-28">
-        <Sprig className="draw-on-view pointer-events-none absolute -bottom-6 right-16 hidden h-64 w-44 opacity-70 lg:block" />
+        <Sprig className="draw-on-view pointer-events-none absolute -bottom-6 right-16 hidden h-64 w-44 opacity-40 lg:block" />
         <div className="wrap grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <p className="eyebrow">Meet Irika</p>
@@ -203,7 +212,7 @@ export default function HomePage() {
               The person on the other side of your plan.
             </h2>
           </div>
-          <div className="lg:col-span-8">
+          <div className="relative z-10 lg:col-span-8">
             <blockquote className="relative">
               <p className="font-display text-[clamp(1.75rem,1.2rem+2.4vw,3.25rem)] font-semibold leading-[1.12] tracking-[-0.02em]">
                 &ldquo;I believe good nutrition should be{" "}

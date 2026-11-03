@@ -45,7 +45,7 @@ Status key:
 | Locations: hub (new) + **17 Mumbai-region pages and 12 Indian city pages** with local content (indexable) + 25 sub-area pages kept live (`noindex`) | ✅ |
 | 298 retired auto-generated blog URLs 308-redirect to the most relevant live page (found via Search Console data) | ✅ |
 | WhatsApp updated to +91 88790 43297 everywhere (links, form, structured data) | ✅ |
-| Happy Plate loader: first homepage visit only, skipped on slow connections, ~0.76s, CSS-only, non-blocking | ✅ |
+| Happy Plate loader: first homepage visit only, skipped on slow connections, ~2.5s, CSS-only, non-blocking | ✅ |
 | Colour-wipe route transition with focus management and history support | ✅ |
 | Fix: pages opened mid-page after client-side navigation | ✅ (regression-tested) |
 | Legal pages reviewed by an adviser | 🔑 |

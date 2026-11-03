@@ -5,7 +5,7 @@ import { HappyPlateAnimated, Wordmark } from "@/components/brand/Motifs"
  *
  * - Server-rendered over real, already-rendered page content; it never gates
  *   content, and crawlers and assistive tech ignore it (aria-hidden).
- * - Pure CSS: it dismisses itself after ~0.76s, whatever happens after.
+ * - Pure CSS: it dismisses itself after ~2.5s, whatever happens after.
  * - pointer-events: none, so it can never block clicks or trap focus.
  * - Shown at most once per browser tab, only in the cases described on
  *   LOADER_SEEN_SCRIPT, and never for people who prefer reduced motion.
