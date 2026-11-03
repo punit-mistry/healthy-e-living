@@ -93,7 +93,7 @@ export async function renderOg({ eyebrow, title, footer = "with Irika Goyal · C
         {/* Left-hand copy */}
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "64px 0 56px 72px", width: portrait ? 700 : 700 }}>
           <div style={{ display: "flex", alignItems: "center", fontFamily: "Bricolage", fontWeight: 800, fontSize: 34, color: C.ink, letterSpacing: -1.5 }}>
-            <span>healthy</span>
+            <span>health</span>
             <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 36, height: 36, margin: "0 8px", borderRadius: 999, background: C.butter, color: C.greenDeep, fontSize: 26 }}>e</span>
             <span>living</span>
           </div>

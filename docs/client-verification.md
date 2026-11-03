@@ -81,7 +81,7 @@ The page then shows "Medically reviewed by Dt. Irika Goyal on …", becomes inde
 
 | # | Decision | Reversible? |
 |---|----------|-------------|
-| 26 | 🟠 New typographic lockup ("healthy e living" with the "e" set in a butter-yellow plate) and a Happy Plate mark replace the brown script logo in the header, favicon and social images | Yes. The original `public/brand-logo.PNG` is untouched |
+| 26 | 🟠 New typographic lockup ("health e living" with the "e" set in a butter-yellow plate) and a Happy Plate mark replace the brown script logo in the header, favicon and social images | Yes. The original `public/brand-logo.PNG` is untouched |
 | 27 | 🟠 New palette (cream, botanical green, tomato coral, butter yellow) | Tokens in `app/globals.css` |
 | 28 | 🟠 Legal pages (privacy, terms, medical disclaimer) are plain-language drafts | Must be reviewed by the client and ideally a legal adviser |
 | 29 | 🟠 Location pages: 17 Mumbai-region areas + 12 Indian cities indexable with local content; 25 sub-areas `noindex` (URLs still work) | Add local content in `data/locations.ts` to make more indexable — see `docs/seo-aeo.md` |

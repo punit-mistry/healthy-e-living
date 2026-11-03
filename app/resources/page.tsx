@@ -9,7 +9,7 @@ import { pageMetadata, webPageJson } from "@/lib/seo"
 import { waUrl } from "@/lib/whatsapp"
 
 const title = "Free Nutrition Resources & Printables"
-const description = "Free, printable nutrition resources from Healthy E Living — a first-consultation checklist and a practical guide to the Indian balanced plate."
+const description = "Free, printable nutrition resources from Health E Living — a first-consultation checklist and a practical guide to the Indian balanced plate."
 
 export const metadata: Metadata = pageMetadata({ title, description, path: "/resources" })
 

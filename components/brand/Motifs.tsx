@@ -1,5 +1,5 @@
 /**
- * Healthy E Living's signature graphic language.
+ * Health E Living's signature graphic language.
  *
  * 1. The Happy Plate — a hand-drawn plate that doubles as a sun.
  * 2. Scribbles — hand-drawn underlines and loops that sit on type.
@@ -141,9 +141,9 @@ export function Wordmark({ className, tone = "ink" }: { className?: string; tone
   const text = tone === "cream" ? "text-cream" : "text-ink"
   return (
     <span className={`inline-flex items-center font-display font-extrabold tracking-[-0.04em] leading-none ${text} ${className ?? ""}`}>
-      <span className="sr-only">Healthy E Living</span>
+      <span className="sr-only">Health E Living</span>
       <span aria-hidden="true" className="inline-flex items-center gap-[0.18em]">
-        <span>healthy</span>
+        <span>health</span>
         <span className="inline-grid place-items-center rounded-full bg-butter text-green-deep w-[1.05em] h-[1.05em] text-[0.78em] -translate-y-[0.02em]">
           e
         </span>

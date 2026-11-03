@@ -26,7 +26,7 @@ const description =
   "Personalised, Indian food-first nutrition with clinical dietitian Irika Goyal for weight, PCOS, diabetes, gut health and more. Online, or in person at a mutually convenient place."
 
 export const metadata: Metadata = pageMetadata({
-  title: "Healthy E Living: Dietitian Irika Goyal, Mumbai & Online",
+  title: "Health E Living: Dietitian Irika Goyal, Mumbai & Online",
   absoluteTitle: true,
   description,
   path: "/",

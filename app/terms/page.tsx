@@ -7,7 +7,7 @@ import { contact, site } from "@/lib/site"
 // Plain-language draft. Booking, fee and cancellation details must be
 // confirmed by the client, and the page reviewed by a legal adviser.
 
-const description = "The terms for using this website and booking nutrition consultations with Healthy E Living, written in plain language."
+const description = "The terms for using this website and booking nutrition consultations with Health E Living, written in plain language."
 
 export const metadata: Metadata = pageMetadata({ title: "Terms of Service", description, path: "/terms" })
 

@@ -96,7 +96,7 @@ const intents: Intent[] = [
 
 const greeting: Msg = {
   from: "bot",
-  text: "Hi, I'm the Healthy E Living helper 🌿 Ask me about booking, fees or services, or pick a question below.",
+  text: "Hi, I'm the Health E Living helper 🌿 Ask me about booking, fees or services, or pick a question below.",
 }
 
 function answer(input: string): Omit<Msg, "from"> {
@@ -158,7 +158,7 @@ export default function ChatBot() {
         <div
           role="dialog"
           data-lenis-prevent
-          aria-label="Chat with Healthy E Living"
+          aria-label="Chat with Health E Living"
           className="no-print fixed inset-x-3 bottom-20 z-50 flex max-h-[min(34rem,calc(100dvh-7rem))] animate-[chat-in_.3s_ease-out] flex-col overflow-hidden rounded-[1.5rem] border-2 border-ink bg-cream shadow-[6px_6px_0_0_var(--color-green)] sm:inset-x-auto sm:bottom-24 sm:right-6 sm:w-[22rem]"
         >
           <div className="flex items-center justify-between gap-3 bg-green px-4 py-3 text-cream">

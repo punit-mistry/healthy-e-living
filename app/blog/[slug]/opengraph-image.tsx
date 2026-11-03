@@ -12,7 +12,7 @@ export function generateImageMetadata({ params }: { params: { slug: string } }) 
       id: "card",
       size: ogSize,
       contentType: ogContentType,
-      alt: `${article?.title ?? "Nutrition journal"} — from the Healthy E Living journal`,
+      alt: `${article?.title ?? "Nutrition journal"} — from the Health E Living journal`,
     },
   ]
 }
@@ -22,7 +22,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const article = getArticle(slug)
   return renderOg({
     eyebrow: `Journal · ${article?.category.name ?? "Nutrition"}`,
-    title: article?.title ?? "The Healthy E Living journal",
+    title: article?.title ?? "The Health E Living journal",
     footer: "from the journal at healthelivingwithirika.com",
   })
 }

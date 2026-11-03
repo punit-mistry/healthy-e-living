@@ -12,7 +12,7 @@ export function generateImageMetadata({ params }: { params: { slug: string } }) 
       id: "card",
       size: ogSize,
       contentType: ogContentType,
-      alt: `${service?.name ?? "Nutrition services"} with clinical dietitian Irika Goyal — Healthy E Living`,
+      alt: `${service?.name ?? "Nutrition services"} with clinical dietitian Irika Goyal — Health E Living`,
     },
   ]
 }

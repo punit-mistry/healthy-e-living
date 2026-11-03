@@ -8,9 +8,9 @@
  */
 
 export const site = {
-  name: "Healthy E Living with Irika Goyal",
-  shortName: "Healthy E Living",
-  wordmark: "healthy e living",
+  name: "Health E Living with Irika Goyal",
+  shortName: "Health E Living",
+  wordmark: "health e living",
   tagline: "A little more joy on your plate.",
   url: "https://www.healthelivingwithirika.com",
   locale: "en_IN",

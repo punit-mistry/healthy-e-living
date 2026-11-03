@@ -16,7 +16,7 @@ interface PageMetaInput {
   ownImage?: boolean
 }
 
-export const DEFAULT_OG_ALT = "Healthy E Living — Food should feel good. So should you. Personalised nutrition with clinical dietitian Irika Goyal."
+export const DEFAULT_OG_ALT = "Health E Living — Food should feel good. So should you. Personalised nutrition with clinical dietitian Irika Goyal."
 
 // Pages that define openGraph don't inherit the root opengraph-image, so the
 // default card is referenced explicitly.

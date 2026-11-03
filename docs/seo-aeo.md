@@ -9,7 +9,7 @@
 - One `<h1>` per page, semantic landmarks (`header`, `nav`, `main`, `footer`), `lang="en-IN"`.
 
 ### Metadata (one helper: `lib/seo.ts → pageMetadata()`)
-Every page has a unique title (≤ 65 characters including the `· Healthy E Living` suffix), a unique meta description, a self-referencing canonical on the `https://www.` host, Open Graph (`og:title`, `og:description`, `og:type`, `og:url`, `og:image` + alt/size/type, `og:site_name`, `og:locale=en_IN`) and Twitter `summary_large_image` tags. `scripts/audit-site.mjs` enforces all of this.
+Every page has a unique title (≤ 65 characters including the `· Health E Living` suffix), a unique meta description, a self-referencing canonical on the `https://www.` host, Open Graph (`og:title`, `og:description`, `og:type`, `og:url`, `og:image` + alt/size/type, `og:site_name`, `og:locale=en_IN`) and Twitter `summary_large_image` tags. `scripts/audit-site.mjs` enforces all of this.
 
 The root layout deliberately has **no canonical**. The old layout set `canonical: "/"`, which every page without its own canonical would have inherited.
 

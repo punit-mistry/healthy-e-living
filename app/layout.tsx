@@ -24,7 +24,7 @@ const instrument = Instrument_Serif({ subsets: ["latin"], weight: "400", style: 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Healthy E Living: Dietitian Irika Goyal, Mumbai & Online",
+    default: "Health E Living: Dietitian Irika Goyal, Mumbai & Online",
     template: `%s · ${site.shortName}`,
   },
   description: site.description,

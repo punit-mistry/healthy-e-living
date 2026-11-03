@@ -1,4 +1,4 @@
-# Healthy E Living: redesign handover
+# Health E Living: redesign handover
 
 **Live:** <https://www.healthelivingwithirika.com/> · deployed from `master` on Vercel, 25 October 2026.
 

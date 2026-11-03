@@ -7,7 +7,7 @@ import { contact, site } from "@/lib/site"
 // Plain-language draft describing how the site actually works today.
 // Must be reviewed by the client and, ideally, a legal adviser before relaunch.
 
-const description = "How Healthy E Living handles your information — what this website collects (very little), what happens when you get in touch, and your rights."
+const description = "How Health E Living handles your information — what this website collects (very little), what happens when you get in touch, and your rights."
 
 export const metadata: Metadata = pageMetadata({ title: "Privacy Policy", description, path: "/privacy" })
 
