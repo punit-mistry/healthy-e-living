@@ -6,7 +6,7 @@ import { services } from "@/data/services"
 import { absoluteUrl } from "@/lib/site"
 
 /** Bump when page copy meaningfully changes, so lastmod stays truthful. */
-const CONTENT_UPDATED = "2026-10-24"
+const CONTENT_UPDATED = "2026-11-04"
 
 /**
  * Canonical, indexable URLs only. Anything rendered with `noindex`
