@@ -22,9 +22,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...services.map((s) => page(`/services/${s.slug}`)),
     page("/consultation"),
     page("/pricing"),
-    page("/blog"),
+    // /blog and /resources are left out: both listings are all but empty
+    // (no article is reviewed yet, and only one resource is indexable), so
+    // they are dead ends for a crawler. The pages themselves still exist and
+    // stay in the nav — add them back once their listings have something.
     ...articles.filter(isReviewed).map((a) => page(`/blog/${a.slug}`, a.updated)),
-    page("/resources"),
     ...resources.filter(isResourceIndexable).map((r) => page(`/resources/${r.slug}`, r.updated)),
     page("/faq"),
     page("/contact"),
