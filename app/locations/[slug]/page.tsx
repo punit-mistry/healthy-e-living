@@ -3,6 +3,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import ArtIcon from "@/components/brand/ArtIcon"
 import CtaBand from "@/components/sections/CtaBand"
+import HeroPortrait from "@/components/sections/HeroPortrait"
 import PageHero from "@/components/sections/PageHero"
 import FaqList from "@/components/ui-kit/FaqList"
 import JsonLd from "@/components/ui-kit/JsonLd"
@@ -127,7 +128,7 @@ export default async function LocationPage({ params }: Props) {
         })}
       />
 
-      <PageHero crumbs={crumbs} eyebrow={copy.eyebrow} title={copy.h1} lede={copy.lede}>
+      <PageHero crumbs={crumbs} eyebrow={copy.eyebrow} title={copy.h1} lede={copy.lede} aside={<HeroPortrait context={location.name} />}>
         <div className="mt-8 flex flex-wrap gap-3">
           <a href={wa} target="_blank" rel="noopener noreferrer" data-track="whatsapp_click" data-track-location={`location_${slug}`} className="btn btn-primary">
             <WhatsAppIcon className="h-5 w-5" />

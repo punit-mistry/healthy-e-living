@@ -18,6 +18,17 @@ interface PageMetaInput {
 
 export const DEFAULT_OG_ALT = "Health E Living — Food should feel good. So should you. Personalised nutrition with clinical dietitian Irika Goyal."
 
+/**
+ * The portrait search engines may crop into the thumbnail beside a result.
+ * Square, because that is the shape those thumbnails use — the taller
+ * portraits stay for the pages themselves and for the social cards.
+ */
+export const searchThumbnail = {
+  path: "/images/irika-goyal-dietitian-square.jpg",
+  width: 1200,
+  height: 1200,
+} as const
+
 // Pages that define openGraph don't inherit the root opengraph-image, so the
 // default card is referenced explicitly.
 const defaultImage = { url: "/opengraph-image", width: 1200, height: 630, type: "image/jpeg", alt: DEFAULT_OG_ALT }
@@ -38,7 +49,9 @@ export function pageMetadata({
     title: absoluteTitle ? { absolute: title } : title,
     description,
     alternates: { canonical: path },
-    robots: noindex ? { index: false, follow: true } : undefined,
+    // Spread, not `: undefined`: an explicit undefined here would override the
+    // root layout's robots directives (max-image-preview and friends).
+    ...(noindex ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       type,
       url: path,
@@ -61,9 +74,23 @@ export const ids = {
   website: `${site.url}/#website`,
   organization: `${site.url}/#organization`,
   person: `${site.url}/#irika-goyal`,
+  image: `${site.url}/#primary-image`,
 } as const
 
 type Json = Record<string, unknown>
+
+/** The portrait node every page points its primaryImageOfPage at. */
+function imageNode(): Json {
+  return {
+    "@type": "ImageObject",
+    "@id": ids.image,
+    url: absoluteUrl(searchThumbnail.path),
+    contentUrl: absoluteUrl(searchThumbnail.path),
+    width: searchThumbnail.width,
+    height: searchThumbnail.height,
+    caption: `${person.displayName}, ${person.jobTitle}`,
+  }
+}
 
 /** Entities shared by every page. Rendered once, from the root layout. */
 export function siteGraph(): Json {
@@ -120,7 +147,7 @@ export function siteGraph(): Json {
         honorificPrefix: "Dt.",
         jobTitle: person.jobTitle,
         url: absoluteUrl("/about"),
-        image: absoluteUrl("/images/irika-goyal-dietitian-smiling.jpg"),
+        image: { "@id": ids.image },
         worksFor: { "@id": ids.organization },
         sameAs: [social.linkedin],
         knowsAbout: [
@@ -134,6 +161,7 @@ export function siteGraph(): Json {
           "Pregnancy nutrition",
         ],
       },
+      imageNode(),
     ],
   }
 }
@@ -166,10 +194,18 @@ interface WebPageInput {
   about?: Json
   /** Extra properties merged into the WebPage node (e.g. reviewedBy). */
   pageProps?: Json
+  /**
+   * Overrides the thumbnail for this page. Pass an absolute URL when the page
+   * has an image of its own worth showing (an article card, say).
+   */
+  image?: string
 }
 
-export function webPageJson({ path, name, description, crumbs, type = "WebPage", extra = [], mainEntity, about, pageProps }: WebPageInput): Json {
+export function webPageJson({ path, name, description, crumbs, type = "WebPage", extra = [], mainEntity, about, pageProps, image }: WebPageInput): Json {
   const url = absoluteUrl(path)
+  // Named explicitly so search engines have a thumbnail candidate even on the
+  // text-only pages, instead of guessing from whatever the page renders.
+  const thumbnail = image ?? absoluteUrl(searchThumbnail.path)
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -181,6 +217,9 @@ export function webPageJson({ path, name, description, crumbs, type = "WebPage",
         description,
         inLanguage: site.language,
         isPartOf: { "@id": ids.website },
+        primaryImageOfPage: image ? { "@type": "ImageObject", url: image } : { "@id": ids.image },
+        image: thumbnail,
+        thumbnailUrl: thumbnail,
         ...(crumbs ? { breadcrumb: { "@id": `${url}#breadcrumb` } } : {}),
         ...(mainEntity ? { mainEntity } : {}),
         ...(about ? { about } : {}),

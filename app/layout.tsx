@@ -40,6 +40,15 @@ export const metadata: Metadata = {
     locale: site.locale,
   },
   twitter: { card: "summary_large_image" },
+  // Without max-image-preview:large Google may show no thumbnail at all beside
+  // a result. Pages that must stay out of the index override this wholesale.
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
+    "max-video-preview": -1,
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },

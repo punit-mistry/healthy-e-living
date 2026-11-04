@@ -67,6 +67,8 @@ export default async function ArticlePage({ params }: Props) {
     description: article.description,
     crumbs,
     type: "MedicalWebPage",
+    // The article's own social card beats the generic portrait as a thumbnail.
+    image: `${url}/opengraph-image/card`,
     mainEntity: { "@id": `${url}#article` },
     pageProps: article.review ? { reviewedBy: { "@id": ids.person }, lastReviewed: article.review.on } : undefined,
     extra: [
