@@ -1,13 +1,14 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Sprig } from "@/components/brand/Motifs"
+import { Sparkle, Sprig } from "@/components/brand/Motifs"
 import ArticleCard from "@/components/sections/ArticleCard"
 import CtaBand from "@/components/sections/CtaBand"
 import PageHero from "@/components/sections/PageHero"
 import JsonLd from "@/components/ui-kit/JsonLd"
 import { articleCategories, articles } from "@/data/articles"
+import { detoxDays } from "@/data/diwali-detox"
 import { pageMetadata, webPageJson } from "@/lib/seo"
-import { absoluteUrl } from "@/lib/site"
+import { absoluteUrl, person } from "@/lib/site"
 import { waUrl } from "@/lib/whatsapp"
 
 const title = "Nutrition Journal: Practical Guides"
@@ -64,7 +65,36 @@ export default function BlogIndexPage() {
       </PageHero>
 
       <section aria-label="Articles" className="wrap py-16 sm:py-20">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
+        {/* Seasonal, so it sits above the evergreen articles rather than
+            inside the grid — it is a plan to follow, not something to read. */}
+        <article className="group relative overflow-hidden rounded-[2rem] bg-butter-soft p-8 sm:p-10 lg:p-12">
+          <Sparkle className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 opacity-70 sm:h-36 sm:w-36" color="var(--color-marigold)" />
+          <div className="relative grid items-center gap-8 lg:grid-cols-[1.3fr_1fr]">
+            <div>
+              <p className="eyebrow">Free 5-day plan · this season</p>
+              <h2 className="mt-3 text-display-m">
+                <Link href="/diwali-detox" className="after:absolute after:inset-0 group-hover:text-green">
+                  Diwali detox: a 5-day festive reset
+                </Link>
+              </h2>
+              <p className="mt-4 max-w-xl text-lede text-ink-soft">
+                Four reset days and one day back to balance, written by {person.displayName}. Indian home food, nothing to buy, no sign-up — and a
+                printable tracker at the end.
+              </p>
+              <p className="mt-6 font-bold text-green">Open the plan →</p>
+            </div>
+            <ol className="rounded-[1.5rem] border-2 border-ink/10 bg-paper p-6">
+              {detoxDays.map((day) => (
+                <li key={day.n} className="flex gap-3 border-b border-line py-2 last:border-0">
+                  <span className="font-display font-extrabold text-coral-deep">{day.n}</span>
+                  <span className="font-semibold">{day.title}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </article>
+
+        <div className="mt-16 grid gap-12 lg:grid-cols-[1.4fr_1fr]">
           <ArticleCard article={lead} size="lg" />
           <div className="rounded-[2rem] bg-green p-8 text-cream sm:p-10">
             <p className="hand text-3xl text-butter">free to print</p>
