@@ -24,6 +24,13 @@ export const person = {
   displayName: "Dt. Irika Goyal",
   firstName: "Irika",
   jobTitle: "Clinical Dietitian & Nutritionist",
+  /**
+   * Post-nominals as the client signs her own plan documents (the Diwali
+   * Detox plan, supplied 2026-11-08). Used only in reviewed-by bylines; the
+   * full `qualifications` list below still waits on degree and institution
+   * details — see docs/client-verification.md.
+   */
+  credentials: "MSc, CDE",
 } as const
 
 export const contact = {

@@ -929,21 +929,123 @@ html:has(.diwali-modal[open]) {
    Print — resources are designed to be printed
    -------------------------------------------------------------------------- */
 
+@page {
+  margin: 14mm;
+}
+
+/* Shown only when the page is printed; see the @media print block below. */
+.print-only {
+  display: none;
+}
+
 @media print {
+  /* Nothing on paper is clickable, so every control goes: buttons, the
+     breadcrumb trail, and anything marked .no-print. */
   .no-print,
+  .btn,
+  nav[aria-label="Breadcrumb"],
   header[role="banner"],
   footer[role="contentinfo"],
   .hel-loader,
   .route-wipe {
     display: none !important;
   }
+  /* The counterpart: lines that only make sense on paper (a phone number
+     where a button used to be). */
+  .print-only {
+    display: block !important;
+  }
   body {
     background: #fff;
-    font-size: 11pt;
+    font-size: 10.5pt;
+    /* The soft day/section tints are how the plan reads as separate blocks,
+       so they are printed rather than dropped. They are pale by design. */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
   a {
     color: inherit;
     text-decoration: none;
+  }
+
+  /* The three things that silently cut printed pages:
+     - `overflow: hidden` on a block that spans a page break makes the browser
+       clip it at the break, so the rest of that section never prints;
+     - scroll-driven reveal animations (`animation-timeline: view()`) never
+       advance in a paged render, leaving their content stuck at opacity 0;
+     - transforms take an element out of normal flow for pagination.
+     All three are screen-only polish, so they are switched off wholesale. */
+  *,
+  *::before,
+  *::after {
+    overflow: visible !important;
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    box-shadow: none !important;
+  }
+
+  /* Blocks that must stay whole rather than split across a page break.
+     Deliberately not `section`: a section taller than a page would then be
+     pushed to a fresh page and still overflow, leaving a near-blank page. */
+  article,
+  figure,
+  table,
+  li,
+  dl > div,
+  .faq-item,
+  .tilt-card {
+    break-inside: avoid;
+  }
+
+  /* A heading never ends a page with its content on the next one. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-inside: avoid;
+    break-after: avoid;
+  }
+
+  /* Display type is sized for a screen; on paper it just wastes pages. */
+  h1 {
+    font-size: 24pt;
+    line-height: 1.1;
+  }
+  h2 {
+    font-size: 16pt;
+  }
+  h3 {
+    font-size: 13pt;
+  }
+
+  /* Open every accordion so printed FAQs are readable. */
+  details {
+    display: block;
+  }
+  details > summary {
+    list-style: none;
+  }
+  details > *:not(summary) {
+    display: revert !important;
+  }
+
+  /* Tighten the generous on-screen rhythm. */
+  section {
+    padding-block: 0.5rem !important;
+    margin-block: 0.5rem !important;
+  }
+  p,
+  ul,
+  ol,
+  dl {
+    orphans: 3;
+    widows: 3;
+  }
+  img,
+  svg {
+    max-height: 32mm;
   }
 }
 

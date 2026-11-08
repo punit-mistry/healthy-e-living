@@ -3,6 +3,7 @@ import { contact, diwaliOffer } from "./site"
 
 const messages = {
   diwali: `Hi Irika! I'd like to book the Diwali special ${diwaliOffer.title.toLowerCase()} at ${formatInr(diwaliOffer.offerPrice)}. Could you share available slots?`,
+  diwaliDetox: "Hi Irika! I followed your 5-day Diwali Detox plan and I'd like a plan made for me. Could you share how a consultation works?",
   default: "Hi Irika! I'd like to know more about your nutrition consultations.",
   booking: "Hi Irika! I'd like to talk about my goals and book a consultation. Could you share available slots and fees?",
   discuss: "Hi Irika! I'd like to discuss my health needs. Could you tell me how a consultation works?",

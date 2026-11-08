@@ -3,7 +3,7 @@ import type { Reference } from "@/data/references"
 export default function References({ items, id = "references" }: { items: Reference[]; id?: string }) {
   if (items.length === 0) return null
   return (
-    <section aria-labelledby={id} className="rounded-3xl bg-paper p-6 sm:p-8">
+    <section aria-labelledby={id} className="break-inside-avoid rounded-3xl bg-paper p-6 sm:p-8">
       <h2 id={id} className="text-display-s">
         Sources &amp; further reading
       </h2>

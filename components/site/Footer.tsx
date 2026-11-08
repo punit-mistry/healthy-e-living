@@ -16,6 +16,7 @@ const practiceLinks = [
   { href: "/pricing", label: "Pricing" },
   { href: "/blog", label: "Nutrition journal" },
   { href: "/resources", label: "Free resources" },
+  { href: "/diwali-detox", label: "Diwali detox plan" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
 ]

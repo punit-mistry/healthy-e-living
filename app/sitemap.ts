@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next"
 import { articles, isReviewed } from "@/data/articles"
+import { detoxPlan } from "@/data/diwali-detox"
 import { locations } from "@/data/locations"
 import { isResourceIndexable, resources } from "@/data/resources"
 import { services } from "@/data/services"
@@ -22,6 +23,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...services.map((s) => page(`/services/${s.slug}`)),
     page("/consultation"),
     page("/pricing"),
+    // Seasonal campaign landing page. Reviewed by Dt. Irika Goyal, so it is
+    // indexable; refresh the copy and bump `detoxPlan.updated` each Diwali.
+    page("/diwali-detox", detoxPlan.updated),
     // /blog and /resources are left out: both listings are all but empty
     // (no article is reviewed yet, and only one resource is indexable), so
     // they are dead ends for a crawler. The pages themselves still exist and

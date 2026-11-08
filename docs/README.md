@@ -9,6 +9,7 @@
 | [client-verification.md](client-verification.md) | **Start here.** Facts Irika must confirm before anything gated can be published |
 | [google-search-console.md](google-search-console.md) | Step-by-step Search Console, Bing and Google Business Profile actions |
 | [seo-aeo.md](seo-aeo.md) | Technical SEO, structured data, social cards, AEO, content recommendations |
+| [search-performance-action-plan.md](search-performance-action-plan.md) | What the Search Console data actually says (Nov 2026) and the prioritised fix list |
 | [security.md](security.md) | Headers, CSP, dependencies, account-security checklist |
 | [backup-recovery.md](backup-recovery.md) | Backups, rollback, monitoring and incident runbooks |
 | [analytics.md](analytics.md) | What's measured and how, privacy rules |
